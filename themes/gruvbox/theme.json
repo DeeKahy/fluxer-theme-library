@@ -4,19 +4,29 @@
 	"author": "fluxer-theme-library",
 	"homepage": "https://github.com/morhetz/gruvbox",
 	"license": "MIT",
-	"tags": ["retro", "warm", "low-contrast", "dark", "light"],
+	"tags": [
+		"retro",
+		"warm",
+		"low-contrast",
+		"dark",
+		"light"
+	],
 	"variants": [
 		{
 			"name": "Dark",
 			"file": "dark.css",
 			"base": "dark",
-			"description": "Gruvbox dark medium, the default flavour."
+			"description": "Gruvbox dark medium, the default flavour.",
+			"fluxerThemeId": "83752fd4b7192653",
+			"fluxerThemeHash": "9924133752be3cc54d7abce7f48f3f5d5643c29d88699354232df7da951db641"
 		},
 		{
 			"name": "Light",
 			"file": "light.css",
 			"base": "light",
-			"description": "Gruvbox light medium, for daytime."
+			"description": "Gruvbox light medium, for daytime.",
+			"fluxerThemeId": "1e77cd5802c70ca9",
+			"fluxerThemeHash": "9f67e33572718bbc210364dfde62799f07f4582d1f682eb669462e87035dbea9"
 		}
 	]
 }

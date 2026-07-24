@@ -3,19 +3,28 @@
 	"description": "Deep indigo surfaces with a violet accent, plus a paper light counterpart.",
 	"author": "fluxer-theme-library",
 	"license": "MIT",
-	"tags": ["dark", "light", "purple", "high-contrast"],
+	"tags": [
+		"dark",
+		"light",
+		"purple",
+		"high-contrast"
+	],
 	"variants": [
 		{
 			"name": "Midnight",
 			"file": "midnight.css",
 			"base": "dark",
-			"description": "Near black indigo with a violet accent."
+			"description": "Near black indigo with a violet accent.",
+			"fluxerThemeId": "2ac7fe94fe34a793",
+			"fluxerThemeHash": "01cf33237fdc025f828fedf4080a2a002108d8e7c47b9ed33ad6abad18886570"
 		},
 		{
 			"name": "Paper",
 			"file": "paper.css",
 			"base": "light",
-			"description": "Warm off white with the same violet accent."
+			"description": "Warm off white with the same violet accent.",
+			"fluxerThemeId": "590dbcc6a0cafcee",
+			"fluxerThemeHash": "4f1bc0d6c24974898d4527e48c0fe33eb6d2359ffb684cef2aac2db5a9bb21f0"
 		}
 	]
 }
