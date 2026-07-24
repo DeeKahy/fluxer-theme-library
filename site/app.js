@@ -375,7 +375,11 @@
 	buildHueDots();
 	fitStage();
 
-	fetch('themes/index.json')
+	// no-cache forces a revalidation rather than a blind hit on the browser copy.
+	// The index changes whenever a theme is added or published, and Pages serves
+	// it with a cache header, so without this a returning visitor keeps seeing an
+	// old theme list and missing Open in Fluxer buttons.
+	fetch('themes/index.json', {cache: 'no-cache'})
 		.then(function (response) {
 			if (!response.ok) throw new Error('index returned ' + response.status);
 			return response.json();
