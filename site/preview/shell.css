@@ -740,42 +740,6 @@ svg {
 	color: var(--text-chat);
 }
 
-/* --------------------------------------------------------------- replies */
-
-.message-reply {
-	align-items: center;
-	color: var(--message-reply-color);
-	display: flex;
-	font-size: var(--message-reply-font-size);
-	gap: var(--spacing-1);
-	margin-bottom: var(--message-reply-spacing);
-	min-height: var(--message-reply-height);
-	position: relative;
-}
-
-.reply-spine {
-	border-left: var(--message-reply-spine-width) solid var(--border-color);
-	border-top: var(--message-reply-spine-width) solid var(--border-color);
-	border-top-left-radius: var(--message-reply-spine-radius);
-	height: 0.5rem;
-	margin-left: calc(var(--message-avatar-size) / -2);
-	margin-right: var(--spacing-1);
-	width: calc(var(--message-avatar-size) / 2 + var(--spacing-2));
-}
-
-.reply-username {
-	color: var(--text-secondary);
-	font-weight: 600;
-	opacity: var(--message-replied-username-opacity);
-}
-
-.reply-content {
-	color: var(--message-reply-color);
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
 /* ----------------------------------------------------- embeds, reactions */
 
 .embed {
@@ -863,27 +827,7 @@ svg {
 	color: var(--markup-mention-text);
 }
 
-/* --------------------------------------------------- system and dividers */
-
-.message-system {
-	align-items: center;
-	color: var(--text-tertiary);
-	font-size: 0.875rem;
-	gap: var(--spacing-2);
-}
-
-.system-icon {
-	align-items: center;
-	color: var(--status-online);
-	display: flex;
-	height: var(--system-message-icon-size);
-	justify-content: center;
-	width: var(--system-message-icon-size);
-}
-
-.message-system .username {
-	font-size: inherit;
-}
+/* ------------------------------------------------------------- dividers */
 
 .unread-divider {
 	align-items: center;

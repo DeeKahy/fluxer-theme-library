@@ -8,9 +8,12 @@
 //
 // Reads:  fluxer_app/src/features/theme/variables/ThemeVariableManifest.ts
 // Writes: site/preview/vendor/tokens.css
-//         site/data/tokens.json
+//
+// This is the update path that matters. Themes override custom properties, so
+// when Fluxer adds, renames or drops a token, re-running this is what keeps the
+// preview honest.
 
-import {mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
@@ -54,33 +57,30 @@ function parseValueMap(body) {
 	return out;
 }
 
-function parseDefinitions() {
-	const start = manifest.indexOf('export const THEME_VARIABLES');
-	const end = manifest.indexOf('export const THEME_VARIABLE_NAMES');
-	const body = manifest.slice(start, end);
-	const re =
-		/\{name:\s*"(--[^"]+)",\s*kind:\s*"([^"]+)",\s*groupId:\s*"([^"]+)",\s*groupLabel:\s*"([^"]+)",\s*source:\s*"([^"]+)"\}/g;
-	const out = [];
-	let match;
-	while ((match = re.exec(body)) !== null) {
-		out.push({
-			name: match[1],
-			kind: match[2],
-			groupId: match[3],
-			groupLabel: match[4],
-			source: match[5],
-		});
-	}
-	return out;
-}
-
 const dark = parseValueMap(sliceExport('THEME_STUDIO_DARK_DEFAULT_VARIABLE_VALUES'));
 const light = parseValueMap(sliceExport('THEME_STUDIO_LIGHT_DEFAULT_VARIABLE_VALUES'));
-const definitions = parseDefinitions();
 
-if (definitions.length === 0 || dark.size === 0 || light.size === 0) {
+if (dark.size === 0 || light.size === 0) {
 	throw new Error('parsed nothing, the upstream manifest format probably changed');
 }
+
+// Tokens that went away or turned up since the last sync. This is the whole
+// drift report: a theme referencing a removed token silently stops having an
+// effect, in the client as well as here, so it is worth naming them out loud.
+function drift(nextNames) {
+	const target = join(repoRoot, 'site/preview/vendor/tokens.css');
+	if (!existsSync(target)) return null;
+
+	const previous = new Set([...readFileSync(target, 'utf8').matchAll(/^\t(--[\w-]+):/gm)].map((match) => match[1]));
+	if (previous.size === 0) return null;
+
+	return {
+		added: [...nextNames].filter((name) => !previous.has(name)).sort(),
+		removed: [...previous].filter((name) => !nextNames.has(name)).sort(),
+	};
+}
+
+const changes = drift(new Set(dark.keys()));
 
 function renderBlock(selector, values) {
 	const lines = [...values.entries()]
@@ -106,12 +106,21 @@ const css = [
 ].join('\n');
 
 mkdirSync(join(repoRoot, 'site/preview/vendor'), {recursive: true});
-mkdirSync(join(repoRoot, 'site/data'), {recursive: true});
 writeFileSync(join(repoRoot, 'site/preview/vendor/tokens.css'), css);
-writeFileSync(
-	join(repoRoot, 'site/data/tokens.json'),
-	`${JSON.stringify({variables: definitions}, null, '\t')}\n`,
-);
 
 console.log(`tokens.css: ${dark.size} dark, ${light.size} light`);
-console.log(`tokens.json: ${definitions.length} definitions`);
+
+if (changes) {
+	if (changes.added.length === 0 && changes.removed.length === 0) {
+		console.log('no token changes since the last sync');
+	} else {
+		if (changes.added.length > 0) console.log(`\nadded upstream (${changes.added.length}):`);
+		for (const name of changes.added) console.log(`  + ${name}`);
+
+		if (changes.removed.length > 0) console.log(`\nremoved upstream (${changes.removed.length}):`);
+		for (const name of changes.removed) console.log(`  - ${name}`);
+
+		console.log('\nA removed token stops having an effect in Fluxer too, so themes');
+		console.log('setting one are not broken, just inert. Grep themes/ for the names.');
+	}
+}
