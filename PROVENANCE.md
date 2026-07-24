@@ -64,10 +64,14 @@ file into their theme library.
 
 ### The share link shape
 
-`https://fluxer.app/theme/<id>` comes from `Routes.theme` in
+The path `/theme/<id>` comes from `Routes.theme` in
 `fluxer_app/src/app/Routes.ts`. The id is sixteen hex characters, produced by
-`randomBytes(8).toString('hex')` in
-`fluxer_api/src/api/theme/ThemeService.ts`.
+`randomBytes(8).toString('hex')` in `fluxer_api/src/api/theme/ThemeService.ts`.
+
+The host is `web.fluxer.app`, not `fluxer.app`. `ThemeUtils.ts` lists both, but
+that list is what the client *recognises* when it finds a link in a message, not
+where the app is served. `fluxer.app` is the marketing site and returns 404 for
+`/theme/<id>`.
 
 ### The publish endpoint
 

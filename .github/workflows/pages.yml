@@ -3,6 +3,12 @@ name: Deploy site
 on:
   push:
     branches: [main]
+  # The publish workflow commits theme ids back to main using GITHUB_TOKEN, and
+  # GitHub deliberately does not let a GITHUB_TOKEN push start another workflow.
+  # Without this the site would keep serving an index with no share links in it.
+  workflow_run:
+    workflows: ['Publish share links']
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -22,7 +28,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # On a workflow_run, github.sha points at the commit that started the
+      # publish workflow, which is the one *before* the ids were committed.
+      # Take main explicitly so the deploy includes them.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
 
       - uses: actions/setup-node@v4
         with:

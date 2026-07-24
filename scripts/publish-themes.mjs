@@ -157,7 +157,7 @@ for (const [index, {theme, variant}] of pending.entries()) {
 	try {
 		const id = await upload(css);
 		recordId(theme.slug, variant.file, id, sha256(css));
-		console.log(`published ${variant.path} -> https://fluxer.app/theme/${id}`);
+		console.log(`published ${variant.path} -> https://web.fluxer.app/theme/${id}`);
 		published += 1;
 	} catch (error) {
 		console.error(`failed ${variant.path}: ${error.message}`);

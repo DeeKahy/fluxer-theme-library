@@ -221,7 +221,7 @@
 		var path = cssPath(state.theme, state.variant);
 
 		el.installSource.textContent = state.variant.fluxerThemeId
-			? 'fluxer.app/theme/' + state.variant.fluxerThemeId
+			? 'web.fluxer.app/theme/' + state.variant.fluxerThemeId
 			: path;
 
 		el.download.href = path;
@@ -230,7 +230,7 @@
 
 		if (state.variant.fluxerThemeId) {
 			el.openInFluxer.hidden = false;
-			el.openInFluxer.href = 'https://fluxer.app/theme/' + state.variant.fluxerThemeId;
+			el.openInFluxer.href = 'https://web.fluxer.app/theme/' + state.variant.fluxerThemeId;
 			el.note.textContent = 'open in Fluxer applies it in one click, or paste the CSS into Quick CSS';
 		} else {
 			el.openInFluxer.hidden = true;
