@@ -23,6 +23,12 @@ on:
     paths:
       - 'themes/**'
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'verify checks the token and uploads nothing. publish uploads changed stylesheets, which is permanent.'
+        type: choice
+        options: [verify, publish]
+        default: verify
 
 permissions:
   contents: write
@@ -41,12 +47,20 @@ jobs:
         with:
           node-version: 22
 
+      - name: Check the token
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'verify'
+        env:
+          FLUXER_TOKEN: ${{ secrets.FLUXER_TOKEN }}
+        run: node scripts/publish-themes.mjs --verify
+
       - name: Publish changed stylesheets
+        if: github.event_name != 'workflow_dispatch' || inputs.mode == 'publish'
         env:
           FLUXER_TOKEN: ${{ secrets.FLUXER_TOKEN }}
         run: node scripts/publish-themes.mjs
 
       - name: Commit the ids
+        if: github.event_name != 'workflow_dispatch' || inputs.mode == 'publish'
         run: |
           if [ -z "$(git status --porcelain themes)" ]; then
             echo "No new ids to record."

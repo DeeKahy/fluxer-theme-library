@@ -25,6 +25,7 @@ import {loadThemes, sha256} from './lib/themes.mjs';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dryRun = process.argv.includes('--dry-run');
+const verifyOnly = process.argv.includes('--verify');
 const token = process.env.FLUXER_TOKEN;
 const apiBase = process.env.FLUXER_API_BASE ?? 'https://api.fluxer.app/v1';
 
@@ -35,6 +36,35 @@ const GAP_MS = Math.ceil(60_000 / RATE_LIMIT_PER_MINUTE);
 if (!token && !dryRun) {
 	console.log('FLUXER_TOKEN is not set, nothing to publish.');
 	console.log('The site falls back to Copy CSS and Download, which need no token.');
+	process.exit(0);
+}
+
+// Checks the token without creating anything. Worth running first: uploads are
+// permanent, and a bot token is rejected by the theme endpoint, so it is better
+// to find that out from a read only call than from a half finished publish.
+if (verifyOnly) {
+	const response = await fetch(`${apiBase}/users/@me`, {headers: {authorization: token}});
+
+	if (response.status === 401) {
+		console.error('401 unauthorized. The token is wrong, expired, or was revoked.');
+		process.exit(1);
+	}
+	if (!response.ok) {
+		console.error(`${response.status} from /users/@me: ${await response.text()}`);
+		process.exit(1);
+	}
+
+	const user = await response.json();
+	console.log(`authenticated as ${user.username ?? 'unknown'} (id ${user.id ?? 'unknown'})`);
+	console.log(`bot account: ${user.bot === true}`);
+
+	if (user.bot === true) {
+		console.error('\nThis is a bot account. POST /users/@me/themes is DefaultUserOnly and');
+		console.error('will return 403 ACCESS_DENIED. Use a session token from a normal user.');
+		process.exit(1);
+	}
+
+	console.log('\nToken is usable for publishing themes. Nothing was uploaded.');
 	process.exit(0);
 }
 
