@@ -1,0 +1,138 @@
+/**
+ * @name Nocturne Paper
+ * @description Warm off white with a violet accent.
+ * @author fluxer-theme-library
+ * @version 1.0.0
+ * @tags light, purple
+ */
+
+:root {
+	/* surfaces */
+	--background-primary: #fdfdff;
+	--background-secondary: #f4f4fa;
+	--background-secondary-lighter: #eeedf6;
+	--background-secondary-alt: #e9e8f3;
+	--background-tertiary: #e2e1ee;
+	--background-channel-header: #f4f4fa;
+	--background-header-primary: #e9e8f3;
+	--background-header-primary-hover: #dedcec;
+	--background-header-secondary: #e9e8f3;
+	--background-textarea: #eeedf6;
+	--guild-list-foreground: #e9e8f3;
+	--form-surface-background: #f4f4fa;
+	--panel-control-bg: #e9e8f3;
+
+	--background-modifier-hover: rgb(45 40 90 / 0.05);
+	--background-modifier-selected: rgb(91 76 224 / 0.12);
+	--background-modifier-accent: rgb(91 76 224 / 0.16);
+	--background-modifier-accent-focus: rgb(91 76 224 / 0.24);
+
+	--surface-interactive-hover-bg: rgb(45 40 90 / 0.05);
+	--surface-interactive-selected-bg: rgb(91 76 224 / 0.12);
+	--surface-interactive-selected-color: #17162a;
+
+	--bg-primary: #fdfdff;
+	--bg-secondary: #f4f4fa;
+	--bg-tertiary: #e2e1ee;
+	--bg-hover: rgb(45 40 90 / 0.05);
+	--bg-active: rgb(91 76 224 / 0.12);
+
+	/* text */
+	--text-primary: #17162a;
+	--text-secondary: #2e2c45;
+	--text-primary-muted: #4b4867;
+	--text-chat: #2e2c45;
+	--text-chat-muted: #5c5978;
+	--text-tertiary: #6d6a85;
+	--text-tertiary-secondary: #82809a;
+	--text-tertiary-muted: #82809a;
+	--text-link: #0f7fa8;
+	--text-on-brand-primary: #fdfdff;
+	--text-selection: rgb(91 76 224 / 0.22);
+	--text-warning: #a86a00;
+
+	/* accents */
+	--accent-primary: #5b4ce0;
+	--accent-info: #0f7fa8;
+	--accent-success: #17864f;
+	--accent-warning: #a86a00;
+	--accent-danger: #c62348;
+	--accent-purple: #8046c9;
+
+	--brand-primary: #5b4ce0;
+	--brand-primary-fill: #5b4ce0;
+	--brand-primary-light: #7c6cff;
+	--brand-secondary: #8046c9;
+
+	/* status */
+	--status-online: #17864f;
+	--status-idle: #a86a00;
+	--status-dnd: #c62348;
+	--status-offline: #a3a1b5;
+
+	/* borders */
+	--border-color: rgb(45 40 90 / 0.14);
+	--border-color-hover: rgb(45 40 90 / 0.26);
+	--border-color-focus: #5b4ce0;
+	--focus-primary: #5b4ce0;
+	--theme-border: rgb(45 40 90 / 0.14);
+
+	/* buttons */
+	--button-primary-fill: #5b4ce0;
+	--button-primary-active-fill: #4a3bce;
+	--button-primary-text: #fdfdff;
+	--button-secondary-fill: #e2e1ee;
+	--button-secondary-active-fill: #d4d2e4;
+	--button-secondary-text: #2e2c45;
+	--button-danger-fill: #c62348;
+	--button-danger-active-fill: #a81a3a;
+	--button-danger-text: #fdfdff;
+
+	--control-button-normal-text: #6d6a85;
+	--control-button-hover-bg: rgb(45 40 90 / 0.07);
+	--control-button-hover-text: #2e2c45;
+	--control-button-active-bg: rgb(91 76 224 / 0.14);
+	--control-button-active-text: #17162a;
+
+	/* code */
+	--code-text: #2e2c45;
+	--text-code: #2e2c45;
+	--code-muted: #6d6a85;
+	--bg-code: #eeedf6;
+	--code-inline-bg: #eeedf6;
+	--bg-code-block: #f4f4fa;
+	--code-block-bg: #f4f4fa;
+
+	/* mentions and markup */
+	--markup-mention-fill: rgb(91 76 224 / 0.16);
+	--markup-mention-text: #4a3bce;
+	--markup-mention-border: rgb(91 76 224 / 0.35);
+	--markup-everyone-fill: rgb(168 106 0 / 0.16);
+	--markup-everyone-text: #a86a00;
+	--markup-everyone-border: rgb(168 106 0 / 0.35);
+	--markup-here-fill: rgb(168 106 0 / 0.16);
+	--markup-here-text: #a86a00;
+	--markup-jump-link-fill: rgb(15 127 168 / 0.16);
+	--markup-jump-link-text: #0f7fa8;
+
+	--message-mention-bg: rgb(91 76 224 / 0.08);
+	--message-mention-bg-hover: rgb(91 76 224 / 0.14);
+	--message-mention-color: #4a3bce;
+	--message-timestamp-color: #82809a;
+	--message-reply-color: #6d6a85;
+
+	--spoiler-overlay-color: #d4d2e4;
+	--spoiler-overlay-hover-color: #c4c2d8;
+
+	/* alerts */
+	--alert-note-color: #0f7fa8;
+	--alert-tip-color: #17864f;
+	--alert-important-color: #8046c9;
+	--alert-warning-color: #a86a00;
+	--alert-caution-color: #c62348;
+
+	/* scrollbars */
+	--scrollbar-track-bg: transparent;
+	--scrollbar-thumb-bg: rgb(45 40 90 / 0.2);
+	--scrollbar-thumb-bg-hover: rgb(45 40 90 / 0.32);
+}

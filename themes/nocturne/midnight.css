@@ -1,0 +1,138 @@
+/**
+ * @name Nocturne Midnight
+ * @description Deep indigo surfaces with a violet accent.
+ * @author fluxer-theme-library
+ * @version 1.0.0
+ * @tags dark, purple, high-contrast
+ */
+
+:root {
+	/* surfaces */
+	--background-primary: #0e0d16;
+	--background-secondary: #14131f;
+	--background-secondary-lighter: #1a1828;
+	--background-secondary-alt: #1c1a2b;
+	--background-tertiary: #08070f;
+	--background-channel-header: #14131f;
+	--background-header-primary: #1c1a2b;
+	--background-header-primary-hover: #252238;
+	--background-header-secondary: #1c1a2b;
+	--background-textarea: #1c1a2b;
+	--guild-list-foreground: #1c1a2b;
+	--form-surface-background: #14131f;
+	--panel-control-bg: #1c1a2b;
+
+	--background-modifier-hover: rgb(148 137 255 / 0.08);
+	--background-modifier-selected: rgb(148 137 255 / 0.16);
+	--background-modifier-accent: rgb(148 137 255 / 0.2);
+	--background-modifier-accent-focus: rgb(148 137 255 / 0.28);
+
+	--surface-interactive-hover-bg: rgb(148 137 255 / 0.08);
+	--surface-interactive-selected-bg: rgb(148 137 255 / 0.16);
+	--surface-interactive-selected-color: #f2f0ff;
+
+	--bg-primary: #0e0d16;
+	--bg-secondary: #14131f;
+	--bg-tertiary: #08070f;
+	--bg-hover: rgb(148 137 255 / 0.08);
+	--bg-active: rgb(148 137 255 / 0.16);
+
+	/* text */
+	--text-primary: #f2f0ff;
+	--text-secondary: #d9d5f2;
+	--text-primary-muted: #b6b1d6;
+	--text-chat: #d9d5f2;
+	--text-chat-muted: #9d98bd;
+	--text-tertiary: #8b86a8;
+	--text-tertiary-secondary: #736e8f;
+	--text-tertiary-muted: #736e8f;
+	--text-link: #4fd6ff;
+	--text-on-brand-primary: #0e0d16;
+	--text-selection: rgb(124 108 255 / 0.35);
+	--text-warning: #ffc857;
+
+	/* accents */
+	--accent-primary: #7c6cff;
+	--accent-info: #4fd6ff;
+	--accent-success: #4ade9b;
+	--accent-warning: #ffc857;
+	--accent-danger: #ff5f7e;
+	--accent-purple: #c48bff;
+
+	--brand-primary: #7c6cff;
+	--brand-primary-fill: #6a58f5;
+	--brand-primary-light: #9a8dff;
+	--brand-secondary: #c48bff;
+
+	/* status */
+	--status-online: #4ade9b;
+	--status-idle: #ffc857;
+	--status-dnd: #ff5f7e;
+	--status-offline: #4d4a63;
+
+	/* borders */
+	--border-color: rgb(148 137 255 / 0.18);
+	--border-color-hover: rgb(148 137 255 / 0.32);
+	--border-color-focus: #7c6cff;
+	--focus-primary: #7c6cff;
+	--theme-border: rgb(148 137 255 / 0.18);
+
+	/* buttons */
+	--button-primary-fill: #6a58f5;
+	--button-primary-active-fill: #7c6cff;
+	--button-primary-text: #f2f0ff;
+	--button-secondary-fill: #252238;
+	--button-secondary-active-fill: #302c47;
+	--button-secondary-text: #d9d5f2;
+	--button-danger-fill: #d94060;
+	--button-danger-active-fill: #ff5f7e;
+	--button-danger-text: #f2f0ff;
+
+	--control-button-normal-text: #8b86a8;
+	--control-button-hover-bg: rgb(148 137 255 / 0.12);
+	--control-button-hover-text: #d9d5f2;
+	--control-button-active-bg: rgb(148 137 255 / 0.2);
+	--control-button-active-text: #f2f0ff;
+
+	/* code */
+	--code-text: #d9d5f2;
+	--text-code: #d9d5f2;
+	--code-muted: #736e8f;
+	--bg-code: #08070f;
+	--code-inline-bg: #08070f;
+	--bg-code-block: #08070f;
+	--code-block-bg: #08070f;
+
+	/* mentions and markup */
+	--markup-mention-fill: rgb(124 108 255 / 0.22);
+	--markup-mention-text: #a99cff;
+	--markup-mention-border: rgb(124 108 255 / 0.45);
+	--markup-everyone-fill: rgb(255 200 87 / 0.18);
+	--markup-everyone-text: #ffc857;
+	--markup-everyone-border: rgb(255 200 87 / 0.4);
+	--markup-here-fill: rgb(255 200 87 / 0.18);
+	--markup-here-text: #ffc857;
+	--markup-jump-link-fill: rgb(79 214 255 / 0.18);
+	--markup-jump-link-text: #4fd6ff;
+
+	--message-mention-bg: rgb(124 108 255 / 0.1);
+	--message-mention-bg-hover: rgb(124 108 255 / 0.16);
+	--message-mention-color: #a99cff;
+	--message-timestamp-color: #736e8f;
+	--message-reply-color: #8b86a8;
+
+	--spoiler-overlay-color: #252238;
+	--spoiler-overlay-hover-color: #302c47;
+
+	/* alerts */
+	--alert-note-color: #4fd6ff;
+	--alert-tip-color: #4ade9b;
+	--alert-important-color: #c48bff;
+	--alert-warning-color: #ffc857;
+	--alert-caution-color: #ff5f7e;
+
+	/* scrollbars */
+	--scrollbar-track-bg: transparent;
+	--scrollbar-thumb-bg: rgb(148 137 255 / 0.28);
+	--scrollbar-thumb-bg-hover: rgb(148 137 255 / 0.45);
+}

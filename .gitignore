@@ -1,0 +1,8 @@
+# Generated on every Pages deploy, and by scripts/build-index.mjs locally.
+themes/index.json
+
+# Local assistant notes, not part of the project.
+CLAUDE.md
+
+.DS_Store
+node_modules/

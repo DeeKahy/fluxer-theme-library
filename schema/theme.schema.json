@@ -1,0 +1,88 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://deekahy.github.io/fluxer-theme-library/schema/theme.schema.json",
+	"title": "Fluxer theme entry",
+	"description": "Describes one theme folder and the variants inside it.",
+	"type": "object",
+	"required": ["name", "author", "variants"],
+	"additionalProperties": false,
+	"properties": {
+		"name": {
+			"type": "string",
+			"minLength": 1,
+			"maxLength": 60,
+			"description": "Display name of the theme family, for example Gruvbox."
+		},
+		"description": {
+			"type": "string",
+			"maxLength": 300,
+			"description": "One or two sentences shown on the gallery card."
+		},
+		"author": {
+			"type": "string",
+			"minLength": 1,
+			"maxLength": 80,
+			"description": "Whoever made it. A GitHub handle is fine."
+		},
+		"homepage": {
+			"type": "string",
+			"format": "uri",
+			"description": "Optional link to the upstream palette, repo, or post."
+		},
+		"license": {
+			"type": "string",
+			"maxLength": 60,
+			"description": "Optional SPDX identifier for the theme itself."
+		},
+		"tags": {
+			"type": "array",
+			"maxItems": 12,
+			"items": {"type": "string", "minLength": 1, "maxLength": 24},
+			"description": "Free form. Used for filtering, no fixed vocabulary."
+		},
+		"variants": {
+			"type": "array",
+			"minItems": 1,
+			"items": {"$ref": "#/definitions/variant"}
+		}
+	},
+	"definitions": {
+		"variant": {
+			"type": "object",
+			"required": ["name", "file"],
+			"additionalProperties": false,
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 60,
+					"description": "Display name of this variant, for example Mocha."
+				},
+				"file": {
+					"type": "string",
+					"pattern": "^[A-Za-z0-9._-]+\\.css$",
+					"description": "Stylesheet filename, relative to the theme folder."
+				},
+				"description": {
+					"type": "string",
+					"maxLength": 300
+				},
+				"base": {
+					"enum": ["dark", "light", "coal", "dark_legacy"],
+					"default": "dark",
+					"description": "Which built in Fluxer theme this variant is designed to sit on top of. The preview loads that base first."
+				},
+				"fluxerThemeId": {
+					"type": "string",
+					"pattern": "^[0-9a-f]{16}$",
+					"description": "Written by the publish workflow. The id returned by Fluxer when the stylesheet was uploaded, used to build the Open in Fluxer link. Do not set this by hand."
+				},
+				"fluxerThemeHash": {
+					"type": "string",
+					"pattern": "^[0-9a-f]{64}$",
+					"description": "Written by the publish workflow. SHA-256 of the stylesheet at the time it was uploaded, so the workflow knows when to publish a new id."
+				}
+			}
+		}
+	}
+}

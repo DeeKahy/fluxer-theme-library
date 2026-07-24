@@ -1,0 +1,756 @@
+/*
+ * Chrome for the library site. Deliberately independent of the Fluxer tokens,
+ * which only ever apply inside the preview iframe.
+ */
+
+:root {
+	--ink: #f4f2ec;
+	--ink-2: #c8c6c0;
+	--ink-3: #8a8a92;
+	--ink-4: #6f6f79;
+	--ink-5: #5d5d66;
+
+	--page: #08080a;
+	--panel: #0d0d0f;
+	--panel-2: #0a0a0c;
+	--field: #141418;
+	--raised: #191920;
+	--raised-2: #1e1e25;
+
+	--line: #26262c;
+	--line-soft: #1c1c21;
+	--line-2: #2b2b33;
+	--line-dash: #33333c;
+
+	--accent: #c9f24d;
+	--accent-hover: #ddff7a;
+	--accent-ink: #0d0d0f;
+
+	--sans: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--page);
+}
+
+body {
+	background: var(--page);
+	color: var(--ink);
+	font-family: var(--sans);
+	line-height: 1.45;
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+}
+
+a {
+	color: var(--accent);
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--accent-hover);
+}
+
+button {
+	font: inherit;
+}
+
+input {
+	font: inherit;
+}
+
+::selection {
+	background: var(--accent);
+	color: var(--accent-ink);
+}
+
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.mono {
+	font-family: var(--mono);
+}
+
+.visually-hidden {
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* ----------------------------------------------------------------- shell */
+
+.page {
+	margin: 0 auto;
+	max-width: 1180px;
+	padding: 40px 24px 56px;
+}
+
+.masthead {
+	align-items: baseline;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 18px;
+	margin-bottom: 22px;
+}
+
+.masthead h1 {
+	font-size: 1.1rem;
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	margin: 0;
+}
+
+.masthead p {
+	color: var(--ink-3);
+	flex: 1;
+	font-size: 0.9rem;
+	margin: 0;
+	min-width: 260px;
+}
+
+.masthead nav {
+	display: flex;
+	gap: 16px;
+	font-size: 0.85rem;
+}
+
+.masthead nav a {
+	color: var(--ink-3);
+}
+
+.masthead nav a:hover {
+	color: var(--ink);
+}
+
+.app-frame {
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 20px;
+	display: flex;
+	overflow: hidden;
+}
+
+@media (max-width: 940px) {
+	.app-frame {
+		flex-direction: column;
+	}
+}
+
+/* ------------------------------------------------------------- left rail */
+
+.browse {
+	background: var(--panel-2);
+	border-right: 1px solid var(--line-soft);
+	display: flex;
+	flex: none;
+	flex-direction: column;
+	width: 320px;
+}
+
+@media (max-width: 940px) {
+	.browse {
+		border-bottom: 1px solid var(--line-soft);
+		border-right: 0;
+		width: auto;
+	}
+}
+
+.browse-head {
+	border-bottom: 1px solid var(--line-soft);
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	padding: 20px 20px 14px;
+}
+
+.brand {
+	align-items: center;
+	display: flex;
+	gap: 10px;
+}
+
+.brand-mark {
+	background: var(--accent);
+	border-radius: 7px;
+	height: 22px;
+	width: 22px;
+}
+
+.brand-name {
+	font-size: 0.94rem;
+	font-weight: 800;
+}
+
+.brand-count {
+	color: var(--ink-4);
+	font-family: var(--mono);
+	font-size: 0.69rem;
+	margin-left: auto;
+}
+
+.search {
+	align-items: center;
+	background: var(--field);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	display: flex;
+	gap: 9px;
+	height: 34px;
+	padding: 0 12px;
+}
+
+.search svg {
+	color: var(--ink-4);
+	flex: none;
+	height: 14px;
+	width: 14px;
+}
+
+.search input {
+	background: none;
+	border: 0;
+	color: var(--ink);
+	flex: 1;
+	font-size: 0.81rem;
+	min-width: 0;
+	outline: none;
+}
+
+.search input::placeholder {
+	color: var(--ink-4);
+}
+
+.segmented {
+	background: var(--field);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	display: flex;
+	gap: 4px;
+	padding: 4px;
+}
+
+.segmented button {
+	background: none;
+	border: 0;
+	border-radius: 7px;
+	color: var(--ink-3);
+	cursor: pointer;
+	flex: 1;
+	font-size: 0.75rem;
+	font-weight: 600;
+	padding: 6px 0;
+}
+
+.segmented button[aria-pressed='true'] {
+	background: var(--accent);
+	color: var(--accent-ink);
+}
+
+.segmented.mono-tabs {
+	border-radius: 9px;
+	gap: 3px;
+	padding: 3px;
+}
+
+.segmented.mono-tabs button {
+	border-radius: 6px;
+	font-family: var(--mono);
+	font-size: 0.66rem;
+	font-weight: 400;
+	padding: 5px 0;
+}
+
+.hue-row {
+	align-items: center;
+	display: flex;
+	gap: 9px;
+}
+
+.hue-label {
+	color: var(--ink-4);
+	font-family: var(--mono);
+	font-size: 0.63rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.hue {
+	border: 0;
+	border-radius: 50%;
+	cursor: pointer;
+	height: 16px;
+	padding: 0;
+	width: 16px;
+}
+
+.hue[aria-pressed='true'] {
+	box-shadow: 0 0 0 2px var(--field), 0 0 0 3px var(--accent);
+}
+
+.clear {
+	background: none;
+	border: 0;
+	color: var(--line-dash);
+	cursor: pointer;
+	font-size: 0.69rem;
+	margin-left: auto;
+	padding: 0;
+}
+
+.clear.is-dirty {
+	color: var(--accent);
+}
+
+.browse-meta {
+	color: var(--ink-5);
+	display: flex;
+	font-family: var(--mono);
+	font-size: 0.63rem;
+	justify-content: space-between;
+}
+
+/* ------------------------------------------------------------- list rows */
+
+.theme-list {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 4px;
+	list-style: none;
+	margin: 0;
+	max-height: 520px;
+	overflow-y: auto;
+	padding: 10px;
+}
+
+@media (max-width: 940px) {
+	.theme-list {
+		max-height: 320px;
+	}
+}
+
+.theme-list::-webkit-scrollbar {
+	width: 6px;
+}
+
+.theme-list::-webkit-scrollbar-thumb {
+	background: var(--line-2);
+	border-radius: 999px;
+}
+
+.row {
+	align-items: center;
+	background: none;
+	border: 1px solid transparent;
+	border-radius: 11px;
+	cursor: pointer;
+	display: flex;
+	gap: 11px;
+	padding: 10px;
+	text-align: left;
+	width: 100%;
+}
+
+.row:hover {
+	background: var(--raised);
+}
+
+.row[aria-current='true'] {
+	background: var(--raised);
+	border-color: #3a3a45;
+}
+
+.row.is-variant {
+	margin-left: 26px;
+	width: calc(100% - 26px);
+}
+
+/* Three bands lifted straight from the theme's own tokens: rail, surface and
+   accent. Cheap enough to render for every row in the list. */
+.row-swatch {
+	border-radius: 7px;
+	display: flex;
+	flex: none;
+	height: 30px;
+	overflow: hidden;
+	width: 44px;
+}
+
+.row-swatch i {
+	display: block;
+	width: 28%;
+}
+
+.row-swatch b {
+	align-items: flex-end;
+	display: flex;
+	flex: 1;
+	padding: 4px;
+}
+
+.row-swatch b span {
+	border-radius: 3px;
+	height: 5px;
+	width: 75%;
+}
+
+.row-copy {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.row-name {
+	color: var(--ink-2);
+	font-size: 0.87rem;
+	font-weight: 500;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.row[aria-current='true'] .row-name {
+	color: var(--ink);
+	font-weight: 700;
+}
+
+.row-meta {
+	color: var(--ink-4);
+	font-family: var(--mono);
+	font-size: 0.63rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.mode-chip {
+	background: var(--raised-2);
+	border-radius: 5px;
+	color: var(--ink-2);
+	flex: none;
+	font-size: 0.63rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	padding: 3px 6px;
+	text-transform: uppercase;
+}
+
+.mode-chip.is-light {
+	background: #ecebe4;
+	color: #0d0d0f;
+}
+
+.browse-foot {
+	border-top: 1px solid var(--line-soft);
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	padding: 16px 20px;
+}
+
+.browse-foot strong {
+	font-size: 0.81rem;
+}
+
+.browse-foot p {
+	color: var(--ink-3);
+	font-size: 0.75rem;
+	margin: 0;
+	text-wrap: pretty;
+}
+
+.cta {
+	align-self: flex-start;
+	background: var(--accent);
+	border: 0;
+	border-radius: 9px;
+	color: var(--accent-ink);
+	font-size: 0.75rem;
+	font-weight: 700;
+	padding: 8px 12px;
+}
+
+.cta:hover {
+	background: var(--accent-hover);
+	color: var(--accent-ink);
+}
+
+/* ---------------------------------------------------------------- detail */
+
+.detail {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 18px;
+	min-width: 0;
+	padding: 24px 28px 28px;
+}
+
+.detail-head {
+	align-items: flex-end;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 14px;
+}
+
+.detail-titles {
+	flex: 1;
+	min-width: 0;
+}
+
+.detail-name {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.detail-name h2 {
+	font-size: 1.6rem;
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	margin: 0;
+}
+
+.detail-sub {
+	color: var(--ink-3);
+	font-size: 0.81rem;
+	margin: 4px 0 0;
+	text-wrap: pretty;
+}
+
+.screen-tabs {
+	background: var(--field);
+	border: 1px solid var(--line);
+	border-radius: 11px;
+	display: flex;
+	flex: none;
+	gap: 4px;
+	padding: 4px;
+}
+
+.screen-tabs button {
+	background: none;
+	border: 0;
+	border-radius: 8px;
+	color: var(--ink-3);
+	cursor: pointer;
+	font-size: 0.75rem;
+	font-weight: 600;
+	padding: 6px 11px;
+}
+
+.screen-tabs button[aria-pressed='true'] {
+	background: var(--accent);
+	color: var(--accent-ink);
+}
+
+.stage {
+	background: var(--page);
+	border: 1px solid var(--line);
+	border-radius: 16px;
+	display: flex;
+	justify-content: center;
+	padding: 18px;
+	position: relative;
+}
+
+/* The frame renders the client at desktop size and is scaled down, so the
+   preview shows the real layout instead of a squeezed narrow one. */
+.stage-scaler {
+	height: calc(700px * var(--stage-scale, 0.62));
+	overflow: hidden;
+	position: relative;
+	width: calc(1100px * var(--stage-scale, 0.62));
+}
+
+.stage-frame {
+	border: 0;
+	height: 700px;
+	left: 0;
+	position: absolute;
+	top: 0;
+	transform: scale(var(--stage-scale, 0.62));
+	transform-origin: 0 0;
+	width: 1100px;
+}
+
+.stage-hint {
+	background: rgba(8, 8, 10, 0.72);
+	border-radius: 6px;
+	bottom: 26px;
+	color: var(--ink);
+	font-family: var(--mono);
+	font-size: 0.63rem;
+	padding: 4px 8px;
+	pointer-events: none;
+	position: absolute;
+	right: 26px;
+}
+
+.detail-foot {
+	align-items: flex-start;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+.foot-block {
+	display: flex;
+	flex-direction: column;
+	gap: 9px;
+}
+
+.foot-block.variants {
+	flex: 1;
+	min-width: 220px;
+}
+
+.foot-block.install {
+	flex: none;
+	width: 330px;
+}
+
+@media (max-width: 720px) {
+	.foot-block.install {
+		width: 100%;
+	}
+}
+
+.foot-label {
+	color: var(--ink-4);
+	font-family: var(--mono);
+	font-size: 0.69rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.variant-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.variant-chip {
+	align-items: center;
+	background: #111114;
+	border: 1px solid var(--line-2);
+	border-radius: 10px;
+	color: var(--ink-2);
+	cursor: pointer;
+	display: flex;
+	font-size: 0.75rem;
+	font-weight: 600;
+	gap: 8px;
+	padding: 7px 11px;
+}
+
+.variant-chip[aria-pressed='true'] {
+	background: var(--raised);
+	border-color: var(--accent);
+	color: var(--ink);
+}
+
+.variant-chip i {
+	border-radius: 4px;
+	height: 12px;
+	width: 12px;
+}
+
+.variant-add {
+	align-items: center;
+	border: 1px dashed var(--line-dash);
+	border-radius: 10px;
+	color: var(--ink-3);
+	display: flex;
+	font-size: 0.75rem;
+	gap: 7px;
+	padding: 7px 11px;
+}
+
+.variant-add:hover {
+	color: var(--accent);
+}
+
+.install-source {
+	background: var(--page);
+	border: 1px solid var(--line);
+	border-radius: 11px;
+	color: var(--accent);
+	font-family: var(--mono);
+	font-size: 0.72rem;
+	overflow-wrap: anywhere;
+	padding: 11px 13px;
+}
+
+.install-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.install-buttons > * {
+	border: 0;
+	border-radius: 9px;
+	cursor: pointer;
+	flex: 1;
+	font-size: 0.75rem;
+	font-weight: 700;
+	min-width: 96px;
+	padding: 9px;
+	text-align: center;
+}
+
+.btn-accent {
+	background: var(--accent);
+	color: var(--accent-ink);
+}
+
+.btn-accent:hover {
+	background: var(--accent-hover);
+	color: var(--accent-ink);
+}
+
+.btn-muted {
+	background: var(--raised-2);
+	color: var(--ink);
+}
+
+.btn-muted:hover {
+	background: #26262f;
+	color: var(--ink);
+}
+
+.install-note {
+	color: var(--ink-5);
+	font-family: var(--mono);
+	font-size: 0.63rem;
+	text-wrap: pretty;
+}
+
+.state-message {
+	color: var(--ink-3);
+	font-size: 0.87rem;
+	padding: 40px 0;
+	text-align: center;
+}
+
+.site-foot {
+	color: var(--ink-5);
+	font-size: 0.75rem;
+	margin-top: 20px;
+	text-wrap: pretty;
+}

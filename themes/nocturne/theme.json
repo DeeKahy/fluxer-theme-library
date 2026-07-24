@@ -1,0 +1,21 @@
+{
+	"name": "Nocturne",
+	"description": "Deep indigo surfaces with a violet accent, plus a paper light counterpart.",
+	"author": "fluxer-theme-library",
+	"license": "MIT",
+	"tags": ["dark", "light", "purple", "high-contrast"],
+	"variants": [
+		{
+			"name": "Midnight",
+			"file": "midnight.css",
+			"base": "dark",
+			"description": "Near black indigo with a violet accent."
+		},
+		{
+			"name": "Paper",
+			"file": "paper.css",
+			"base": "light",
+			"description": "Warm off white with the same violet accent."
+		}
+	]
+}

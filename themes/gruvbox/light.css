@@ -1,0 +1,138 @@
+/**
+ * @name Gruvbox Light
+ * @description Retro groove palette, light medium.
+ * @author fluxer-theme-library
+ * @version 1.0.0
+ * @tags retro, warm, light
+ */
+
+:root {
+	/* surfaces */
+	--background-primary: #fbf1c7;
+	--background-secondary: #f2e5bc;
+	--background-secondary-lighter: #ebdbb2;
+	--background-secondary-alt: #ebdbb2;
+	--background-tertiary: #d5c4a1;
+	--background-channel-header: #f2e5bc;
+	--background-header-primary: #ebdbb2;
+	--background-header-primary-hover: #d5c4a1;
+	--background-header-secondary: #ebdbb2;
+	--background-textarea: #ebdbb2;
+	--guild-list-foreground: #ebdbb2;
+	--form-surface-background: #f2e5bc;
+	--panel-control-bg: #ebdbb2;
+
+	--background-modifier-hover: rgb(60 56 54 / 0.06);
+	--background-modifier-selected: rgb(60 56 54 / 0.11);
+	--background-modifier-accent: rgb(60 56 54 / 0.14);
+	--background-modifier-accent-focus: rgb(60 56 54 / 0.2);
+
+	--surface-interactive-hover-bg: rgb(60 56 54 / 0.06);
+	--surface-interactive-selected-bg: rgb(60 56 54 / 0.11);
+	--surface-interactive-selected-color: #282828;
+
+	--bg-primary: #fbf1c7;
+	--bg-secondary: #f2e5bc;
+	--bg-tertiary: #d5c4a1;
+	--bg-hover: rgb(60 56 54 / 0.06);
+	--bg-active: rgb(60 56 54 / 0.11);
+
+	/* text */
+	--text-primary: #282828;
+	--text-secondary: #3c3836;
+	--text-primary-muted: #504945;
+	--text-chat: #3c3836;
+	--text-chat-muted: #665c54;
+	--text-tertiary: #7c6f64;
+	--text-tertiary-secondary: #928374;
+	--text-tertiary-muted: #928374;
+	--text-link: #076678;
+	--text-on-brand-primary: #fbf1c7;
+	--text-selection: rgb(181 118 20 / 0.24);
+	--text-warning: #b57614;
+
+	/* accents */
+	--accent-primary: #af3a03;
+	--accent-info: #076678;
+	--accent-success: #79740e;
+	--accent-warning: #b57614;
+	--accent-danger: #9d0006;
+	--accent-purple: #8f3f71;
+
+	--brand-primary: #af3a03;
+	--brand-primary-fill: #af3a03;
+	--brand-primary-light: #d65d0e;
+	--brand-secondary: #8f3f71;
+
+	/* status */
+	--status-online: #79740e;
+	--status-idle: #b57614;
+	--status-dnd: #9d0006;
+	--status-offline: #a89984;
+
+	/* borders */
+	--border-color: rgb(124 111 100 / 0.3);
+	--border-color-hover: rgb(102 92 84 / 0.45);
+	--border-color-focus: #af3a03;
+	--focus-primary: #af3a03;
+	--theme-border: rgb(124 111 100 / 0.3);
+
+	/* buttons */
+	--button-primary-fill: #af3a03;
+	--button-primary-active-fill: #d65d0e;
+	--button-primary-text: #fbf1c7;
+	--button-secondary-fill: #d5c4a1;
+	--button-secondary-active-fill: #bdae93;
+	--button-secondary-text: #3c3836;
+	--button-danger-fill: #9d0006;
+	--button-danger-active-fill: #cc241d;
+	--button-danger-text: #fbf1c7;
+
+	--control-button-normal-text: #7c6f64;
+	--control-button-hover-bg: rgb(60 56 54 / 0.08);
+	--control-button-hover-text: #3c3836;
+	--control-button-active-bg: rgb(60 56 54 / 0.14);
+	--control-button-active-text: #282828;
+
+	/* code */
+	--code-text: #3c3836;
+	--text-code: #3c3836;
+	--code-muted: #7c6f64;
+	--bg-code: #ebdbb2;
+	--code-inline-bg: #ebdbb2;
+	--bg-code-block: #f2e5bc;
+	--code-block-bg: #f2e5bc;
+
+	/* mentions and markup */
+	--markup-mention-fill: rgb(7 102 120 / 0.16);
+	--markup-mention-text: #076678;
+	--markup-mention-border: rgb(7 102 120 / 0.35);
+	--markup-everyone-fill: rgb(181 118 20 / 0.18);
+	--markup-everyone-text: #b57614;
+	--markup-everyone-border: rgb(181 118 20 / 0.35);
+	--markup-here-fill: rgb(181 118 20 / 0.18);
+	--markup-here-text: #b57614;
+	--markup-jump-link-fill: rgb(7 102 120 / 0.16);
+	--markup-jump-link-text: #076678;
+
+	--message-mention-bg: rgb(181 118 20 / 0.1);
+	--message-mention-bg-hover: rgb(181 118 20 / 0.16);
+	--message-mention-color: #b57614;
+	--message-timestamp-color: #928374;
+	--message-reply-color: #7c6f64;
+
+	--spoiler-overlay-color: #d5c4a1;
+	--spoiler-overlay-hover-color: #bdae93;
+
+	/* alerts */
+	--alert-note-color: #076678;
+	--alert-tip-color: #79740e;
+	--alert-important-color: #8f3f71;
+	--alert-warning-color: #b57614;
+	--alert-caution-color: #9d0006;
+
+	/* scrollbars */
+	--scrollbar-track-bg: transparent;
+	--scrollbar-thumb-bg: rgb(124 111 100 / 0.4);
+	--scrollbar-thumb-bg-hover: rgb(102 92 84 / 0.55);
+}

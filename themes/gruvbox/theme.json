@@ -1,0 +1,22 @@
+{
+	"name": "Gruvbox",
+	"description": "The retro groove palette, warm and low contrast. Dark and light variants.",
+	"author": "fluxer-theme-library",
+	"homepage": "https://github.com/morhetz/gruvbox",
+	"license": "MIT",
+	"tags": ["retro", "warm", "low-contrast", "dark", "light"],
+	"variants": [
+		{
+			"name": "Dark",
+			"file": "dark.css",
+			"base": "dark",
+			"description": "Gruvbox dark medium, the default flavour."
+		},
+		{
+			"name": "Light",
+			"file": "light.css",
+			"base": "light",
+			"description": "Gruvbox light medium, for daytime."
+		}
+	]
+}

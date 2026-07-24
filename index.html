@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Fluxer Theme Library</title>
+		<meta
+			name="description"
+			content="Community themes for Fluxer. Every preview is the real app layout painted from the theme's own tokens, so nobody has to upload a screenshot."
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="site/site.css" />
+	</head>
+	<body>
+		<div class="page">
+			<div class="masthead">
+				<h1>Fluxer Theme Library</h1>
+				<p>
+					Every preview is the real app layout painted from the theme's own tokens. No screenshots to take, none to
+					upload, none to go stale.
+				</p>
+				<nav>
+					<a href="https://github.com/DeeKahy/fluxer-theme-library">GitHub</a>
+					<a href="https://github.com/DeeKahy/fluxer-theme-library/blob/main/CONTRIBUTING.md">Contribute</a>
+					<a href="https://fluxer.app/">Fluxer</a>
+				</nav>
+			</div>
+
+			<div class="app-frame">
+				<!-- browse ------------------------------------------------- -->
+				<div class="browse">
+					<div class="browse-head">
+						<div class="brand">
+							<span class="brand-mark" aria-hidden="true"></span>
+							<span class="brand-name">fluxer themes</span>
+							<span class="brand-count" id="brand-count">0</span>
+						</div>
+
+						<div class="search">
+							<svg viewBox="0 0 16 16" aria-hidden="true">
+								<circle cx="7.2" cy="7.2" r="4.2" fill="none" stroke="currentColor" stroke-width="1.4" />
+								<path d="m10.4 10.4 2.6 2.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+							</svg>
+							<label class="visually-hidden" for="search">Search themes</label>
+							<input id="search" type="search" placeholder="Search themes..." autocomplete="off" />
+						</div>
+
+						<div class="segmented" id="mode-tabs" role="group" aria-label="Filter by light or dark">
+							<button type="button" data-mode="all" aria-pressed="true">All</button>
+							<button type="button" data-mode="light" aria-pressed="false">Light</button>
+							<button type="button" data-mode="dark" aria-pressed="false">Dark</button>
+						</div>
+
+						<div class="hue-row">
+							<span class="hue-label">hue</span>
+							<div class="hue-dots" id="hue-dots" role="group" aria-label="Filter by accent hue"></div>
+							<button class="clear" type="button" id="clear">clear</button>
+						</div>
+
+						<div class="segmented mono-tabs" id="sort-tabs" role="group" aria-label="Sort themes">
+							<button type="button" data-sort="az" aria-pressed="true">a-z</button>
+							<button type="button" data-sort="tokens" aria-pressed="false">tokens</button>
+							<button type="button" data-sort="variants" aria-pressed="false">variants</button>
+						</div>
+
+						<div class="browse-meta">
+							<span id="result-count">loading</span>
+							<span id="sort-note">by name</span>
+						</div>
+					</div>
+
+					<ul class="theme-list" id="theme-list"></ul>
+
+					<div class="browse-foot">
+						<strong>Yours could be here</strong>
+						<p>Fork, add a folder, open a pull request. The preview renders from your tokens automatically.</p>
+						<a class="cta" href="https://github.com/DeeKahy/fluxer-theme-library/blob/main/CONTRIBUTING.md">
+							Contribute a theme
+						</a>
+					</div>
+				</div>
+
+				<!-- detail ------------------------------------------------- -->
+				<div class="detail" id="detail">
+					<div class="detail-head">
+						<div class="detail-titles">
+							<div class="detail-name">
+								<h2 id="detail-title">Loading</h2>
+								<span class="mode-chip" id="detail-mode">dark</span>
+							</div>
+							<p class="detail-sub" id="detail-sub">Reading themes/index.json</p>
+						</div>
+						<div class="screen-tabs" id="screen-tabs" role="group" aria-label="Preview screen">
+							<button type="button" data-screen="server" aria-pressed="true">Server</button>
+							<button type="button" data-screen="dm" aria-pressed="false">DMs</button>
+							<button type="button" data-screen="voice" aria-pressed="false">Voice</button>
+							<button type="button" data-screen="settings" aria-pressed="false">Settings</button>
+						</div>
+					</div>
+
+					<div class="stage">
+						<div class="stage-scaler" id="stage-scaler">
+							<iframe class="stage-frame" id="stage-frame" title="Live theme preview"></iframe>
+						</div>
+						<span class="stage-hint">live, click around</span>
+					</div>
+
+					<div class="detail-foot">
+						<div class="foot-block variants">
+							<span class="foot-label">variants</span>
+							<div class="variant-chips" id="variant-chips"></div>
+						</div>
+						<div class="foot-block install">
+							<span class="foot-label">apply</span>
+							<div class="install-source" id="install-source">themes/</div>
+							<div class="install-buttons">
+								<button class="btn-accent" type="button" id="copy-css">Copy CSS</button>
+								<a class="btn-muted" id="download-css" download>Download .css</a>
+							</div>
+							<div class="install-buttons">
+								<a class="btn-muted" id="view-source" target="_blank" rel="noopener noreferrer">View source</a>
+								<a class="btn-accent" id="open-in-fluxer" hidden target="_blank" rel="noopener noreferrer">
+									Open in Fluxer
+								</a>
+							</div>
+							<p class="install-note" id="install-note">
+								paste into Theme Studio, Quick CSS, or import the file into your theme library
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<p class="site-foot">
+				Themes belong to their authors. The preview shell and the vendored Fluxer tokens are AGPL-3.0, the same licence
+				as Fluxer. See PROVENANCE.md for what was taken from the upstream client.
+			</p>
+		</div>
+
+		<script src="site/app.js"></script>
+	</body>
+</html>

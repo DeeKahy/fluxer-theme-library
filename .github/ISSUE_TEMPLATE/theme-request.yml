@@ -1,0 +1,45 @@
+name: Theme request
+description: Ask for a theme, or a variant of one that already exists.
+labels: [request]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Requests are welcome. Somebody may pick it up, or it may sit here a
+        while. If you would rather make it yourself, CONTRIBUTING.md walks
+        through it and takes about ten minutes.
+
+  - type: input
+    id: name
+    attributes:
+      label: What should it be called
+      placeholder: Solarized
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Light or dark
+      options:
+        - Dark
+        - Light
+        - Both
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference
+    attributes:
+      label: Reference
+      description: A palette, a link, a screenshot of something else you like, or hex codes.
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      placeholder: Higher contrast than the usual version, monospaced everywhere, that kind of thing.
+    validations:
+      required: false
