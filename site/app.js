@@ -1,6 +1,6 @@
 /*
- * Browse on the left, inspect on the right. One preview frame on the page, so
- * switching themes is a postMessage rather than a reload.
+ * Browse on the left, one static preview on the right. Selecting a theme
+ * reloads the preview frame with a new stylesheet.
  */
 
 (function () {
@@ -31,7 +31,6 @@
 		title: document.getElementById('detail-title'),
 		mode: document.getElementById('detail-mode'),
 		sub: document.getElementById('detail-sub'),
-		screenTabs: document.getElementById('screen-tabs'),
 		scaler: document.getElementById('stage-scaler'),
 		frame: document.getElementById('stage-frame'),
 		variantChips: document.getElementById('variant-chips'),
@@ -51,8 +50,6 @@
 		sort: 'az',
 		theme: null,
 		variant: null,
-		screen: 'server',
-		frameReady: false,
 	};
 
 	/* ------------------------------------------------------------- helpers */
@@ -108,9 +105,11 @@
 	/* ---------------------------------------------------------- list rows */
 
 	function swatch(variant) {
+		// Secondary is the dominant surface in the real client, so the swatch
+		// leads with it rather than with primary.
 		var wrap = document.createElement('span');
 		wrap.className = 'row-swatch';
-		wrap.style.background = variant.swatch['--background-primary'] || '#141418';
+		wrap.style.background = variant.swatch['--background-secondary'] || '#141418';
 
 		var rail = document.createElement('i');
 		rail.style.background = variant.swatch['--background-tertiary'] || 'rgba(0,0,0,.35)';
@@ -239,18 +238,11 @@
 		}
 	}
 
-	function sendToFrame(message) {
-		if (!state.frameReady || !el.frame.contentWindow) return;
-		el.frame.contentWindow.postMessage(message, window.location.origin);
-	}
-
 	function loadFrame() {
-		state.frameReady = false;
 		// Absolute so it does not depend on how deep the shell lives.
 		var query = new URLSearchParams({
 			css: new URL(cssPath(state.theme, state.variant), window.location.href).href,
 			base: state.variant.base,
-			screen: state.screen,
 			name: state.theme.name + ' ' + state.variant.name,
 			author: state.theme.author,
 		});
@@ -335,10 +327,6 @@
 
 	wireSegmented(el.modeTabs, 'mode', renderList);
 	wireSegmented(el.sortTabs, 'sort', renderList);
-	wireSegmented(el.screenTabs, 'screen', function () {
-		sendToFrame({type: 'preview:set-screen', screen: state.screen});
-	});
-
 	el.search.addEventListener('input', function () {
 		state.query = el.search.value.trim().toLowerCase();
 		renderList();
@@ -378,14 +366,6 @@
 					el.copy.textContent = 'Copy CSS';
 				}, 1600);
 			});
-	});
-
-	window.addEventListener('message', function (event) {
-		if (event.origin !== window.location.origin) return;
-		if (event.data && event.data.type === 'preview:ready') {
-			state.frameReady = true;
-			sendToFrame({type: 'preview:set-screen', screen: state.screen});
-		}
 	});
 
 	window.addEventListener('resize', fitStage);

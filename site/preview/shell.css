@@ -1,9 +1,17 @@
 /*
- * Layout for the mock Fluxer client used to preview themes.
+ * Layout for the static Fluxer mock.
  *
- * Every visual property here reads from a Fluxer theme token, so a theme that
- * only sets custom properties restyles this shell the same way it restyles the
- * real client. Nothing in this file should hard code a colour.
+ * Every visual property reads a Fluxer token, so a theme that only sets custom
+ * properties restyles this the way it restyles the client. Nothing here hard
+ * codes a colour.
+ *
+ * Surfaces and measurements follow the canary source. The important one, which
+ * is easy to get wrong: the guild rail, the channel sidebar, the guild header
+ * and the chat column are all --background-secondary. The member list and the
+ * composer sit on --background-secondary-lighter. --background-primary is for
+ * raised surfaces like pickers and embeds, not the app chrome.
+ *
+ * Nothing is interactive, so there are no hover or focus rules.
  */
 
 *,
@@ -21,20 +29,14 @@ body {
 }
 
 body {
-	background: var(--background-primary);
+	background: var(--background-secondary);
 	color: var(--text-primary);
+	cursor: default;
 	font-family: var(--font-sans);
 	font-size: var(--font-size);
 	line-height: var(--message-line-height);
+	user-select: none;
 	-webkit-font-smoothing: antialiased;
-}
-
-button {
-	background: none;
-	border: 0;
-	color: inherit;
-	cursor: pointer;
-	font: inherit;
 }
 
 svg {
@@ -43,38 +45,15 @@ svg {
 	width: 100%;
 }
 
-::-webkit-scrollbar {
-	width: 0.5rem;
-}
-
-::-webkit-scrollbar-track {
-	background: var(--scrollbar-track-bg);
-}
-
-::-webkit-scrollbar-thumb {
-	background: var(--scrollbar-thumb-bg);
-	border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background: var(--scrollbar-thumb-bg-hover);
-}
-
-::selection {
-	background: var(--text-selection);
-}
-
-/* ---------------------------------------------------------------- layout */
-
+/* GuildsLayout: rail, then GuildLayout splits sidebar and main content. */
 .app {
+	background: var(--background-secondary);
 	display: grid;
 	grid-template-columns:
 		var(--layout-guild-list-width)
 		var(--layout-sidebar-width)
 		minmax(0, 1fr)
-		15rem;
-	/* Without an explicit row track the columns size to their content and the
-	   composer ends up below the fold. */
+		var(--member-list-width, 16.5rem);
 	grid-template-rows: minmax(0, 1fr);
 	height: 100%;
 }
@@ -87,12 +66,13 @@ svg {
 
 .guilds {
 	align-items: center;
-	background: var(--background-tertiary);
+	background: var(--background-secondary);
 	display: flex;
 	flex-direction: column;
 	gap: var(--guild-icon-gap);
 	overflow: hidden;
-	padding: var(--spacing-3) 0;
+	padding-bottom: var(--spacing-2);
+	padding-top: var(--spacing-1);
 }
 
 .guild {
@@ -114,24 +94,21 @@ svg {
 	font-weight: 600;
 	height: 100%;
 	justify-content: center;
-	letter-spacing: 0.02em;
-	transition: border-radius 0.15s ease, background 0.15s ease;
 	width: 100%;
 }
 
-.guild:hover .guild-glyph,
 .guild.is-selected .guild-glyph {
 	border-radius: var(--radius-xl);
 }
 
-.guild-home .guild-glyph,
+.guild.is-home .guild-glyph,
 .guild.is-selected .guild-glyph {
 	background: var(--brand-primary-fill);
 	color: var(--text-on-brand-primary);
 }
 
-.guild-add .guild-glyph {
-	background: var(--background-secondary);
+.guild.is-add .guild-glyph {
+	background: var(--background-secondary-alt);
 	color: var(--status-online);
 	font-size: 1.125rem;
 	font-weight: 400;
@@ -155,16 +132,14 @@ svg {
 .guild-pill {
 	background: var(--text-primary);
 	border-radius: var(--radius-full);
-	height: 0.5rem;
-	left: calc(var(--spacing-4) * -1);
+	height: 1.25rem;
+	/* Flush against the rail's left edge: the icon is centred, so back it out by
+	   half the difference between the rail and the icon. */
+	left: calc((var(--guild-icon-size) - var(--layout-guild-list-width)) / 2);
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
 	width: 0.25rem;
-}
-
-.guild.is-selected .guild-pill {
-	height: 1.25rem;
 }
 
 .guild-badge,
@@ -194,7 +169,7 @@ svg {
 	width: 2rem;
 }
 
-/* --------------------------------------------------------------- sidebar */
+/* -------------------------------------------------------------- sidebar */
 
 .sidebar {
 	background: var(--background-secondary);
@@ -203,17 +178,16 @@ svg {
 	min-width: 0;
 }
 
-.sidebar-header {
+.guild-header {
 	align-items: center;
-	border-bottom: 1px solid var(--border-color);
-	box-shadow: var(--shadow-sm);
+	border-bottom: 0.0625rem solid var(--user-area-divider-color);
 	display: flex;
 	gap: var(--spacing-2);
 	justify-content: space-between;
 	padding: 0 var(--spacing-4);
 }
 
-.sidebar-title {
+.guild-header-name {
 	color: var(--text-primary);
 	font-size: 0.9375rem;
 	font-weight: 600;
@@ -222,33 +196,16 @@ svg {
 	white-space: nowrap;
 }
 
-.sidebar-meta {
+.guild-header-chevron {
 	color: var(--text-tertiary);
 	flex: none;
-	font-size: 0.6875rem;
+	height: 1rem;
+	width: 1rem;
 }
 
-.sidebar-scroller {
-	overflow-y: auto;
-	padding: var(--spacing-2) var(--spacing-2) var(--spacing-4);
-}
-
-.sidebar-search {
-	align-items: center;
-	background: var(--background-primary);
-	border-radius: var(--radius-md);
-	color: var(--text-tertiary);
-	display: flex;
-	font-size: 0.75rem;
-	gap: var(--spacing-2);
-	height: 1.875rem;
-	margin-bottom: var(--spacing-1);
-	padding: 0 var(--spacing-2);
-}
-
-.sidebar-search-icon {
-	height: 0.875rem;
-	width: 0.875rem;
+.channels {
+	overflow: hidden;
+	padding: var(--spacing-2) 0 var(--spacing-4);
 }
 
 .channel-category {
@@ -256,30 +213,25 @@ svg {
 	font-size: 0.6875rem;
 	font-weight: 700;
 	letter-spacing: 0.02em;
-	padding: var(--spacing-4) var(--spacing-2) var(--spacing-1);
+	padding: var(--spacing-4) var(--spacing-2) var(--spacing-1) 1rem;
 	text-transform: uppercase;
 }
 
+/* ChannelItem: 0.5rem outer margin, 0.375rem radius and gap, 0.375rem block
+   padding. */
 .channel {
 	align-items: center;
-	border-radius: var(--radius-md);
-	color: var(--text-tertiary);
+	border-radius: 0.375rem;
+	color: var(--text-tertiary-muted);
 	display: flex;
-	gap: var(--spacing-2);
-	margin-bottom: 0.125rem;
-	padding: 0.375rem var(--spacing-2);
-	text-align: left;
-	width: 100%;
+	gap: 0.375rem;
+	margin: 0 0.5rem 0.125rem;
+	padding: 0.375rem 0.5rem;
 }
 
-.channel:hover {
-	background: var(--background-modifier-hover);
-	color: var(--text-secondary);
-}
-
-.channel.is-active {
+.channel.is-selected {
 	background: var(--background-modifier-selected);
-	color: var(--text-primary);
+	color: var(--surface-interactive-selected-color);
 }
 
 .channel.is-unread {
@@ -311,7 +263,7 @@ svg {
 	white-space: nowrap;
 }
 
-/* ------------------------------------------------------------- user area */
+/* ------------------------------------------------------------ user area */
 
 .user-area {
 	align-items: center;
@@ -346,19 +298,12 @@ svg {
 
 .icon-button {
 	align-items: center;
-	background: var(--control-button-normal-bg);
-	border-radius: var(--radius-sm);
 	color: var(--control-button-normal-text);
 	display: flex;
 	height: 1.75rem;
 	justify-content: center;
 	padding: 0.375rem;
 	width: 1.75rem;
-}
-
-.icon-button:hover {
-	background: var(--control-button-hover-bg);
-	color: var(--control-button-hover-text);
 }
 
 /* --------------------------------------------------------------- avatars */
@@ -393,24 +338,6 @@ svg {
 	font-size: 0.625rem;
 }
 
-.avatar-xs {
-	height: 1rem;
-	width: 1rem;
-}
-
-.avatar-xs .avatar-glyph {
-	font-size: 0.4375rem;
-}
-
-.avatar-lg {
-	height: 4rem;
-	width: 4rem;
-}
-
-.avatar-lg .avatar-glyph {
-	font-size: 1.1875rem;
-}
-
 .avatar-sunniva .avatar-glyph {
 	background: var(--accent-warning);
 }
@@ -441,16 +368,16 @@ svg {
 	width: 0.875rem;
 }
 
+.members .status-dot {
+	border-color: var(--background-secondary-lighter);
+}
+
 .status-dot[data-status='online'] {
 	background: var(--status-online);
 }
 
 .status-dot[data-status='idle'] {
 	background: var(--status-idle);
-}
-
-.status-dot[data-status='dnd'] {
-	background: var(--status-dnd);
 }
 
 .status-dot[data-status='offline'] {
@@ -460,55 +387,15 @@ svg {
 /* ------------------------------------------------------------------ chat */
 
 .chat {
-	background: var(--background-primary);
+	background: var(--background-secondary);
 	display: grid;
-	grid-template-rows: var(--layout-header-height) minmax(0, 1fr);
+	grid-template-rows: var(--layout-header-height) minmax(0, 1fr) auto auto;
 	min-width: 0;
-}
-
-/* One screen is visible at a time. The rest stay in the document so the theme
-   still applies to them when the viewer switches over. */
-.screen {
-	display: none;
-	min-height: 0;
-}
-
-.app[data-screen='server'] .screen[data-screen-view~='server'],
-.app[data-screen='dm'] .screen[data-screen-view~='dm'],
-.app[data-screen='voice'] .screen[data-screen-view~='voice'],
-.app[data-screen='settings'] .screen[data-screen-view~='settings'] {
-	display: grid;
-	grid-template-rows: minmax(0, 1fr) auto auto;
-}
-
-.sidebar-group {
-	display: none;
-}
-
-.app[data-screen='server'] .sidebar-group[data-screen-group~='server'],
-.app[data-screen='dm'] .sidebar-group[data-screen-group~='dm'],
-.app[data-screen='voice'] .sidebar-group[data-screen-group~='voice'],
-.app[data-screen='settings'] .sidebar-group[data-screen-group~='settings'] {
-	display: block;
-}
-
-/* The member list only belongs on a server channel. */
-.app:not([data-screen='server']) .members {
-	display: none;
-}
-
-.app:not([data-screen='server']) {
-	grid-template-columns:
-		var(--layout-guild-list-width)
-		var(--layout-sidebar-width)
-		minmax(0, 1fr);
 }
 
 .chat-header {
 	align-items: center;
-	background: var(--background-channel-header);
-	border-bottom: 1px solid var(--border-color);
-	box-shadow: var(--shadow-sm);
+	border-bottom: 0.0625rem solid var(--user-area-divider-color);
 	display: flex;
 	gap: var(--spacing-2);
 	padding: 0 var(--spacing-4);
@@ -550,25 +437,42 @@ svg {
 	padding: 0.25rem var(--spacing-2);
 }
 
+/* Anchored to the bottom, the way a chat opens. The typing row below supplies
+   the breathing space, so no padding here: the content is sized to land just
+   inside the frame rather than clip a message in half. */
 .messages {
 	display: flex;
 	flex-direction: column;
-	gap: var(--message-group-spacing);
-	overflow-y: auto;
-	padding: var(--spacing-4) 0;
+	justify-content: flex-end;
+	overflow: hidden;
 }
 
 /* -------------------------------------------------------------- messages */
 
+/* Message.module.css lays a row out as four columns: leading padding, avatar,
+   gutter, then content. */
 .message {
-	display: flex;
-	gap: var(--message-gutter);
-	padding: var(--message-container-padding-y) var(--chat-horizontal-padding);
+	display: grid;
+	grid-template-columns:
+		var(--chat-horizontal-padding)
+		var(--message-avatar-size)
+		var(--message-gutter)
+		minmax(0, 1fr);
+	padding-block: var(--message-spacing-y);
+	padding-inline-end: var(--chat-horizontal-padding);
 	position: relative;
 }
 
-.message:hover {
-	background: var(--background-modifier-hover);
+.message .avatar {
+	grid-column: 2;
+}
+
+.message-content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-1);
+	grid-column: 4;
+	min-width: 0;
 }
 
 .message.is-mentioned {
@@ -583,18 +487,6 @@ svg {
 	position: absolute;
 	top: 0;
 	width: var(--message-highlight-bar-width);
-}
-
-.message.is-mentioned:hover {
-	background: var(--message-mention-bg-hover);
-}
-
-.message-body {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	gap: var(--spacing-1);
-	min-width: 0;
 }
 
 .message-heading {
@@ -621,7 +513,7 @@ svg {
 	color: var(--accent-danger);
 }
 
-.badge-bot {
+.badge-tag {
 	background: var(--brand-primary-fill);
 	border-radius: var(--radius-sm);
 	color: var(--text-on-brand-primary);
@@ -660,10 +552,6 @@ svg {
 	text-decoration: var(--link-decoration, none);
 }
 
-.link:hover {
-	text-decoration: underline;
-}
-
 .mention {
 	background: var(--markup-mention-fill);
 	border-radius: var(--radius-sm);
@@ -694,8 +582,7 @@ svg {
 	font-family: var(--font-mono);
 	font-size: 0.8125rem;
 	line-height: 1.4;
-	margin-top: var(--spacing-1);
-	overflow-x: auto;
+	overflow: hidden;
 	padding: var(--spacing-2);
 	white-space: pre;
 }
@@ -717,9 +604,8 @@ svg {
 }
 
 .blockquote {
-	border-left: var(--message-reply-spine-width, 0.25rem) solid var(--border-color);
+	border-left: 0.25rem solid var(--border-color);
 	color: var(--text-chat-muted);
-	margin: var(--spacing-1) 0;
 	padding-left: var(--spacing-2);
 }
 
@@ -727,29 +613,18 @@ svg {
 	background: var(--spoiler-overlay-color);
 	border-radius: var(--spoiler-border-radius);
 	color: transparent;
-	cursor: pointer;
 	padding: 0 0.25rem;
 }
 
-.spoiler:hover {
-	background: var(--spoiler-overlay-hover-color);
-}
-
-.spoiler.is-revealed {
-	background: var(--background-modifier-selected);
-	color: var(--text-chat);
-}
-
-/* ----------------------------------------------------- embeds, reactions */
+/* ------------------------------------------------------ embeds, reactions */
 
 .embed {
 	align-items: center;
-	background: var(--background-secondary);
+	background: var(--background-primary);
 	border: 1px solid var(--border-color);
 	border-radius: var(--radius-lg);
 	display: flex;
 	gap: var(--spacing-3);
-	margin-top: var(--spacing-2);
 	max-width: 26rem;
 	padding: var(--spacing-3);
 }
@@ -768,7 +643,9 @@ svg {
 }
 
 .embed-body {
+	display: flex;
 	flex: 1;
+	flex-direction: column;
 	min-width: 0;
 }
 
@@ -795,19 +672,14 @@ svg {
 	color: var(--button-primary-text);
 }
 
-.button-primary:hover {
-	background: var(--button-primary-active-fill);
-}
-
 .reactions {
 	display: flex;
 	gap: var(--spacing-1);
-	margin-top: var(--spacing-1);
 }
 
 .reaction {
 	align-items: center;
-	background: var(--background-secondary);
+	background: var(--background-primary);
 	border: 1px solid transparent;
 	border-radius: var(--radius-md);
 	color: var(--text-secondary);
@@ -817,17 +689,13 @@ svg {
 	padding: 0.125rem var(--spacing-2);
 }
 
-.reaction:hover {
-	border-color: var(--border-color-hover);
-}
-
 .reaction.is-me {
 	background: var(--markup-mention-fill);
 	border-color: var(--accent-primary);
 	color: var(--markup-mention-text);
 }
 
-/* ------------------------------------------------------------- dividers */
+/* -------------------------------------------------------------- dividers */
 
 .unread-divider {
 	align-items: center;
@@ -856,8 +724,6 @@ svg {
 	display: flex;
 	font-size: var(--message-typing-text-font-size);
 	gap: var(--spacing-2);
-	/* min-height, not height: the token is 1rem but the label's line box is
-	   taller, and a fixed track would let it paint over the last message. */
 	min-height: var(--typing-indicator-height);
 	padding: 0 var(--chat-horizontal-padding) var(--spacing-1);
 }
@@ -868,38 +734,22 @@ svg {
 }
 
 .typing-dots i {
-	animation: typing-bounce 1.2s infinite ease-in-out;
 	background: var(--text-tertiary);
 	border-radius: var(--radius-full);
 	height: 0.25rem;
 	width: 0.25rem;
 }
 
+.typing-dots i:first-child {
+	opacity: 1;
+}
+
 .typing-dots i:nth-child(2) {
-	animation-delay: 0.15s;
+	opacity: 0.7;
 }
 
 .typing-dots i:nth-child(3) {
-	animation-delay: 0.3s;
-}
-
-@keyframes typing-bounce {
-	0%,
-	60%,
-	100% {
-		opacity: 0.4;
-		transform: translateY(0);
-	}
-	30% {
-		opacity: 1;
-		transform: translateY(-0.125rem);
-	}
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.typing-dots i {
-		animation: none;
-	}
+	opacity: 0.4;
 }
 
 .typing-text b {
@@ -907,15 +757,17 @@ svg {
 	font-weight: 600;
 }
 
+/* InputWrapper sits on --background-secondary-lighter with 1rem inline
+   padding. */
 .composer {
 	align-items: center;
-	background: var(--background-textarea);
+	background: var(--background-secondary-lighter);
 	border-radius: var(--radius-lg);
 	display: flex;
 	gap: var(--spacing-2);
-	margin: var(--spacing-2) var(--chat-horizontal-padding) var(--spacing-4);
+	margin: 0 var(--chat-horizontal-padding) var(--spacing-4);
 	min-height: var(--textarea-min-height);
-	padding: 0 var(--textarea-horizontal-padding);
+	padding: 0 1rem;
 }
 
 .composer-button {
@@ -929,32 +781,22 @@ svg {
 	width: var(--textarea-button-min-width);
 }
 
-.composer-button:hover {
-	color: var(--text-secondary);
-}
-
-.composer-input {
-	background: none;
-	border: 0;
-	color: var(--text-chat);
+.composer-placeholder {
+	color: var(--text-tertiary-muted);
 	flex: 1;
-	font-family: inherit;
 	font-size: var(--textarea-font-size);
 	line-height: var(--textarea-line-height);
 	min-width: 0;
-	outline: none;
-	padding: var(--textarea-container-padding-y) 0;
-}
-
-.composer-input::placeholder {
-	color: var(--text-tertiary-muted);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 /* ----------------------------------------------------------- member list */
 
 .members {
-	background: var(--background-secondary);
-	overflow-y: auto;
+	background: var(--background-secondary-lighter);
+	overflow: hidden;
 	padding: var(--spacing-4) var(--spacing-2);
 }
 
@@ -969,19 +811,17 @@ svg {
 
 .member {
 	align-items: center;
-	border-radius: var(--radius-md);
+	border-radius: 0.375rem;
 	display: flex;
-	gap: var(--spacing-2);
-	padding: 0.25rem var(--spacing-2);
-}
-
-.member:hover {
-	background: var(--background-modifier-hover);
+	gap: 0.625rem;
+	min-height: 2rem;
+	padding: 0.25rem 0.5rem;
 }
 
 .member-name {
 	color: var(--text-secondary);
 	font-size: 0.875rem;
+	line-height: 1.25rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -989,267 +829,4 @@ svg {
 
 .member.is-offline {
 	opacity: 0.45;
-}
-
-.markup-inline {
-	color: var(--text-chat);
-	font-size: 0.9375rem;
-	margin-top: var(--spacing-1);
-}
-
-/* ----------------------------------------------------------------- voice */
-
-.screen.voice {
-	gap: var(--spacing-4);
-	grid-template-rows: minmax(0, 1fr) auto;
-	padding: var(--spacing-4);
-}
-
-.voice-grid {
-	display: grid;
-	gap: var(--spacing-3);
-	grid-template-columns: 1fr 1fr;
-	min-height: 0;
-}
-
-.voice-tile {
-	align-items: center;
-	background: var(--background-secondary);
-	border: 2px solid var(--border-color);
-	border-radius: var(--radius-xl);
-	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-2);
-	justify-content: center;
-	min-height: 0;
-	padding: var(--spacing-4);
-}
-
-.voice-tile.is-speaking {
-	border-color: var(--accent-success);
-}
-
-.voice-name {
-	color: var(--text-primary);
-	font-size: 0.8125rem;
-	font-weight: 600;
-}
-
-.voice-state {
-	color: var(--text-tertiary);
-	font-size: 0.6875rem;
-}
-
-.voice-controls {
-	display: flex;
-	gap: var(--spacing-2);
-	justify-content: center;
-}
-
-.round-button {
-	align-items: center;
-	background: var(--background-secondary-alt);
-	border: 1px solid var(--border-color);
-	border-radius: var(--radius-full);
-	color: var(--text-secondary);
-	display: flex;
-	height: 2.75rem;
-	justify-content: center;
-	padding: 0.75rem;
-	width: 2.75rem;
-}
-
-.round-button:hover {
-	background: var(--background-modifier-hover);
-	color: var(--text-primary);
-}
-
-.button-danger {
-	background: var(--button-danger-fill);
-	border-radius: var(--radius-full);
-	color: var(--button-danger-text);
-	padding: 0 var(--spacing-5);
-}
-
-.button-danger:hover {
-	background: var(--button-danger-active-fill);
-}
-
-/* -------------------------------------------------------------- settings */
-
-.screen.settings {
-	align-content: start;
-	display: none;
-	gap: var(--spacing-3);
-	overflow-y: auto;
-	padding: var(--spacing-5);
-}
-
-.app[data-screen='settings'] .screen.settings {
-	display: grid;
-	grid-template-rows: none;
-}
-
-.settings-title {
-	color: var(--text-primary);
-	font-size: 1.25rem;
-	font-weight: 700;
-}
-
-.theme-cards {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--spacing-3);
-	margin-bottom: var(--spacing-2);
-}
-
-.theme-card {
-	background: var(--background-secondary);
-	border: 2px solid var(--border-color);
-	border-radius: var(--radius-lg);
-	display: flex;
-	flex-direction: column;
-	gap: 0.125rem;
-	padding: var(--spacing-2);
-	width: 9.375rem;
-}
-
-.theme-card.is-active {
-	border-color: var(--accent-primary);
-}
-
-.theme-card-shot {
-	background: var(--background-primary);
-	border-radius: var(--radius-md);
-	display: flex;
-	height: 3.25rem;
-	margin-bottom: var(--spacing-1);
-	overflow: hidden;
-}
-
-.shot-rail {
-	background: var(--background-tertiary);
-	flex: none;
-	width: 22%;
-}
-
-.shot-body {
-	align-items: flex-end;
-	display: flex;
-	flex: 1;
-	padding: 0.375rem;
-}
-
-.shot-bar {
-	background: var(--accent-primary);
-	border-radius: var(--radius-sm);
-	height: 0.5rem;
-	width: 70%;
-}
-
-/* The two built in cards show Fluxer's own palette, so a theme card sits next
-   to the stock ones exactly as it does in the real appearance settings. */
-.theme-card-builtin-dark .theme-card-shot {
-	background: #1e1f22;
-}
-
-.theme-card-builtin-dark .shot-rail {
-	background: #111214;
-}
-
-.theme-card-builtin-light .theme-card-shot {
-	background: #ffffff;
-}
-
-.theme-card-builtin-light .shot-rail {
-	background: #f2f3f5;
-}
-
-.theme-card-builtin-dark .shot-bar,
-.theme-card-builtin-light .shot-bar {
-	background: #5865f2;
-}
-
-.theme-card-name {
-	color: var(--text-primary);
-	font-size: 0.75rem;
-	font-weight: 700;
-}
-
-.theme-card-author {
-	color: var(--text-tertiary);
-	font-size: 0.6875rem;
-}
-
-.setting-row {
-	align-items: center;
-	background: var(--background-secondary);
-	border: 1px solid var(--border-color);
-	border-radius: var(--radius-lg);
-	display: flex;
-	gap: var(--spacing-3);
-	padding: var(--spacing-3);
-}
-
-.setting-copy {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-}
-
-.setting-label {
-	color: var(--text-primary);
-	font-size: 0.8125rem;
-	font-weight: 600;
-}
-
-.setting-hint {
-	color: var(--text-tertiary);
-	font-size: 0.6875rem;
-}
-
-.toggle {
-	background: var(--border-color);
-	border-radius: var(--radius-full);
-	display: flex;
-	flex: none;
-	height: 1.375rem;
-	justify-content: flex-start;
-	padding: 0.125rem;
-	transition: background 0.15s ease;
-	width: 2.5rem;
-}
-
-.toggle span {
-	background: var(--text-tertiary);
-	border-radius: var(--radius-full);
-	height: 1.125rem;
-	width: 1.125rem;
-}
-
-.toggle.is-on {
-	background: var(--accent-primary);
-	justify-content: flex-end;
-}
-
-.toggle.is-on span {
-	background: var(--text-on-brand-primary);
-}
-
-/* --------------------------------------------------- non interactive mode */
-
-.is-static {
-	pointer-events: none;
-	user-select: none;
-}
-
-.is-static ::-webkit-scrollbar {
-	display: none;
-}
-
-.is-static .messages,
-.is-static .sidebar-scroller,
-.is-static .members {
-	overflow: hidden;
-	scrollbar-width: none;
 }

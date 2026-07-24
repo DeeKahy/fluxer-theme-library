@@ -113,28 +113,37 @@ change things until you like it, and copy out the CSS. Failing that, start with
 these and work outward until nothing looks wrong:
 
 ```
---background-primary        the message area
---background-secondary      the channel sidebar and member list
---background-secondary-alt  the user area at the bottom of the sidebar
---background-tertiary       the guild rail on the far left
---background-textarea       the message box
---text-primary              headings, usernames
---text-secondary            most body text
---text-chat                 message content
---text-tertiary             timestamps, channel names, muted labels
---text-link                 links
---accent-primary            the main accent
---brand-primary-fill        buttons and the selected guild
---text-on-brand-primary     text drawn on top of the accent
---border-color              separators
+--background-secondary          almost everything: the guild rail, the channel
+                                sidebar, the header and the message area
+--background-secondary-lighter  the member list and the message box
+--background-secondary-alt      the user area at the bottom of the sidebar
+--background-primary            raised things on top: embeds, reactions, pickers
+--text-primary                  headings, usernames
+--text-secondary                most body text
+--text-chat                     message content
+--text-tertiary                 timestamps, muted labels
+--text-tertiary-muted           channel names in the sidebar
+--text-link                     links
+--accent-primary                the main accent
+--brand-primary-fill            buttons and the selected guild
+--text-on-brand-primary         text drawn on top of the accent
+--border-color                  separators
+--user-area-divider-color       the line under the two headers
 ```
 
-Set `--background-modifier-hover` and `--background-modifier-selected` too, or
-hover states will keep the stock translucent white and look wrong on a light
-theme.
+That first one surprises people. Fluxer is not built as a light to dark ramp
+across the columns: the rail, the sidebar and the chat area are all the same
+surface, and the member list and composer sit one step lighter. If you set
+`--background-primary` expecting the message area to change, nothing much will
+happen.
 
-Cycling the preview through all four screens is the fastest way to spot a group
-you forgot. The settings and voice screens use tokens the message list does not.
+Set `--background-modifier-hover` and `--background-modifier-selected` too, or
+the selected channel and hover states keep the stock translucent white, which
+looks wrong on a light theme.
+
+The preview puts a channel list, a message list, an embed, a code block, a
+mention, a member list and a composer on one screen, so a group you forgot
+usually shows up as something that stays the stock colour.
 
 ### Colours in the defaults
 
@@ -157,10 +166,8 @@ python3 -m http.server 8000
 ```
 
 Open `http://localhost:8000`, find your theme in the list on the left. The big
-preview on the right is live: click channels, switch between the server, DMs,
-voice and settings screens, reveal the spoiler, type in the message box. Check
-all four screens, it is easy to miss that the settings toggles or the voice tiles
-are unreadable.
+preview on the right is a static render of a server channel. It updates as soon
+as you pick a different theme or variant.
 
 Re-run `build-index.mjs` after changing `theme.json`. Changing only CSS just
 needs a refresh.

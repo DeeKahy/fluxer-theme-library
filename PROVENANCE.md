@@ -90,23 +90,41 @@ those themes work here. The specific values are ours, invented to match the
 naming pattern, because the real ones are attached to React components we have
 not reproduced.
 
+### Surfaces and measurements
+
+The markup is ours, but which token paints which surface is not invented. It was
+read off the canary source, which is the same `main` branch pinned above:
+
+| Surface | Token | Source |
+| --- | --- | --- |
+| Guild rail | `--background-secondary` | `GuildsLayout.module.css` |
+| Channel sidebar | `--background-secondary` | `GuildNavbar.module.css` |
+| Guild header | `--background-secondary` | `GuildHeader.module.css` |
+| Chat column | `--background-secondary` | `GuildLayout.module.css` |
+| Member list | `--background-secondary-lighter` | `MemberListContainer.module.css` |
+| Composer | `--background-secondary-lighter` | `InputWrapper.module.css` |
+
+Header dividers use `--user-area-divider-color` at `0.0625rem`, the member list
+is `16.5rem` wide, channel rows carry a `0.375rem` radius with `0.5rem` outer
+margin, and the message row is the same four column grid upstream uses: leading
+padding, avatar, gutter, content. Getting the surface map wrong is what makes a
+mock look almost-but-not-quite right, so it is worth rechecking after a UI
+change upstream.
+
 ## Reconstructed, not copied
 
-The markup and layout of `site/preview/shell.html` and `shell.css` are written
-from scratch. Upstream's client is React with CSS modules, and its class names
-are content hashed at build time, so there is nothing stable to copy even if we
-wanted to. What we reproduced is the arrangement a Fluxer user would recognise:
-guild rail, channel sidebar, user area, channel header, message list, typing
-row, composer, member list, and the voice and appearance screens.
+The markup of `site/preview/shell.html` is written from scratch. Upstream's
+client is React with CSS modules whose class names are content hashed at build
+time, so there is nothing stable to copy even if we wanted to. What we
+reproduced is the arrangement a Fluxer user would recognise: guild rail, channel
+sidebar, user area, channel header, message list, typing row, composer and
+member list, as one static server channel.
 
 Every visual property in `shell.css` reads from a Fluxer token. Nothing in that
-file hard codes a colour, with two deliberate exceptions, both marked in the
-file: the two built in theme cards on the settings screen use Fluxer's own dark
-and light palette values so a contributed theme sits next to the stock ones the
-way it does in the real appearance settings.
+file hard codes a colour.
 
-The four screens, the sample conversation and the general shape of the site are
-adapted from a design mock made for this project, not from upstream.
+The sample conversation and the general shape of the site are adapted from a
+design mock made for this project, not from upstream.
 
 ## Consequences
 

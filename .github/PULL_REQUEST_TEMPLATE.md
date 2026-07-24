@@ -8,7 +8,7 @@
 - [ ] Folder under `themes/` with a `.css` file and a `theme.json`
 - [ ] `base` set correctly on each variant, `light` for light themes
 - [ ] `node scripts/validate.mjs` passes
-- [ ] Looked at it in the local preview on all four screens
+- [ ] Looked at it in the local preview
 
 If you are adapting somebody else's palette, credit them in `description` or
 `homepage`.
