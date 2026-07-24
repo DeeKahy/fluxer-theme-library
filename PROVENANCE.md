@@ -15,7 +15,7 @@ to their authors and may carry their own licence in `theme.json`.
 
 ### Theme tokens
 
-`site/preview/vendor/tokens.css` and `site/data/tokens.json` are generated from
+`site/preview/vendor/tokens.css` is generated from
 `fluxer_app/src/features/theme/variables/ThemeVariableManifest.ts`, which is
 itself generated upstream by `fluxer_app/scripts/GenerateThemeVariables.ts`.
 

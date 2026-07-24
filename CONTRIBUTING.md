@@ -133,8 +133,8 @@ Set `--background-modifier-hover` and `--background-modifier-selected` too, or
 hover states will keep the stock translucent white and look wrong on a light
 theme.
 
-The site shows a token coverage readout for the selected theme, which is a fast
-way to spot a group you forgot.
+Cycling the preview through all four screens is the fastest way to spot a group
+you forgot. The settings and voice screens use tokens the message list does not.
 
 ### Colours in the defaults
 
