@@ -1,0 +1,168 @@
+/**
+ * @name Dark Matter
+ * @description Cold flat slate panels with a sky blue accent. A Fluxer port of Dark Matter by Tropical and Hammock.
+ * @author Tropical and Hammock, ported by fluxer-theme-library
+ * @version 3.0.0
+ * @tags dark, blue, cold, flat
+ */
+
+/*
+ * Dark Matter by Tropical#8908 and Hammock#3110, MIT:
+ * https://github.com/DiscordStyles/DarkMatter
+ *
+ * The palette comes straight from the original's variables: three slates,
+ * one sky blue accent at rgb(37, 172, 232) with a deep water alternate at
+ * rgb(29, 101, 134), white text at fractional opacities, and hover and
+ * selection states that darken with black rather than lightening with the
+ * accent. That last one is most of the theme's character.
+ *
+ * Dropped: the mountain wallpaper and the animated home icon. The original's
+ * surfaces are opaque, so the wallpaper only ever peeked through gaps that
+ * exist in Discord's markup and not in Fluxer's, and the home icon needs a
+ * class selector. The Karla font becomes a stack instead of a Google Fonts
+ * import, a shared stylesheet should not phone home.
+ */
+
+:root {
+	/* --background-solid, -dark and -darker in the original. */
+	--background-primary: #161921;
+	--background-secondary: #161921;
+	--background-secondary-lighter: #161921;
+	--background-secondary-alt: #101218;
+	--background-tertiary: #0c0e12;
+	--background-channel-header: #161921;
+	--background-header-primary: #101218;
+	--background-header-primary-hover: #0c0e12;
+	--background-header-secondary: #101218;
+	--background-textarea: #101218;
+	--guild-list-foreground: #101218;
+	--form-surface-background: #161921;
+	--panel-control-bg: #101218;
+	--panel-control-border: rgb(255 255 255 / 0.08);
+	--panel-control-divider: rgb(255 255 255 / 0.06);
+	--panel-control-highlight: rgb(255 255 255 / 0.04);
+
+	--bg-primary: #161921;
+	--bg-secondary: #161921;
+	--bg-tertiary: #0c0e12;
+	--bg-blockquote: #101218;
+	--bg-table-header: #101218;
+	--bg-table-row-even: #14161d;
+	--bg-table-row-odd: #161921;
+
+	/* Interaction darkens with black instead of lighting up, straight from
+	   the original's modifier variables. */
+	--background-modifier-hover: rgb(0 0 0 / 0.3);
+	--background-modifier-selected: rgb(0 0 0 / 0.6);
+	--background-modifier-accent: rgb(255 255 255 / 0.08);
+	--background-modifier-accent-focus: rgb(255 255 255 / 0.12);
+	--bg-hover: rgb(0 0 0 / 0.3);
+	--bg-active: rgb(0 0 0 / 0.6);
+
+	--surface-interactive-hover-bg: rgb(0 0 0 / 0.3);
+	--surface-interactive-selected-bg: rgb(0 0 0 / 0.6);
+	--surface-interactive-selected-color: #ffffff;
+
+	/* White at fractional opacities, the original's text ramp. */
+	--text-primary: #ffffff;
+	--text-secondary: rgb(255 255 255 / 0.6);
+	--text-primary-muted: rgb(255 255 255 / 0.5);
+	--text-chat: rgb(255 255 255 / 0.6);
+	--text-chat-muted: #8a8e94;
+	--text-tertiary: rgb(255 255 255 / 0.5);
+	--text-tertiary-secondary: rgb(255 255 255 / 0.3);
+	--text-tertiary-muted: rgb(255 255 255 / 0.3);
+	--text-link: #25ace8;
+	--text-on-brand-primary: #ffffff;
+	--text-selection: rgb(29 101 134 / 0.5);
+	--text-warning: #faa61a;
+	--interactive-active: #ffffff;
+	--interactive-muted: rgb(255 255 255 / 0.15);
+
+	--accent-primary: #25ace8;
+	--accent-info: #25ace8;
+	--accent-success: #43b581;
+	--accent-warning: #faa61a;
+	--accent-danger: #f04747;
+	--accent-purple: #593695;
+
+	--brand-primary: #25ace8;
+	/* Text on top of --brand-primary, see PROVENANCE.md. */
+	--brand-primary-fill: #ffffff;
+	--brand-primary-light: #4dbcee;
+	--brand-secondary: #1d6586;
+
+	--border-color: rgb(255 255 255 / 0.06);
+	--border-color-hover: rgb(255 255 255 / 0.12);
+	--border-color-focus: #25ace8;
+	--focus-primary: #25ace8;
+	--theme-border: transparent;
+	--theme-border-width: 0px;
+	--user-area-divider-color: rgb(0 0 0 / 0.3);
+	--code-block-border: rgb(255 255 255 / 0.06);
+
+	--button-primary-fill: #25ace8;
+	--button-primary-active-fill: #4dbcee;
+	--button-primary-text: #ffffff;
+	--button-secondary-fill: #101218;
+	--button-secondary-active-fill: #0c0e12;
+	--button-secondary-text: rgb(255 255 255 / 0.75);
+	--button-secondary-active-text: #ffffff;
+	--button-danger-fill: #d84040;
+	--button-danger-active-fill: #f04747;
+	--button-danger-text: #ffffff;
+
+	--control-button-normal-bg: transparent;
+	--control-button-normal-text: rgb(255 255 255 / 0.5);
+	--control-button-hover-bg: rgb(0 0 0 / 0.3);
+	--control-button-hover-text: rgb(255 255 255 / 0.75);
+	--control-button-active-bg: rgb(0 0 0 / 0.5);
+	--control-button-active-text: #ffffff;
+
+	--code-text: rgb(255 255 255 / 0.6);
+	--text-code: rgb(255 255 255 / 0.6);
+	--code-muted: #8a8e94;
+	--bg-code: #0c0e12;
+	--code-inline-bg: #0c0e12;
+	--bg-code-block: #0c0e12;
+	--code-block-bg: #0c0e12;
+	--code-block-highlight: rgb(37 172 232 / 0.12);
+
+	--markup-mention-fill: rgb(37 172 232 / 0.15);
+	--markup-mention-text: #4dbcee;
+	--markup-mention-border: rgb(37 172 232 / 0.4);
+	--markup-everyone-fill: rgb(37 172 232 / 0.15);
+	--markup-everyone-text: #4dbcee;
+	--markup-everyone-border: rgb(37 172 232 / 0.4);
+	--markup-here-fill: rgb(37 172 232 / 0.15);
+	--markup-here-text: #4dbcee;
+	--markup-here-border: rgb(37 172 232 / 0.4);
+	--markup-jump-link-fill: rgb(37 172 232 / 0.15);
+	--markup-jump-link-text: #4dbcee;
+	--markup-jump-link-hover-fill: rgb(37 172 232 / 0.25);
+	--markup-interactive-hover-fill: rgb(37 172 232 / 0.25);
+	--markup-interactive-hover-text: #ffffff;
+
+	--message-mention-bg: rgb(37 172 232 / 0.07);
+	--message-mention-bg-hover: rgb(37 172 232 / 0.11);
+	--message-mention-color: #4dbcee;
+	--message-timestamp-color: rgb(255 255 255 / 0.3);
+	--message-reply-color: rgb(255 255 255 / 0.5);
+	--message-reply-bg: rgb(0 0 0 / 0.25);
+
+	--spoiler-overlay-color: #0c0e12;
+	--spoiler-overlay-hover-color: #101218;
+
+	--alert-note-color: #25ace8;
+	--alert-tip-color: #43b581;
+	--alert-important-color: #a06bff;
+	--alert-warning-color: #faa61a;
+	--alert-caution-color: #f04747;
+
+	/* The original's chunky scrollbar, deep water on a dark track. */
+	--scrollbar-track-bg: rgb(0 0 0 / 0.3);
+	--scrollbar-thumb-bg: #1d6586;
+	--scrollbar-thumb-bg-hover: #25ace8;
+
+	--font-sans: 'Karla', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+}
