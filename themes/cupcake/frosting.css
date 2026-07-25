@@ -1,0 +1,210 @@
+/**
+ * @name Cupcake Frosting
+ * @description Strawberry frosting pink, with a drifting sparkle backdrop and a cat asleep in the corner.
+ * @author fluxer-theme-library
+ * @version 1.0.0
+ * @tags pink, light, cute, sparkles, cat
+ */
+
+/* ---------------------------------------------------------------- palette */
+
+:root {
+	/* The main chrome is deliberately a little translucent so the animated
+	   backdrop on <html> shows through the rail, sidebar and chat column. */
+	--background-secondary: rgb(255 238 245 / 0.88);
+	--background-secondary-lighter: #ffe3ef;
+	--background-secondary-alt: #ffd6e8;
+	--background-tertiary: #ffc8de;
+	--background-primary: #fffafd;
+	--background-channel-header: rgb(255 238 245 / 0.88);
+	--background-header-primary: #ffd6e8;
+	--background-header-primary-hover: #ffc8de;
+	--background-header-secondary: #ffd6e8;
+	--background-textarea: #ffe3ef;
+	--guild-list-foreground: #ffd0e4;
+	--form-surface-background: #fff5fa;
+	--panel-control-bg: #ffe3ef;
+
+	--background-modifier-hover: rgb(255 45 138 / 0.09);
+	--background-modifier-selected: rgb(255 45 138 / 0.17);
+	--background-modifier-accent: rgb(255 45 138 / 0.2);
+	--background-modifier-accent-focus: rgb(255 45 138 / 0.28);
+
+	--surface-interactive-hover-bg: rgb(255 45 138 / 0.09);
+	--surface-interactive-selected-bg: rgb(255 45 138 / 0.17);
+	--surface-interactive-selected-color: #4a0f2e;
+
+	--bg-primary: #fffafd;
+	--bg-secondary: #ffeef5;
+	--bg-tertiary: #ffc8de;
+	--bg-hover: rgb(255 45 138 / 0.09);
+	--bg-active: rgb(255 45 138 / 0.17);
+
+	/* text, kept dark enough to stay readable on all that pink */
+	--text-primary: #4a0f2e;
+	--text-secondary: #5f1a3c;
+	--text-primary-muted: #6d2748;
+	--text-chat: #4a0f2e;
+	--text-chat-muted: #7d3a5c;
+	--text-tertiary: #a35c7d;
+	--text-tertiary-secondary: #b06f8d;
+	--text-tertiary-muted: #a8607f;
+	--text-link: #c2185b;
+	--text-on-brand-primary: #fffafd;
+	--text-selection: rgb(255 77 157 / 0.3);
+	--text-warning: #b3541e;
+
+	--accent-primary: #ff4d9d;
+	--accent-info: #c2185b;
+	--accent-success: #1f8a5f;
+	--accent-warning: #c46a10;
+	--accent-danger: #d81b60;
+	--accent-purple: #9c3fbd;
+
+	--brand-primary: #ff4d9d;
+	--brand-primary-fill: #ff2d8a;
+	--brand-primary-light: #ff7ab8;
+	--brand-secondary: #9c3fbd;
+
+	--status-online: #1f8a5f;
+	--status-idle: #c46a10;
+	--status-dnd: #d81b60;
+	--status-offline: #bb95a7;
+
+	--border-color: rgb(200 80 140 / 0.22);
+	--border-color-hover: rgb(200 80 140 / 0.38);
+	--border-color-focus: #ff2d8a;
+	--focus-primary: #ff2d8a;
+	--theme-border: rgb(200 80 140 / 0.22);
+	--user-area-divider-color: rgb(200 80 140 / 0.26);
+
+	--button-primary-fill: #ff2d8a;
+	--button-primary-active-fill: #e91e7a;
+	--button-primary-text: #fffafd;
+	--button-secondary-fill: #ffd6e8;
+	--button-secondary-active-fill: #ffc8de;
+	--button-secondary-text: #4a0f2e;
+	--button-danger-fill: #d81b60;
+	--button-danger-active-fill: #ad1457;
+	--button-danger-text: #fffafd;
+
+	--control-button-normal-text: #a35c7d;
+	--control-button-hover-bg: rgb(255 45 138 / 0.12);
+	--control-button-hover-text: #5f1a3c;
+	--control-button-active-bg: rgb(255 45 138 / 0.2);
+	--control-button-active-text: #4a0f2e;
+
+	--code-text: #5f1a3c;
+	--text-code: #5f1a3c;
+	--code-muted: #a35c7d;
+	--bg-code: #ffe0ef;
+	--code-inline-bg: #ffe0ef;
+	--bg-code-block: #fff3f9;
+	--code-block-bg: #fff3f9;
+
+	--markup-mention-fill: rgb(255 45 138 / 0.16);
+	--markup-mention-text: #c2185b;
+	--markup-mention-border: rgb(255 45 138 / 0.4);
+	--markup-everyone-fill: rgb(196 106 16 / 0.16);
+	--markup-everyone-text: #a85a0d;
+	--markup-everyone-border: rgb(196 106 16 / 0.35);
+	--markup-here-fill: rgb(196 106 16 / 0.16);
+	--markup-here-text: #a85a0d;
+	--markup-jump-link-fill: rgb(255 45 138 / 0.16);
+	--markup-jump-link-text: #c2185b;
+
+	--message-mention-bg: rgb(255 45 138 / 0.09);
+	--message-mention-bg-hover: rgb(255 45 138 / 0.15);
+	--message-mention-color: #c2185b;
+	--message-timestamp-color: #b06f8d;
+	--message-reply-color: #a35c7d;
+
+	--spoiler-overlay-color: #ffcfe3;
+	--spoiler-overlay-hover-color: #ffbcd8;
+
+	--alert-note-color: #c2185b;
+	--alert-tip-color: #1f8a5f;
+	--alert-important-color: #9c3fbd;
+	--alert-warning-color: #c46a10;
+	--alert-caution-color: #d81b60;
+
+	--scrollbar-track-bg: transparent;
+	--scrollbar-thumb-bg: rgb(255 77 157 / 0.4);
+	--scrollbar-thumb-bg-hover: rgb(255 77 157 / 0.6);
+}
+
+/* ------------------------------------------------------------- the sprinkles
+
+   A drifting sparkle field, built entirely from gradients. No image file, so
+   the whole thing survives a share link: an uploaded stylesheet carries no
+   assets with it, and anything referencing fluxer-theme-asset() would resolve
+   to nothing on somebody else's machine.                                    */
+
+html {
+	background-color: #ffdcea;
+	background-image:
+		radial-gradient(circle at 20% 30%, rgb(255 255 255 / 0.9) 0 1.6px, transparent 2.6px),
+		radial-gradient(circle at 68% 14%, rgb(255 255 255 / 0.75) 0 1.2px, transparent 2.2px),
+		radial-gradient(circle at 42% 78%, rgb(255 214 232 / 0.95) 0 2px, transparent 3px),
+		radial-gradient(circle at 86% 62%, rgb(255 255 255 / 0.7) 0 1.4px, transparent 2.4px),
+		linear-gradient(146deg, #ffd9ec 0%, #ffeaf4 38%, #ffdce9 68%, #ffc9e0 100%);
+	background-size:
+		230px 230px,
+		310px 310px,
+		270px 270px,
+		190px 190px,
+		100% 100%;
+	background-attachment: fixed;
+	animation: cupcake-sprinkles 26s linear infinite;
+}
+
+@keyframes cupcake-sprinkles {
+	to {
+		background-position:
+			230px 230px,
+			-310px 310px,
+			270px -270px,
+			-190px -190px,
+			0 0;
+	}
+}
+
+/* -------------------------------------------------------------- the cat
+
+   Drawn as an inline SVG so it needs no network request and travels with the
+   stylesheet. It naps: a theme is only CSS, so it cannot follow your cursor or
+   notice that you stopped moving it.                                        */
+
+body::after {
+	content: '';
+	position: fixed;
+	right: 18px;
+	bottom: 14px;
+	width: 92px;
+	height: 64px;
+	z-index: 9999;
+	pointer-events: none;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: bottom right;
+	transform-origin: 70% 90%;
+	animation: cupcake-cat-breathe 4.5s ease-in-out infinite;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 64'%3E%3Cg fill='none' stroke='%23c2185b' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 56c-6 0-10-4-10-9 0-8 8-14 18-14 6 0 10 2 13 5' fill='%23ff9ecb'/%3E%3Cpath d='M41 38c0-7 6-12 13-12s13 5 13 12-6 12-13 12-13-5-13-12z' fill='%23ffb3d9'/%3E%3Cpath d='M45 28l-2-8 8 4M63 28l2-8-8 4' fill='%23ffb3d9'/%3E%3Cpath d='M48 38c1.5 1.6 3.5 1.6 5 0M56 38c1.5 1.6 3.5 1.6 5 0'/%3E%3Cpath d='M54 43l-1.6 2h3.2z' fill='%23c2185b'/%3E%3Cpath d='M10 50c-5 1-8-3-6-7' /%3E%3C/g%3E%3Cg fill='%23c2185b' opacity='.85' font-family='system-ui,sans-serif' font-weight='700'%3E%3Ctext x='68' y='20' font-size='11'%3Ez%3C/text%3E%3Ctext x='76' y='12' font-size='8'%3Ez%3C/text%3E%3C/g%3E%3C/svg%3E");
+}
+
+@keyframes cupcake-cat-breathe {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.035);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html,
+	body::after {
+		animation: none;
+	}
+}

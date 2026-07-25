@@ -38,7 +38,10 @@
 		copy: document.getElementById('copy-css'),
 		download: document.getElementById('download-css'),
 		viewSource: document.getElementById('view-source'),
+		openRow: document.getElementById('open-row'),
 		openInFluxer: document.getElementById('open-in-fluxer'),
+		openInDesktop: document.getElementById('open-in-desktop'),
+		openInCanary: document.getElementById('open-in-canary'),
 		note: document.getElementById('install-note'),
 	};
 
@@ -228,12 +231,19 @@
 		el.download.setAttribute('download', state.theme.slug + '-' + state.variant.id + '.css');
 		el.viewSource.href = REPO + '/blob/main/' + path;
 
+		// One uploaded stylesheet, three ways in. Stable and canary are separate
+		// front ends over the same CDN object, so the id resolves on both.
+		// fluxer:// is the desktop protocol handler, which turns the URL into the
+		// same /theme/<id> route inside the app.
 		if (state.variant.fluxerThemeId) {
-			el.openInFluxer.hidden = false;
-			el.openInFluxer.href = 'https://web.fluxer.app/theme/' + state.variant.fluxerThemeId;
-			el.note.textContent = 'open in Fluxer applies it in one click, or paste the CSS into Quick CSS';
+			var id = state.variant.fluxerThemeId;
+			el.openRow.hidden = false;
+			el.openInFluxer.href = 'https://web.fluxer.app/theme/' + id;
+			el.openInCanary.href = 'https://web.canary.fluxer.app/theme/' + id;
+			el.openInDesktop.href = 'fluxer://theme/' + id;
+			el.note.textContent = 'one click in the app, or paste the CSS into Quick CSS yourself';
 		} else {
-			el.openInFluxer.hidden = true;
+			el.openRow.hidden = true;
 			el.note.textContent = 'paste into Theme Studio, Quick CSS, or import the file into your theme library';
 		}
 	}

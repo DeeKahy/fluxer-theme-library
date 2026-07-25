@@ -1,0 +1,199 @@
+/**
+ * @name Cupcake Velvet
+ * @description Red velvet after dark. Same sparkles, same sleeping cat, easier on the eyes at 2am.
+ * @author fluxer-theme-library
+ * @version 1.0.0
+ * @tags pink, dark, cute, sparkles, cat
+ */
+
+/* ---------------------------------------------------------------- palette */
+
+:root {
+	/* Slightly translucent so the animated backdrop shows through the chrome. */
+	--background-secondary: rgb(31 15 26 / 0.9);
+	--background-secondary-lighter: #2a1524;
+	--background-secondary-alt: #33192c;
+	--background-tertiary: #150a12;
+	--background-primary: #2a1524;
+	--background-channel-header: rgb(31 15 26 / 0.9);
+	--background-header-primary: #33192c;
+	--background-header-primary-hover: #3f1f36;
+	--background-header-secondary: #33192c;
+	--background-textarea: #2a1524;
+	--guild-list-foreground: #33192c;
+	--form-surface-background: #2a1524;
+	--panel-control-bg: #33192c;
+
+	--background-modifier-hover: rgb(255 95 174 / 0.1);
+	--background-modifier-selected: rgb(255 95 174 / 0.2);
+	--background-modifier-accent: rgb(255 95 174 / 0.24);
+	--background-modifier-accent-focus: rgb(255 95 174 / 0.32);
+
+	--surface-interactive-hover-bg: rgb(255 95 174 / 0.1);
+	--surface-interactive-selected-bg: rgb(255 95 174 / 0.2);
+	--surface-interactive-selected-color: #ffe9f4;
+
+	--bg-primary: #2a1524;
+	--bg-secondary: #1f0f1a;
+	--bg-tertiary: #150a12;
+	--bg-hover: rgb(255 95 174 / 0.1);
+	--bg-active: rgb(255 95 174 / 0.2);
+
+	--text-primary: #ffe9f4;
+	--text-secondary: #f6d3e6;
+	--text-primary-muted: #dcb0c9;
+	--text-chat: #f6d9e8;
+	--text-chat-muted: #c99ab3;
+	--text-tertiary: #b98aa4;
+	--text-tertiary-secondary: #a3768f;
+	--text-tertiary-muted: #a3768f;
+	--text-link: #ff9ecb;
+	--text-on-brand-primary: #2a0d1c;
+	--text-selection: rgb(255 61 149 / 0.35);
+	--text-warning: #ffc46b;
+
+	--accent-primary: #ff5fae;
+	--accent-info: #ff9ecb;
+	--accent-success: #5fd3a0;
+	--accent-warning: #ffc46b;
+	--accent-danger: #ff6b8e;
+	--accent-purple: #c78bff;
+
+	--brand-primary: #ff5fae;
+	--brand-primary-fill: #ff3d95;
+	--brand-primary-light: #ff8cc4;
+	--brand-secondary: #c78bff;
+
+	--status-online: #5fd3a0;
+	--status-idle: #ffc46b;
+	--status-dnd: #ff6b8e;
+	--status-offline: #6b4f5e;
+
+	--border-color: rgb(255 95 174 / 0.2);
+	--border-color-hover: rgb(255 95 174 / 0.34);
+	--border-color-focus: #ff5fae;
+	--focus-primary: #ff5fae;
+	--theme-border: rgb(255 95 174 / 0.2);
+	--user-area-divider-color: rgb(255 95 174 / 0.22);
+
+	--button-primary-fill: #ff3d95;
+	--button-primary-active-fill: #ff5fae;
+	--button-primary-text: #2a0d1c;
+	--button-secondary-fill: #3f1f36;
+	--button-secondary-active-fill: #4c2742;
+	--button-secondary-text: #f6d3e6;
+	--button-danger-fill: #d94065;
+	--button-danger-active-fill: #ff6b8e;
+	--button-danger-text: #ffe9f4;
+
+	--control-button-normal-text: #b98aa4;
+	--control-button-hover-bg: rgb(255 95 174 / 0.14);
+	--control-button-hover-text: #f6d3e6;
+	--control-button-active-bg: rgb(255 95 174 / 0.22);
+	--control-button-active-text: #ffe9f4;
+
+	--code-text: #f6d9e8;
+	--text-code: #f6d9e8;
+	--code-muted: #a3768f;
+	--bg-code: #150a12;
+	--code-inline-bg: #150a12;
+	--bg-code-block: #180b14;
+	--code-block-bg: #180b14;
+
+	--markup-mention-fill: rgb(255 95 174 / 0.22);
+	--markup-mention-text: #ff9ecb;
+	--markup-mention-border: rgb(255 95 174 / 0.45);
+	--markup-everyone-fill: rgb(255 196 107 / 0.18);
+	--markup-everyone-text: #ffc46b;
+	--markup-everyone-border: rgb(255 196 107 / 0.4);
+	--markup-here-fill: rgb(255 196 107 / 0.18);
+	--markup-here-text: #ffc46b;
+	--markup-jump-link-fill: rgb(255 95 174 / 0.2);
+	--markup-jump-link-text: #ff9ecb;
+
+	--message-mention-bg: rgb(255 95 174 / 0.1);
+	--message-mention-bg-hover: rgb(255 95 174 / 0.17);
+	--message-mention-color: #ff9ecb;
+	--message-timestamp-color: #a3768f;
+	--message-reply-color: #b98aa4;
+
+	--spoiler-overlay-color: #3f1f36;
+	--spoiler-overlay-hover-color: #4c2742;
+
+	--alert-note-color: #ff9ecb;
+	--alert-tip-color: #5fd3a0;
+	--alert-important-color: #c78bff;
+	--alert-warning-color: #ffc46b;
+	--alert-caution-color: #ff6b8e;
+
+	--scrollbar-track-bg: transparent;
+	--scrollbar-thumb-bg: rgb(255 95 174 / 0.3);
+	--scrollbar-thumb-bg-hover: rgb(255 95 174 / 0.48);
+}
+
+/* ------------------------------------------------------------- the sprinkles */
+
+html {
+	background-color: #170b14;
+	background-image:
+		radial-gradient(circle at 20% 30%, rgb(255 158 203 / 0.55) 0 1.6px, transparent 2.6px),
+		radial-gradient(circle at 68% 14%, rgb(255 255 255 / 0.4) 0 1.2px, transparent 2.2px),
+		radial-gradient(circle at 42% 78%, rgb(255 95 174 / 0.45) 0 2px, transparent 3px),
+		radial-gradient(circle at 86% 62%, rgb(255 255 255 / 0.3) 0 1.4px, transparent 2.4px),
+		linear-gradient(146deg, #2b1020 0%, #1c0b17 40%, #2a1024 72%, #140810 100%);
+	background-size:
+		230px 230px,
+		310px 310px,
+		270px 270px,
+		190px 190px,
+		100% 100%;
+	background-attachment: fixed;
+	animation: cupcake-sprinkles 26s linear infinite;
+}
+
+@keyframes cupcake-sprinkles {
+	to {
+		background-position:
+			230px 230px,
+			-310px 310px,
+			270px -270px,
+			-190px -190px,
+			0 0;
+	}
+}
+
+/* -------------------------------------------------------------- the cat */
+
+body::after {
+	content: '';
+	position: fixed;
+	right: 18px;
+	bottom: 14px;
+	width: 92px;
+	height: 64px;
+	z-index: 9999;
+	pointer-events: none;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: bottom right;
+	transform-origin: 70% 90%;
+	animation: cupcake-cat-breathe 4.5s ease-in-out infinite;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 64'%3E%3Cg fill='none' stroke='%23ff9ecb' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 56c-6 0-10-4-10-9 0-8 8-14 18-14 6 0 10 2 13 5' fill='%233f1f36'/%3E%3Cpath d='M41 38c0-7 6-12 13-12s13 5 13 12-6 12-13 12-13-5-13-12z' fill='%234c2742'/%3E%3Cpath d='M45 28l-2-8 8 4M63 28l2-8-8 4' fill='%234c2742'/%3E%3Cpath d='M48 38c1.5 1.6 3.5 1.6 5 0M56 38c1.5 1.6 3.5 1.6 5 0'/%3E%3Cpath d='M54 43l-1.6 2h3.2z' fill='%23ff9ecb'/%3E%3Cpath d='M10 50c-5 1-8-3-6-7'/%3E%3C/g%3E%3Cg fill='%23ff9ecb' opacity='.85' font-family='system-ui,sans-serif' font-weight='700'%3E%3Ctext x='68' y='20' font-size='11'%3Ez%3C/text%3E%3Ctext x='76' y='12' font-size='8'%3Ez%3C/text%3E%3C/g%3E%3C/svg%3E");
+}
+
+@keyframes cupcake-cat-breathe {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.035);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html,
+	body::after {
+		animation: none;
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"name": "Cupcake",
+	"description": "Frosting pink with a drifting sparkle backdrop and a cat asleep in the corner. Light and dark.",
+	"author": "fluxer-theme-library",
+	"license": "MIT",
+	"tags": ["pink", "cute", "sparkles", "cat", "light", "dark"],
+	"variants": [
+		{
+			"name": "Frosting",
+			"file": "frosting.css",
+			"base": "light",
+			"description": "Strawberry frosting, bright and sweet."
+		},
+		{
+			"name": "Velvet",
+			"file": "velvet.css",
+			"base": "dark",
+			"description": "Red velvet after dark, easier on the eyes at 2am."
+		}
+	]
+}
