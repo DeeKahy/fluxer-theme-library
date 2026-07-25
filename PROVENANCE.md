@@ -90,9 +90,26 @@ where the app is served. `fluxer.app` is the marketing site and returns 404 for
 
 The mock uses upstream's `data-flx="feature.component.element"` convention on its
 elements. Some themes target these attributes, so keeping the convention makes
-those themes work here. The specific values are ours, invented to match the
-naming pattern, because the real ones are attached to React components we have
-not reproduced.
+those themes work here.
+
+Upstream generates the values with `fluxer_app/scripts/add-data-flx-attributes.mjs`,
+which derives them from file and component names, so they are stable across
+builds in a way the hashed class names are not. They are the only real
+selectors a Fluxer theme has.
+
+The guild rail in the mock carries the client's actual values, read from
+`GuildsLayout.tsx` at the pinned commit:
+
+- `app.guilds-layout.guild-list.guild-list-scroller-wrapper` on the rail
+- `app.guilds-layout.guild-list.guild-list-top-section` around the home button
+- `app.guilds-layout.guild-list.guild-list-items` around the guild icons
+- `app.guilds-layout.guild-list.guild-divider` on the divider
+
+The two section wrappers render as `display: contents` so the default rail is
+unchanged, but a theme can grid them into a multi column server list and the
+preview will show it, same as the client. The mock's remaining values are
+still invented to match the naming pattern, because the elements they sit on
+are simplifications with no one-to-one upstream component.
 
 ### Surfaces and measurements
 

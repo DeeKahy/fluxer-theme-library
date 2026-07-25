@@ -88,6 +88,15 @@ svg {
 	padding-top: var(--spacing-1);
 }
 
+/* guildListTopSection and guildListItems upstream. Invisible by default so
+   the rail lays out exactly as one flex column, but a theme that grids them
+   through their data-flx attributes gets a real box to work with, which is
+   how a multi column server list is done. */
+.guilds-section {
+	display: contents;
+	width: 100%;
+}
+
 .guild {
 	align-items: center;
 	display: flex;

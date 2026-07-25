@@ -24,20 +24,28 @@
 	</head>
 	<body>
 		<div class="app" data-flx="app.guilds-layout">
-			<!-- guild rail, GuildsLayout guildListScrollerWrapper -->
-			<nav class="guilds" data-flx="guild.list">
-				<div class="guild is-home" data-flx="guild.list.home"><span class="guild-glyph">F</span></div>
-				<div class="guild-divider" aria-hidden="true"></div>
-				<div class="guild is-selected" data-flx="guild.list.item">
-					<span class="guild-pill" aria-hidden="true"></span>
-					<span class="guild-glyph guild-a">PX</span>
+			<!-- guild rail, GuildsLayout guildListScrollerWrapper. The rail's
+			     data-flx values are the client's real generated ones, see
+			     PROVENANCE.md, because themes restyle the rail through them.
+			     The section wrappers render as display: contents, so they are
+			     invisible until a theme gives them a layout. -->
+			<nav class="guilds" data-flx="app.guilds-layout.guild-list.guild-list-scroller-wrapper">
+				<div class="guilds-section" data-flx="app.guilds-layout.guild-list.guild-list-top-section">
+					<div class="guild is-home" data-flx="app.guilds-layout.guild-list.fluxer-button"><span class="guild-glyph">F</span></div>
+					<div class="guild-divider" data-flx="app.guilds-layout.guild-list.guild-divider" aria-hidden="true"></div>
 				</div>
-				<div class="guild" data-flx="guild.list.item">
-					<span class="guild-glyph guild-b">DS</span>
-					<span class="guild-badge">3</span>
+				<div class="guilds-section" data-flx="app.guilds-layout.guild-list.guild-list-items">
+					<div class="guild is-selected" data-flx="guild.list.item">
+						<span class="guild-pill" aria-hidden="true"></span>
+						<span class="guild-glyph guild-a">PX</span>
+					</div>
+					<div class="guild" data-flx="guild.list.item">
+						<span class="guild-glyph guild-b">DS</span>
+						<span class="guild-badge">3</span>
+					</div>
+					<div class="guild" data-flx="guild.list.item"><span class="guild-glyph guild-c">LO</span></div>
+					<div class="guild is-add" data-flx="guild.list.add"><span class="guild-glyph">+</span></div>
 				</div>
-				<div class="guild" data-flx="guild.list.item"><span class="guild-glyph guild-c">LO</span></div>
-				<div class="guild is-add" data-flx="guild.list.add"><span class="guild-glyph">+</span></div>
 			</nav>
 
 			<!-- channel sidebar, GuildNavbar -->
