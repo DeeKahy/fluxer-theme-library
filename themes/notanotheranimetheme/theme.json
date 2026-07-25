@@ -25,7 +25,7 @@
 			"name": "Starfall Double",
 			"file": "starfall-double.css",
 			"base": "dark",
-			"description": "The same theme with the double column server list the original defaults to."
+			"description": "The same theme with the double column server list and home button image the original ships, built on snippets by carlfully and deeruwu."
 		}
 	]
 }
