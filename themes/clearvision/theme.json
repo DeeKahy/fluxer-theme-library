@@ -4,19 +4,30 @@
 	"author": "ClearVision Team, ported by fluxer-theme-library",
 	"homepage": "https://github.com/ClearVision/ClearVision-v7",
 	"license": "Apache-2.0",
-	"tags": ["dark", "blue", "glass", "wallpaper", "translucent", "port"],
+	"tags": [
+		"dark",
+		"blue",
+		"glass",
+		"wallpaper",
+		"translucent",
+		"port"
+	],
 	"variants": [
 		{
 			"name": "Ash",
 			"file": "ash.css",
 			"base": "dark",
-			"description": "The default shading, wallpaper clearly visible."
+			"description": "The default shading, wallpaper clearly visible.",
+			"fluxerThemeId": "e869f6348d5ba9b6",
+			"fluxerThemeHash": "bb945d4509ba72773f62b7ea54c185b3169b572064857d7f839cd22509289905"
 		},
 		{
 			"name": "Onyx",
 			"file": "onyx.css",
 			"base": "dark",
-			"description": "The heaviest shading, for people who like their glass nearly black."
+			"description": "The heaviest shading, for people who like their glass nearly black.",
+			"fluxerThemeId": "9d6942c1d0473b94",
+			"fluxerThemeHash": "95baab931c13c2304e2b8ec61071a966e6c2c96204f1606e5ee8eee7afc7296d"
 		}
 	]
 }

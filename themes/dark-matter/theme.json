@@ -4,13 +4,21 @@
 	"author": "Tropical and Hammock, ported by fluxer-theme-library",
 	"homepage": "https://github.com/DiscordStyles/DarkMatter",
 	"license": "MIT",
-	"tags": ["dark", "blue", "cold", "flat", "port"],
+	"tags": [
+		"dark",
+		"blue",
+		"cold",
+		"flat",
+		"port"
+	],
 	"variants": [
 		{
 			"name": "Dark",
 			"file": "dark.css",
 			"base": "dark",
-			"description": "The one and only flavour, three slates and a sky blue."
+			"description": "The one and only flavour, three slates and a sky blue.",
+			"fluxerThemeId": "374e5646f234fbad",
+			"fluxerThemeHash": "2266f293e0ea0d3973c20376984938c8a5eb29569ca15a86a1c5d0b0c35080c2"
 		}
 	]
 }
