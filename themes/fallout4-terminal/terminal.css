@@ -121,7 +121,10 @@
 	--accent-purple: #bc13fe;
 
 	--brand-primary: #4aef98;
-	--brand-primary-fill: rgb(74 239 152 / 0.2);
+	/* Not a fill, whatever the name says. This is the text drawn on top of
+	   --brand-primary in the client's Button.module.css, so primary buttons
+	   come out inverse video: black type on a solid green key. */
+	--brand-primary-fill: #000900;
 	--brand-primary-light: #4aef98;
 	--brand-secondary: #4aef98;
 

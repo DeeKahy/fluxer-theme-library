@@ -116,7 +116,7 @@ svg {
 
 .guild.is-home .guild-glyph,
 .guild.is-selected .guild-glyph {
-	background: var(--brand-primary-fill);
+	background: var(--brand-primary);
 	color: var(--text-on-brand-primary);
 }
 
@@ -527,7 +527,7 @@ svg {
 }
 
 .badge-tag {
-	background: var(--brand-primary-fill);
+	background: var(--brand-primary);
 	border-radius: var(--radius-sm);
 	color: var(--text-on-brand-primary);
 	font-size: 0.625rem;
@@ -644,7 +644,7 @@ svg {
 
 .embed-icon {
 	align-items: center;
-	background: var(--brand-primary-fill);
+	background: var(--brand-primary);
 	border-radius: var(--radius-full);
 	color: var(--text-on-brand-primary);
 	display: flex;
@@ -680,9 +680,12 @@ svg {
 	padding: 0.5rem var(--spacing-3);
 }
 
+/* Button.module.css upstream. Two traps worth knowing: the primary button's
+   background is --brand-primary and its TEXT is --brand-primary-fill, despite
+   that name, and the secondary button's fill is --form-surface-background. */
 .button-primary {
-	background: var(--button-primary-fill);
-	color: var(--button-primary-text);
+	background: var(--brand-primary);
+	color: var(--brand-primary-fill);
 }
 
 .reactions {

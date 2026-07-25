@@ -110,6 +110,16 @@ read off the canary source, which is the same `main` branch pinned above:
 | Member list | `--background-secondary-lighter` | `MemberListContainer.module.css` |
 | Composer | `--background-secondary-lighter` | `InputWrapper.module.css` |
 | Embeds | `--background-primary` | `ChannelEmbed.module.css` |
+| Primary button fill | `--brand-primary` | `ui/button/Button.module.css` |
+| Primary button text | `--brand-primary-fill` | `ui/button/Button.module.css` |
+| Secondary button fill | `--form-surface-background` | `ui/button/Button.module.css` |
+
+`--brand-primary-fill` is the worst named token in the manifest. It is not a
+fill. It is the text colour drawn on top of `--brand-primary`, and its default
+is plain white. A theme that sets it to a shade of its accent, which is what
+the name invites, gets primary buttons whose labels are invisible in the
+client. The secondary button is the same lesson milder: its fill is the form
+surface token, not `--button-secondary-fill`.
 
 `--background-primary` doing double duty is the one to watch. It is the embed
 surface *and* the surface the entire app sits on, so a theme that picks a value
