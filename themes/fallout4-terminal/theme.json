@@ -1,0 +1,29 @@
+{
+	"name": "Fallout 4 Terminal",
+	"description": "A RobCo terminal. One phosphor green on one near black, monospace throughout, green rules instead of panels.",
+	"author": "Bates, ported by fluxer-theme-library",
+	"homepage": "https://github.com/B4T3S/Fallout4TerminalTheme",
+	"tags": [
+		"dark",
+		"green",
+		"terminal",
+		"monospace",
+		"crt",
+		"fallout",
+		"port"
+	],
+	"variants": [
+		{
+			"name": "Terminal",
+			"file": "terminal.css",
+			"base": "dark",
+			"description": "With the CRT scanlines, the way the original ships."
+		},
+		{
+			"name": "No CRT",
+			"file": "no-crt.css",
+			"base": "dark",
+			"description": "The same terminal with the scanline overlay removed."
+		}
+	]
+}

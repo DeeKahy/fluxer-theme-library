@@ -1,0 +1,239 @@
+/**
+ * @name Fallout 4 Terminal (No CRT)
+ * @description A RobCo terminal. Phosphor green on near black, monospace throughout, no scanlines.
+ * @author Bates, ported by fluxer-theme-library
+ * @version 4.0.0
+ * @tags dark, green, terminal, monospace, fallout
+ */
+
+/*
+ * Fallout 4 Terminal by Bates:
+ * https://github.com/B4T3S/Fallout4TerminalTheme
+ *
+ * That repo states no licence. It is published as a BetterDiscord theme and
+ * this port credits it, but nobody has granted anything in writing, so if
+ * Bates would rather it were not here, it goes.
+ *
+ * The original is mostly custom properties, which is why it ports cleanly.
+ * Its palette lives in src/_variables.scss and comes straight across: one
+ * phosphor green on one near black, with the status colours left loud.
+ *
+ *   --rgb-highlight       74, 239, 152    every piece of text, every border
+ *   --rgb-background       0,  9,   0
+ *   --rgb-close-button   212, 18,  39
+ *   --rgb-online-color    57, 255,  20
+ *   --rgb-afk-color      255, 255,  51
+ *   --rgb-dnd-color      255,   0,   0
+ *   --rgb-streaming      188,  19, 254
+ *
+ * This is the terminal variant without src/crtEffect.scss, matching the
+ * disableCRT option the original offers. Everything else is identical.
+ *
+ * Dropped, because they need selectors Fluxer has no equivalent for: the
+ * "ROBCO Industries (tm)" title, which the original draws into Discord's own
+ * title bar, and the background image knobs, which hang off Discord classes.
+ *
+ * The font is a stack rather than a web font. The original pulls Share Tech
+ * Mono off Google Fonts, and a shared stylesheet that phones home is a
+ * stylesheet that breaks when someone is offline or blocking. Any terminal
+ * face reads right here. If you want the exact one, add this at the top:
+ *
+ *   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono');
+ */
+
+:root {
+	/* Turn these two and the rest follows. */
+	--terminal-green: #4aef98;
+	--terminal-black: #000900;
+
+	/* ------------------------------------------------------ the phosphor */
+
+	/*
+	 * One surface, no hierarchy. A terminal has no raised panels, so every
+	 * background token is the same near black and the columns are told
+	 * apart by their borders alone.
+	 */
+	--background-primary: #000900;
+	--background-secondary: #000900;
+	--background-secondary-lighter: #000900;
+	--background-secondary-alt: #000900;
+	--background-tertiary: #000900;
+	--background-channel-header: #000900;
+	--background-header-primary: #000900;
+	--background-header-primary-hover: rgb(74 239 152 / 0.1);
+	--background-header-secondary: #000900;
+	--background-textarea: #000900;
+	--guild-list-foreground: #000900;
+	--form-surface-background: #000900;
+	--panel-control-bg: #000900;
+	--panel-control-border: #4aef98;
+	--panel-control-divider: rgb(74 239 152 / 0.4);
+	--panel-control-highlight: rgb(74 239 152 / 0.08);
+
+	--bg-primary: #000900;
+	--bg-secondary: #000900;
+	--bg-tertiary: #000900;
+	--bg-blockquote: #000900;
+	--bg-table-header: rgb(74 239 152 / 0.2);
+	--bg-table-row-even: rgb(74 239 152 / 0.06);
+	--bg-table-row-odd: #000900;
+
+	/* 10% hover, 20% selected, straight from the original. */
+	--background-modifier-hover: rgb(74 239 152 / 0.1);
+	--background-modifier-selected: rgb(74 239 152 / 0.2);
+	--background-modifier-accent: rgb(74 239 152 / 0.2);
+	--background-modifier-accent-focus: rgb(74 239 152 / 0.3);
+	--bg-hover: rgb(74 239 152 / 0.1);
+	--bg-active: rgb(74 239 152 / 0.3);
+
+	--surface-interactive-hover-bg: rgb(74 239 152 / 0.1);
+	--surface-interactive-selected-bg: rgb(74 239 152 / 0.2);
+	--surface-interactive-selected-color: #4aef98;
+
+	/* ---------------------------------------------------------- the text */
+
+	/* --text-normal, --text-muted and --channels-default are all one colour
+	   in the original. Nothing is dimmed, which is most of the look. */
+	--text-primary: #4aef98;
+	--text-secondary: #4aef98;
+	--text-primary-muted: #4aef98;
+	--text-chat: #4aef98;
+	--text-chat-muted: #4aef98;
+	--text-tertiary: #4aef98;
+	--text-tertiary-secondary: #4aef98;
+	--text-tertiary-muted: #4aef98;
+	--text-link: #4aef98;
+	--text-on-brand-primary: #4aef98;
+	--text-selection: rgb(74 239 152 / 0.3);
+	--text-warning: #ffff33;
+	--link-decoration: underline;
+	--interactive-active: #4aef98;
+	--interactive-muted: rgb(74 239 152 / 0.35);
+
+	/* --------------------------------------------------------- the wiring */
+
+	--accent-primary: #4aef98;
+	--accent-info: #4aef98;
+	--accent-success: #39ff14;
+	--accent-warning: #ffff33;
+	--accent-danger: #d41227;
+	--accent-purple: #bc13fe;
+
+	--brand-primary: #4aef98;
+	--brand-primary-fill: rgb(74 239 152 / 0.2);
+	--brand-primary-light: #4aef98;
+	--brand-secondary: #4aef98;
+
+	--status-online: #39ff14;
+	--status-idle: #ffff33;
+	--status-dnd: #ff0000;
+	--status-offline: rgb(74 239 152 / 0.3);
+	--status-danger: #ff0000;
+	--status-warning: #ffff33;
+
+	/* ------------------------------------------------------- the frame */
+
+	/* --border-faint, --border-subtle and --app-border-frame are all full
+	   brightness upstream. The green rules between columns are the only
+	   thing separating one part of the app from another. */
+	--border-color: #4aef98;
+	--border-color-hover: #4aef98;
+	--border-color-focus: #4aef98;
+	--focus-primary: #4aef98;
+	--theme-border: #4aef98;
+	--theme-border-width: 1px;
+	--user-area-divider-color: #4aef98;
+	--code-block-border: #4aef98;
+
+	--shadow-sm: none;
+	--shadow-md: none;
+	--shadow-lg: none;
+	--shadow-xl: none;
+
+	/* ------------------------------------------------------- the controls */
+
+	/* 20% at rest, brighter on press, from the $buttons loop upstream. */
+	--button-primary-fill: rgb(74 239 152 / 0.2);
+	--button-primary-active-fill: rgb(74 239 152 / 0.4);
+	--button-primary-text: #4aef98;
+	--button-secondary-fill: rgb(74 239 152 / 0.2);
+	--button-secondary-active-fill: rgb(74 239 152 / 0.4);
+	--button-secondary-text: #4aef98;
+	--button-secondary-active-text: #4aef98;
+	--button-danger-fill: rgb(212 18 39 / 0.3);
+	--button-danger-active-fill: #d41227;
+	--button-danger-text: #ff6b7a;
+	--button-outline-border: 1px solid rgb(74 239 152 / 0.5);
+	--button-outline-active-border: 1px solid #4aef98;
+	--button-outline-active-fill: rgb(74 239 152 / 0.3);
+	--button-outline-text: #4aef98;
+	--button-ghost-text: #4aef98;
+	--button-inverted-fill: #4aef98;
+	--button-inverted-text: #000900;
+
+	--control-button-normal-bg: transparent;
+	--control-button-normal-text: rgb(74 239 152 / 0.5);
+	--control-button-hover-bg: rgb(74 239 152 / 0.1);
+	--control-button-hover-text: #4aef98;
+	--control-button-active-bg: rgb(74 239 152 / 0.2);
+	--control-button-active-text: #4aef98;
+	--control-button-danger-hover-bg: rgb(212 18 39 / 0.2);
+	--control-button-danger-text: #d41227;
+
+	/* ---------------------------------------------------------- the code */
+
+	/* No fill, only a border. A terminal has nothing to raise a block onto. */
+	--code-text: #4aef98;
+	--text-code: #4aef98;
+	--code-muted: rgb(74 239 152 / 0.5);
+	--bg-code: #000900;
+	--code-inline-bg: #000900;
+	--bg-code-block: #000900;
+	--code-block-bg: #000900;
+	--code-block-highlight: rgb(74 239 152 / 0.15);
+
+	/* -------------------------------------------------------- the markup */
+
+	--markup-mention-fill: rgb(74 239 152 / 0.25);
+	--markup-mention-text: #4aef98;
+	--markup-mention-border: #4aef98;
+	--markup-everyone-fill: rgb(74 239 152 / 0.25);
+	--markup-everyone-text: #4aef98;
+	--markup-everyone-border: #4aef98;
+	--markup-here-fill: rgb(74 239 152 / 0.25);
+	--markup-here-text: #4aef98;
+	--markup-here-border: #4aef98;
+	--markup-jump-link-fill: rgb(74 239 152 / 0.25);
+	--markup-jump-link-text: #4aef98;
+	--markup-jump-link-hover-fill: rgb(74 239 152 / 0.4);
+	--markup-interactive-hover-fill: rgb(74 239 152 / 0.4);
+	--markup-interactive-hover-text: #4aef98;
+
+	/* --background-mentioned, 30% and 40% upstream. */
+	--message-mention-bg: rgb(74 239 152 / 0.3);
+	--message-mention-bg-hover: rgb(74 239 152 / 0.4);
+	--message-mention-color: #4aef98;
+	--message-timestamp-color: #4aef98;
+	--message-reply-color: #4aef98;
+	--message-reply-bg: rgb(74 239 152 / 0.1);
+
+	/* --spoiler-hidden-background is the solid highlight. */
+	--spoiler-overlay-color: #4aef98;
+	--spoiler-overlay-hover-color: rgb(74 239 152 / 0.2);
+
+	--alert-note-color: #4aef98;
+	--alert-tip-color: #39ff14;
+	--alert-important-color: #bc13fe;
+	--alert-warning-color: #ffff33;
+	--alert-caution-color: #d41227;
+
+	--scrollbar-track-bg: transparent;
+	--scrollbar-thumb-bg: #4aef98;
+	--scrollbar-thumb-bg-hover: #4aef98;
+
+	/* ---------------------------------------------------------- the face */
+
+	--font-sans: 'Share Tech Mono', 'DejaVu Sans Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace;
+	--font-mono: 'Share Tech Mono', 'DejaVu Sans Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace;
+	--font-keybind: 'Share Tech Mono', 'DejaVu Sans Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace;
+}
