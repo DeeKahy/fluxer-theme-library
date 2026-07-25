@@ -12,6 +12,8 @@
 	/* The wash over the sparkles lives on the body::before layer below,
 	   deeruwu's transparent theme template structure. --background-primary
 	   keeps the same value for embeds. */
+	--background-secondary: transparent;
+	--background-channel-header: transparent;
 	--background-secondary-lighter: #ffe3ef;
 	--background-secondary-alt: #ffd6e8;
 	--background-tertiary: #ffc8de;

@@ -203,10 +203,12 @@ A translucent theme that reads correctly here can be much darker in the client,
 and banded across panels. There are two ways out. The old one is to keep
 `--background-secondary` fully transparent and put the tint somewhere that is
 painted once. The one the themes in this repo now use is deeruwu's transparent
-theme template from carlfully/fluxer-snippets: leave the stacked tokens alone,
-clear each container by class, and repaint the panels the theme wants painted,
-which sidesteps the compositing entirely and gives per panel control the token
-route never had.
+theme template from carlfully/fluxer-snippets: clear each container by class
+and repaint the panels the theme wants painted, which sidesteps the
+compositing entirely and gives per panel control the token route never had.
+Keep `--background-secondary: transparent` alongside it: the template's lists
+only cover the containers they name, and any surface they miss, the DM page
+was the one that bit, paints opaque over the wallpaper without the fallback.
 
 Header dividers use `--user-area-divider-color` at `0.0625rem`, the member list
 is `16.5rem` wide, channel rows carry a `0.375rem` radius with `0.5rem` outer

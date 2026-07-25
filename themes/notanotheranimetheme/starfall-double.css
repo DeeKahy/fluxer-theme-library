@@ -59,6 +59,14 @@
 	   rgba(0, 0, 0, 0.8) glass. Raise it to see more wallpaper. */
 	--ThemeBackgroundOpacity: 0.2;
 
+	/* Fluxer stacks --background-secondary several layers deep. The class
+	   lists below clear the panels the template knows about; this keeps
+	   every surface it does not know about, the DM page included, from
+	   painting opaque over the wallpaper. */
+	--background-secondary: transparent;
+	--background-channel-header: transparent;
+	--bg-secondary: transparent;
+
 	/* Guild rail columns, read by the server-columns rules below. */
 	--columns: 2;
 
@@ -489,18 +497,23 @@ html.platform-native.platform-macos {
 }
 
 /* The favourites button wears the sakura mark and the snippet's hover
-   spin. Same treatment as the home button: image behind, stock star
-   hidden. */
+   spin. The sakura is full bleed art, so it goes on the button icon
+   wrapper, the element that fills the button, not on the small star svg,
+   which letterboxes it. The pair of selectors covers the wrapper whether
+   the favourites class sits on the same element or on a nested svg. */
 
-[class*='GuildsLayout.module__favoritesIcon'] {
-	background: var(--favorites-icon-image) no-repeat center / contain;
+[class*='GuildsLayout.module__fluxerButtonIcon'][class*='GuildsLayout.module__favoritesIcon'],
+[class*='GuildsLayout.module__fluxerButtonIcon']:has([class*='GuildsLayout.module__favoritesIcon']) {
+	background: var(--favorites-icon-image) no-repeat center / cover;
 	transition: transform 0.5s;
 }
 
-[class*='GuildsLayout.module__favoritesIcon'] > path {
+/* The stock star would sit on top of the image. */
+[class*='GuildsLayout.module__favoritesIcon'] path {
 	display: none;
 }
 
-[class*='GuildsLayout.module__guildListItem_']:hover [class*='GuildsLayout.module__favoritesIcon'] {
+[class*='GuildsLayout.module__guildListItem_']:hover [class*='GuildsLayout.module__fluxerButtonIcon'][class*='GuildsLayout.module__favoritesIcon'],
+[class*='GuildsLayout.module__guildListItem_']:hover [class*='GuildsLayout.module__fluxerButtonIcon']:has([class*='GuildsLayout.module__favoritesIcon']) {
 	transform: rotate(216deg);
 }

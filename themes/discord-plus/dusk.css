@@ -49,6 +49,14 @@
 	/* The image at 0.2 over the base colour is the original's ui base veil, hsla(320, 50%, 2.5%, 0.8). */
 	--ThemeBackgroundOpacity: 0.2;
 
+	/* Fluxer stacks --background-secondary several layers deep. The class
+	   lists below clear the panels the template knows about; this keeps
+	   every surface it does not know about, the DM page included, from
+	   painting opaque over the wallpaper. */
+	--background-secondary: transparent;
+	--background-channel-header: transparent;
+	--bg-secondary: transparent;
+
 	/* Cards: the app container once, embeds twice. */
 	--background-primary: hsl(320 30% 12.5% / 0.8);
 	--bg-primary: hsl(320 30% 12.5% / 0.8);

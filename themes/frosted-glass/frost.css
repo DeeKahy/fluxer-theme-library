@@ -46,6 +46,14 @@
 	/* The image at 0.35 over the base is the original's 0.65 veil. */
 	--ThemeBackgroundOpacity: 0.35;
 
+	/* Fluxer stacks --background-secondary several layers deep. The class
+	   lists below clear the panels the template knows about; this keeps
+	   every surface it does not know about, the DM page included, from
+	   painting opaque over the wallpaper. */
+	--background-secondary: transparent;
+	--background-channel-header: transparent;
+	--bg-secondary: transparent;
+
 	/* The app container reads this once. Kept nearly clear so the veil on
 	   html::before stays the only darkening over the wallpaper. */
 	--background-primary: rgb(0 0 0 / 0.25);
