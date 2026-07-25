@@ -86,13 +86,47 @@ where the app is served. `fluxer.app` is the marketing site and returns 404 for
 - rate limit is 20 per minute, bucket `theme:share:create`, from
   `fluxer_api/src/api/rate_limit_configs/MiscRateLimitConfig.ts`
 
-### data-flx attributes
+### Selector hooks: class names and data-flx
 
-The mock uses upstream's `data-flx="feature.component.element"` convention on its
-elements. Some themes target these attributes, so keeping the convention makes
-those themes work here. The specific values are ours, invented to match the
-naming pattern, because the real ones are attached to React components we have
-not reproduced.
+Upstream's build keeps the source module and element name in every emitted
+class, so elements carry `Component.module__element_<hash>`. The hash changes
+between builds, the prefix does not, and
+`[class*="Component.module__element_"]` is the selector that survives
+updates. This is how themes in the wild restyle the client; the community
+snippet collection at
+[carlfully/fluxer-snippets](https://github.com/carlfully/fluxer-snippets)
+is built on it and its CONTRIBUTING.md documents the convention.
+
+The mock exposes the same hooks. Its main regions carry the client's class
+name prefixes with an invented `_flxmock` suffix standing in for the hash:
+the app container, the guild rail and its sections, the channel sidebar, the
+user area, the chat header, the message area, the composer and the member
+list. The composer is one element standing in for the client's textarea area
+and the input box inside it, so it carries both prefixes. Prefixes on the
+guild rail come from `GuildsLayout.tsx` at the pinned commit; the rest are
+the ones the snippet collection targets in the live client.
+
+The mock also keeps upstream's `data-flx="feature.component.element"`
+convention. Upstream generates those values with
+`fluxer_app/scripts/add-data-flx-attributes.mjs`, deriving them from file and
+component names, so they are stable across builds too, and some themes
+target them. The guild rail carries the client's actual values, read from
+`GuildsLayout.tsx` at the pinned commit:
+
+- `app.guilds-layout.guild-list.guild-list-scroller-wrapper` on the rail
+- `app.guilds-layout.guild-list.guild-list-top-section` around the home and
+  favourites buttons
+- `app.guilds-layout.guild-list.guild-list-guilds-section` around everything below
+  it, whose loose children are the Explore, Add, Download and Help buttons
+- `app.guilds-layout.guild-list.guild-list-items` around the guild icons
+- `app.guilds-layout.guild-list.add-guild-button` on the add button
+- `app.guilds-layout.guild-list.guild-divider` on the divider
+
+The two section wrappers render as `display: contents` so the default rail is
+unchanged, but a theme can grid them into a multi column server list and the
+preview will show it, same as the client. The mock's remaining values are
+still invented to match the naming pattern, because the elements they sit on
+are simplifications with no one-to-one upstream component.
 
 ### Surfaces and measurements
 
@@ -124,6 +158,23 @@ surface token, not `--button-secondary-fill`.
 `--background-primary` doing double duty is the one to watch. It is the embed
 surface *and* the surface the entire app sits on, so a theme that picks a value
 for its embeds has also picked a sheet covering the whole window.
+
+### Platform overrides
+
+`app/globals.css` re-declares some tokens behind platform classes, and those
+selectors are more specific than `:root`, so a theme that only sets `:root`
+loses on the platforms they cover. The one found so far:
+
+```css
+html.platform-native.platform-macos {
+	--layout-guild-list-width: 4.75rem;
+}
+```
+
+A theme that changes the rail width has to match that selector too, or macOS
+desktop users get the stock width while the web app shows the themed one. The
+mock has no platform classes, so this difference never shows in a preview,
+which is exactly how it went unnoticed.
 
 ### Stacking
 

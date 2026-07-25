@@ -20,6 +20,12 @@
 			"description": "The wallpaper the theme ships with, inlined, and the black glass at its default weight.",
 			"fluxerThemeId": "67b5ec5deb1d9349",
 			"fluxerThemeHash": "8fa908813b7151d95406242564ff3403a645275e45a064d5fa9badc612beaced"
+		},
+		{
+			"name": "Starfall Double",
+			"file": "starfall-double.css",
+			"base": "dark",
+			"description": "The same theme with the double column server list and home button image the original ships, built on snippets by carlfully and deeruwu."
 		}
 	]
 }
