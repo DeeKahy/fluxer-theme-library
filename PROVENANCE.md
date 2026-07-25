@@ -101,12 +101,46 @@ read off the canary source, which is the same `main` branch pinned above:
 
 | Surface | Token | Source |
 | --- | --- | --- |
+| Document root | `--background-secondary` | `app/globals.css` |
+| App container | `--background-primary` | `app/App.module.css` |
 | Guild rail | `--background-secondary` | `GuildsLayout.module.css` |
 | Channel sidebar | `--background-secondary` | `GuildNavbar.module.css` |
 | Guild header | `--background-secondary` | `GuildHeader.module.css` |
 | Chat column | `--background-secondary` | `GuildLayout.module.css` |
 | Member list | `--background-secondary-lighter` | `MemberListContainer.module.css` |
 | Composer | `--background-secondary-lighter` | `InputWrapper.module.css` |
+| Embeds | `--background-primary` | `ChannelEmbed.module.css` |
+
+`--background-primary` doing double duty is the one to watch. It is the embed
+surface *and* the surface the entire app sits on, so a theme that picks a value
+for its embeds has also picked a sheet covering the whole window.
+
+### Stacking
+
+Upstream paints the same token on several nested elements. Counting from the
+document root down, the guild rail is under four `--background-secondary`
+layers and the chat column is under five, with `--background-primary` above all
+of them:
+
+```
+html                        --background-secondary
+  appContainer              --background-primary
+    guildsLayoutContainer   --background-secondary
+      guildListScroller     --background-secondary   rail
+      guildListScrollCont.  --background-secondary   rail
+      contentContainer      --background-secondary   everything else
+        guildLayoutContainer   --background-secondary
+          guildMainContent     --background-secondary
+```
+
+The mock paints one layer per region instead of reproducing that nesting.
+
+For an opaque theme this makes no difference, and that is nearly every theme.
+For a theme with translucent chrome it makes a large one: five stacked layers at
+20% composite to 67%, and the rail and the chat column end up different shades.
+A translucent theme that reads correctly here can be much darker in the client,
+and banded across panels. The way out is to keep `--background-secondary` fully
+transparent and put the tint somewhere that is painted once.
 
 Header dividers use `--user-area-divider-color` at `0.0625rem`, the member list
 is `16.5rem` wide, channel rows carry a `0.375rem` radius with `0.5rem` outer

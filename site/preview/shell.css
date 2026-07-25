@@ -8,8 +8,15 @@
  * Surfaces and measurements follow the canary source. The important one, which
  * is easy to get wrong: the guild rail, the channel sidebar, the guild header
  * and the chat column are all --background-secondary. The member list and the
- * composer sit on --background-secondary-lighter. --background-primary is for
- * raised surfaces like pickers and embeds, not the app chrome.
+ * composer sit on --background-secondary-lighter.
+ *
+ * --background-primary is both. It paints raised surfaces like pickers and
+ * embeds, and it paints the container the whole app sits in, which is why .app
+ * below reads it rather than --background-secondary.
+ *
+ * Upstream stacks its surfaces several deep, and this mock paints one layer per
+ * region. See PROVENANCE.md, it matters only for a theme with translucent
+ * chrome.
  *
  * Nothing is interactive, so there are no hover or focus rules.
  */
@@ -28,8 +35,13 @@ body {
 	overflow: hidden;
 }
 
-body {
+/* Upstream paints the base surface on <html>, in app/globals.css, not on the
+   body. A theme that puts a wallpaper on <html> replaces it, same as there. */
+html {
 	background: var(--background-secondary);
+}
+
+body {
 	color: var(--text-primary);
 	cursor: default;
 	font-family: var(--font-sans);
@@ -45,9 +57,10 @@ svg {
 	width: 100%;
 }
 
-/* GuildsLayout: rail, then GuildLayout splits sidebar and main content. */
+/* The app container, App.module.css upstream. GuildsLayout nests inside it:
+   rail, then GuildLayout splits sidebar and main content. */
 .app {
-	background: var(--background-secondary);
+	background: var(--background-primary);
 	display: grid;
 	grid-template-columns:
 		var(--layout-guild-list-width)
