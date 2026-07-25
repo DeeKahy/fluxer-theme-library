@@ -553,6 +553,10 @@ input {
 
 .stage-frame {
 	border: 0;
+	/* The preview is static, so there is nothing to click. Letting pointer
+	   events through means mousemove still reaches this document, and the cat
+	   does not freeze when the cursor crosses the preview. */
+	pointer-events: none;
 	height: 700px;
 	left: 0;
 	position: absolute;
@@ -714,4 +718,18 @@ input {
 	font-size: 0.75rem;
 	margin-top: 20px;
 	text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------------- cat */
+
+#library-cat {
+	background-repeat: no-repeat;
+	background-size: 32px 32px;
+	height: 32px;
+	left: 0;
+	pointer-events: none;
+	position: fixed;
+	top: 0;
+	width: 32px;
+	z-index: 2147483647;
 }

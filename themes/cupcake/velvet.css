@@ -82,9 +82,9 @@
 	--button-secondary-fill: #3f1f36;
 	--button-secondary-active-fill: #4c2742;
 	--button-secondary-text: #f6d3e6;
-	--button-danger-fill: #d94065;
-	--button-danger-active-fill: #ff6b8e;
-	--button-danger-text: #ffe9f4;
+	--button-danger-fill: #ff6b8e;
+	--button-danger-active-fill: #ff8ba5;
+	--button-danger-text: #2a0d1c;
 
 	--control-button-normal-text: #b98aa4;
 	--control-button-hover-bg: rgb(255 95 174 / 0.14);

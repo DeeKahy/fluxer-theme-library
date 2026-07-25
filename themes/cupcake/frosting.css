@@ -62,7 +62,7 @@
 	--accent-purple: #9c3fbd;
 
 	--brand-primary: #ff4d9d;
-	--brand-primary-fill: #ff2d8a;
+	--brand-primary-fill: #c1177f;
 	--brand-primary-light: #ff7ab8;
 	--brand-secondary: #9c3fbd;
 
@@ -78,8 +78,8 @@
 	--theme-border: rgb(200 80 140 / 0.22);
 	--user-area-divider-color: rgb(200 80 140 / 0.26);
 
-	--button-primary-fill: #ff2d8a;
-	--button-primary-active-fill: #e91e7a;
+	--button-primary-fill: #c1177f;
+	--button-primary-active-fill: #ad1a7d;
 	--button-primary-text: #fffafd;
 	--button-secondary-fill: #ffd6e8;
 	--button-secondary-active-fill: #ffc8de;
@@ -88,7 +88,7 @@
 	--button-danger-active-fill: #ad1457;
 	--button-danger-text: #fffafd;
 
-	--control-button-normal-text: #a35c7d;
+	--control-button-normal-text: #8a4463;
 	--control-button-hover-bg: rgb(255 45 138 / 0.12);
 	--control-button-hover-text: #5f1a3c;
 	--control-button-active-bg: rgb(255 45 138 / 0.2);

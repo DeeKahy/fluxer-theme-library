@@ -130,6 +130,22 @@ file hard codes a colour.
 The sample conversation and the general shape of the site are adapted from a
 design mock made for this project, not from upstream.
 
+## Not from Fluxer
+
+`site/cat.js` is a cat that chases the cursor on the library page. The idea is
+oneko by Adryd, which most people meet through the Vencord or BetterDiscord
+ports. The behaviour is a well known one: walk toward the pointer at a fixed
+speed, sit when close, doze off when left alone. Our implementation and our
+drawing are our own, so there is no third party sprite sheet vendored here or
+hotlinked from another repo.
+
+It runs on the site and not in any theme, because it cannot be a theme. Fluxer
+has no plugin system, the Theme Studio exposes tokens, Quick CSS, assets and a
+library but no script tab, and the share endpoint stores a single `css` string.
+oneko works in BetterDiscord because BetterDiscord runs plugins. Keeping the cat
+out of the preview iframe also keeps the previews honest about what a theme can
+actually do.
+
 ## Consequences
 
 Because the preview is a reconstruction, a theme that targets upstream's hashed
