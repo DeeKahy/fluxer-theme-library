@@ -1,0 +1,23 @@
+{
+	"name": "Frostpane",
+	"description": "Frosted glass panels floating over a slow arctic aurora. A Fluxer port of NotAnotherAnimeTheme by puckzxz, mint accent and amber mentions intact.",
+	"author": "fluxer-theme-library",
+	"homepage": "https://github.com/puckzxz/NotAnotherAnimeTheme",
+	"license": "MIT",
+	"tags": [
+		"dark",
+		"glass",
+		"translucent",
+		"green",
+		"mint",
+		"port"
+	],
+	"variants": [
+		{
+			"name": "Frost",
+			"file": "frost.css",
+			"base": "dark",
+			"description": "Near transparent chrome over a gradient aurora, mint green accent."
+		}
+	]
+}

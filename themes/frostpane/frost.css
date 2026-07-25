@@ -1,0 +1,267 @@
+/**
+ * @name Frostpane Frost
+ * @description Frosted glass panels over a slow arctic aurora, with the mint and amber accents from NotAnotherAnimeTheme.
+ * @author fluxer-theme-library, after NotAnotherAnimeTheme by puckzxz
+ * @version 1.0.0
+ * @tags dark, glass, translucent, green, mint
+ */
+
+/*
+ * Ported from NotAnotherAnimeTheme by puckzxz, released under the Unlicense:
+ * https://github.com/puckzxz/NotAnotherAnimeTheme
+ *
+ * That theme is a BetterDiscord stylesheet. It works by hiding Discord's own
+ * surfaces behind a wallpaper and floating dark translucent panels on top, and
+ * it does that with class selectors, which Fluxer has nothing equivalent to.
+ * What carried over is the idea and the palette: mint green as the theme
+ * colour, amber mentions, black glass at roughly 60% over an image.
+ *
+ * The wallpaper here is drawn with gradients instead of loading a photo.
+ * Fluxer's share links carry one CSS string and nothing else, so a theme that
+ * points at an image is a theme that breaks the day that host goes away.
+ */
+
+:root {
+	/* ---------------------------------------------------------- the glass */
+
+	/*
+	 * The rail, the sidebar, the guild header and the chat column are all
+	 * --background-secondary. Keeping it barely tinted is what lets the
+	 * aurora on <html> read through the whole left half of the app.
+	 */
+	--background-secondary: rgb(5 11 19 / 0.12);
+	--background-channel-header: rgb(5 11 19 / 0.12);
+	--guild-list-foreground: rgb(180 220 255 / 0.07);
+
+	/* The member list and the composer, one step brighter. */
+	--background-secondary-lighter: rgb(190 226 255 / 0.07);
+
+	/* The user area and the avatar rings that punch out of it. */
+	--background-secondary-alt: rgb(190 226 255 / 0.08);
+
+	/* Raised things: embeds, reactions, pickers. */
+	--background-primary: rgb(9 17 26 / 0.62);
+	--background-tertiary: rgb(3 7 12 / 0.7);
+
+	--background-header-primary: rgb(190 226 255 / 0.07);
+	--background-header-primary-hover: rgb(190 226 255 / 0.12);
+	--background-header-secondary: rgb(190 226 255 / 0.05);
+	--background-textarea: rgb(190 226 255 / 0.05);
+
+	/* Menus and modals float free of the wallpaper, so they stay solid. */
+	--form-surface-background: rgb(9 17 26 / 0.86);
+	--panel-control-bg: rgb(190 226 255 / 0.08);
+	--panel-control-border: rgb(190 226 255 / 0.16);
+	--panel-control-divider: rgb(190 226 255 / 0.12);
+	--panel-control-highlight: rgb(255 255 255 / 0.06);
+
+	--background-modifier-hover: rgb(190 226 255 / 0.07);
+	--background-modifier-selected: rgb(67 181 129 / 0.18);
+	--background-modifier-accent: rgb(190 226 255 / 0.14);
+	--background-modifier-accent-focus: rgb(190 226 255 / 0.22);
+
+	--surface-interactive-hover-bg: rgb(190 226 255 / 0.07);
+	--surface-interactive-selected-bg: rgb(67 181 129 / 0.18);
+	--surface-interactive-selected-color: #f2fbff;
+
+	--bg-primary: rgb(9 17 26 / 0.62);
+	--bg-secondary: rgb(5 11 19 / 0.12);
+	--bg-tertiary: rgb(3 7 12 / 0.7);
+	--bg-hover: rgb(190 226 255 / 0.07);
+	--bg-active: rgb(67 181 129 / 0.18);
+	--bg-blockquote: rgb(190 226 255 / 0.05);
+	--bg-table-header: rgb(190 226 255 / 0.08);
+	--bg-table-row-even: rgb(190 226 255 / 0.03);
+	--bg-table-row-odd: transparent;
+
+	/* ----------------------------------------------------------- the ink */
+
+	--text-primary: #f2fbff;
+	--text-secondary: #d3e6f2;
+	--text-primary-muted: #a9c2d2;
+	--text-chat: #dcecf6;
+	--text-chat-muted: #93aebf;
+	--text-tertiary: #97b0c1;
+	--text-tertiary-secondary: #8099ab;
+	--text-tertiary-muted: #8099ab;
+	--text-link: #7fd7ff;
+	--text-on-brand-primary: #04120c;
+	--text-selection: rgb(67 181 129 / 0.35);
+	--text-warning: #faa61a;
+	--interactive-active: #f2fbff;
+	--interactive-muted: #5e7385;
+
+	/* --------------------------------------------------------- the mint */
+
+	/* rgb(67, 181, 129) is NotAnotherAnimeTheme's --main-theme-color. */
+	--accent-primary: #43b581;
+	--accent-info: #7fd7ff;
+	--accent-success: #43b581;
+	--accent-warning: #faa61a;
+	--accent-danger: #f04747;
+	--accent-purple: #a68bff;
+
+	--brand-primary: #43b581;
+	--brand-primary-fill: #3aa676;
+	--brand-primary-light: #5fe3ab;
+	--brand-secondary: #7fd7ff;
+
+	--status-online: #43b581;
+	--status-idle: #faa61a;
+	--status-dnd: #f04747;
+	--status-offline: #55697a;
+	--status-danger: #f04747;
+	--status-warning: #faa61a;
+
+	/* ------------------------------------------------------ the hairlines */
+
+	/*
+	 * A pane needs an edge or it stops reading as a pane. These are the only
+	 * thing separating one sheet of glass from the next.
+	 */
+	--border-color: rgb(190 226 255 / 0.14);
+	--border-color-hover: rgb(190 226 255 / 0.26);
+	--border-color-focus: #43b581;
+	--focus-primary: #43b581;
+	--theme-border: rgb(190 226 255 / 0.14);
+	--theme-border-width: 1px;
+	--user-area-divider-color: rgb(190 226 255 / 0.14);
+	--code-block-border: rgb(190 226 255 / 0.14);
+
+	--shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+	--shadow-md: 0 2px 6px rgb(0 0 0 / 0.36), 0 1px 2px rgb(0 0 0 / 0.24);
+	--shadow-lg: 0 6px 16px rgb(0 0 0 / 0.42), 0 2px 6px rgb(0 0 0 / 0.28);
+	--shadow-xl: 0 16px 40px rgb(0 0 0 / 0.5), 0 6px 14px rgb(0 0 0 / 0.32);
+
+	/* ------------------------------------------------------- the controls */
+
+	--button-primary-fill: #3aa676;
+	--button-primary-active-fill: #43b581;
+	--button-primary-text: #04120c;
+	--button-secondary-fill: rgb(190 226 255 / 0.1);
+	--button-secondary-active-fill: rgb(190 226 255 / 0.16);
+	--button-secondary-text: #d3e6f2;
+	--button-secondary-active-text: #f2fbff;
+	--button-danger-fill: #d33f3f;
+	--button-danger-active-fill: #f04747;
+	--button-danger-text: #fff5f5;
+	--button-outline-border: 1px solid rgb(190 226 255 / 0.24);
+	--button-outline-active-border: 1px solid rgb(190 226 255 / 0.4);
+	--button-outline-active-fill: rgb(190 226 255 / 0.1);
+	--button-outline-text: #f2fbff;
+	--button-ghost-text: #d3e6f2;
+	--button-inverted-fill: #f2fbff;
+	--button-inverted-text: #04120c;
+
+	--control-button-normal-bg: transparent;
+	--control-button-normal-text: #97b0c1;
+	--control-button-hover-bg: rgb(190 226 255 / 0.1);
+	--control-button-hover-text: #dcecf6;
+	--control-button-active-bg: rgb(67 181 129 / 0.2);
+	--control-button-active-text: #f2fbff;
+	--control-button-danger-hover-bg: rgb(240 71 71 / 0.16);
+	--control-button-danger-text: #f04747;
+
+	/* ----------------------------------------------------------- the code */
+
+	/* The source theme puts code on rgba(0, 0, 0, 0.6). Same idea. */
+	--code-text: #dcecf6;
+	--text-code: #dcecf6;
+	--code-muted: #71899a;
+	--bg-code: rgb(0 0 0 / 0.45);
+	--code-inline-bg: rgb(0 0 0 / 0.45);
+	--bg-code-block: rgb(0 0 0 / 0.5);
+	--code-block-bg: rgb(0 0 0 / 0.5);
+	--code-block-highlight: rgb(67 181 129 / 0.14);
+
+	/* --------------------------------------------------------- the markup */
+
+	/* Amber mentions, straight out of NotAnotherAnimeTheme. */
+	--markup-mention-fill: rgb(250 166 26 / 0.14);
+	--markup-mention-text: #ffc266;
+	--markup-mention-border: rgb(250 166 26 / 0.45);
+	--markup-everyone-fill: rgb(250 166 26 / 0.14);
+	--markup-everyone-text: #ffc266;
+	--markup-everyone-border: rgb(250 166 26 / 0.45);
+	--markup-here-fill: rgb(250 166 26 / 0.14);
+	--markup-here-text: #ffc266;
+	--markup-here-border: rgb(250 166 26 / 0.45);
+	--markup-jump-link-fill: rgb(127 215 255 / 0.16);
+	--markup-jump-link-text: #7fd7ff;
+	--markup-jump-link-hover-fill: rgb(127 215 255 / 0.24);
+	--markup-interactive-hover-fill: rgb(127 215 255 / 0.24);
+	--markup-interactive-hover-text: #7fd7ff;
+
+	--message-mention-bg: rgb(250 166 26 / 0.06);
+	--message-mention-bg-hover: rgb(250 166 26 / 0.1);
+	--message-mention-color: #faa61a;
+	--message-timestamp-color: #8099ab;
+	--message-reply-color: #97b0c1;
+	--message-reply-bg: rgb(127 215 255 / 0.1);
+
+	--spoiler-overlay-color: rgb(190 226 255 / 0.14);
+	--spoiler-overlay-hover-color: rgb(190 226 255 / 0.22);
+
+	--alert-note-color: #7fd7ff;
+	--alert-tip-color: #43b581;
+	--alert-important-color: #a68bff;
+	--alert-warning-color: #faa61a;
+	--alert-caution-color: #f04747;
+
+	/* rgba(200, 200, 200, 0.2), the source theme's scrollbar. */
+	--scrollbar-track-bg: transparent;
+	--scrollbar-thumb-bg: rgb(200 200 200 / 0.2);
+	--scrollbar-thumb-bg-hover: rgb(200 200 200 / 0.4);
+}
+
+/* ------------------------------------------------------------ the aurora */
+
+/*
+ * Four soft lights over a near black gradient, then a fine speckle for the
+ * frost. The lights drift, the speckle holds still, which is what keeps this
+ * from looking like a screensaver.
+ */
+html {
+	background-color: #04070c;
+	background-image:
+		radial-gradient(60% 55% at 14% 10%, rgb(67 181 129 / 0.55) 0%, transparent 62%),
+		radial-gradient(55% 50% at 86% 8%, rgb(84 178 255 / 0.45) 0%, transparent 64%),
+		radial-gradient(65% 60% at 78% 88%, rgb(126 92 255 / 0.4) 0%, transparent 66%),
+		radial-gradient(50% 45% at 26% 92%, rgb(95 227 171 / 0.32) 0%, transparent 64%),
+		radial-gradient(circle at 50% 50%, rgb(226 244 255 / 0.06) 0 0.5px, transparent 1.1px),
+		linear-gradient(163deg, #0d202e 0%, #060e18 42%, #0a1a25 72%, #03060a 100%);
+	background-size:
+		180% 170%,
+		170% 160%,
+		190% 180%,
+		160% 150%,
+		3px 3px,
+		100% 100%;
+	background-position:
+		0% 0%,
+		100% 0%,
+		100% 100%,
+		0% 100%,
+		0 0,
+		0 0;
+	background-attachment: fixed;
+	animation: frostpane-aurora 96s ease-in-out infinite alternate;
+}
+
+@keyframes frostpane-aurora {
+	to {
+		background-position:
+			34% 22%,
+			62% 26%,
+			58% 72%,
+			38% 68%,
+			0 0,
+			0 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		animation: none;
+	}
+}
