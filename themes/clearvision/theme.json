@@ -1,0 +1,22 @@
+{
+	"name": "ClearVision",
+	"description": "The sapphire wallpaper theme, electric blue on shaded glass. A port of ClearVision v7.",
+	"author": "ClearVision Team, ported by fluxer-theme-library",
+	"homepage": "https://github.com/ClearVision/ClearVision-v7",
+	"license": "Apache-2.0",
+	"tags": ["dark", "blue", "glass", "wallpaper", "translucent", "port"],
+	"variants": [
+		{
+			"name": "Ash",
+			"file": "ash.css",
+			"base": "dark",
+			"description": "The default shading, wallpaper clearly visible."
+		},
+		{
+			"name": "Onyx",
+			"file": "onyx.css",
+			"base": "dark",
+			"description": "The heaviest shading, for people who like their glass nearly black."
+		}
+	]
+}

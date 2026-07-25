@@ -1,0 +1,16 @@
+{
+	"name": "Frosted Glass",
+	"description": "A blurred wallpaper behind every panel, purple and indigo accents. A port of FrostedGlass by Gibbu.",
+	"author": "Gibbu and DiscordStyles, ported by fluxer-theme-library",
+	"homepage": "https://github.com/DiscordStyles/FrostedGlass",
+	"license": "MIT",
+	"tags": ["dark", "glass", "blur", "wallpaper", "purple", "port"],
+	"variants": [
+		{
+			"name": "Frost",
+			"file": "frost.css",
+			"base": "dark",
+			"description": "The default wallpaper at 5px blur, one flattened veil."
+		}
+	]
+}

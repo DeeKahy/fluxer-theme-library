@@ -1,0 +1,16 @@
+{
+	"name": "Discord+",
+	"description": "Plum tinted glass over a moonlit backdrop, rounded corners everywhere. A port of Discord+ by PlusInsta.",
+	"author": "PlusInsta, ported by fluxer-theme-library",
+	"homepage": "https://github.com/PlusInsta/discord-plus",
+	"license": "MIT",
+	"tags": ["dark", "pink", "plum", "glass", "rounded", "port"],
+	"variants": [
+		{
+			"name": "Dusk",
+			"file": "dusk.css",
+			"base": "dark",
+			"description": "The dark default, hue 320 at the stock knobs."
+		}
+	]
+}
