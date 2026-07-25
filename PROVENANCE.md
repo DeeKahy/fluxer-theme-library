@@ -86,22 +86,36 @@ where the app is served. `fluxer.app` is the marketing site and returns 404 for
 - rate limit is 20 per minute, bucket `theme:share:create`, from
   `fluxer_api/src/api/rate_limit_configs/MiscRateLimitConfig.ts`
 
-### data-flx attributes
+### Selector hooks: class names and data-flx
 
-The mock uses upstream's `data-flx="feature.component.element"` convention on its
-elements. Some themes target these attributes, so keeping the convention makes
-those themes work here.
+Upstream's build keeps the source module and element name in every emitted
+class, so elements carry `Component.module__element_<hash>`. The hash changes
+between builds, the prefix does not, and
+`[class*="Component.module__element_"]` is the selector that survives
+updates. This is how themes in the wild restyle the client; the community
+snippet collection at
+[carlfully/fluxer-snippets](https://github.com/carlfully/fluxer-snippets)
+is built on it and its CONTRIBUTING.md documents the convention.
 
-Upstream generates the values with `fluxer_app/scripts/add-data-flx-attributes.mjs`,
-which derives them from file and component names, so they are stable across
-builds in a way the hashed class names are not. They are the only real
-selectors a Fluxer theme has.
+The mock exposes the same hooks. Its main regions carry the client's class
+name prefixes with an invented `_flxmock` suffix standing in for the hash:
+the app container, the guild rail and its sections, the channel sidebar, the
+user area, the chat header, the message area, the composer and the member
+list. The composer is one element standing in for the client's textarea area
+and the input box inside it, so it carries both prefixes. Prefixes on the
+guild rail come from `GuildsLayout.tsx` at the pinned commit; the rest are
+the ones the snippet collection targets in the live client.
 
-The guild rail in the mock carries the client's actual values, read from
+The mock also keeps upstream's `data-flx="feature.component.element"`
+convention. Upstream generates those values with
+`fluxer_app/scripts/add-data-flx-attributes.mjs`, deriving them from file and
+component names, so they are stable across builds too, and some themes
+target them. The guild rail carries the client's actual values, read from
 `GuildsLayout.tsx` at the pinned commit:
 
 - `app.guilds-layout.guild-list.guild-list-scroller-wrapper` on the rail
-- `app.guilds-layout.guild-list.guild-list-top-section` around the home button
+- `app.guilds-layout.guild-list.guild-list-top-section` around the home and
+  favourites buttons
 - `app.guilds-layout.guild-list.guild-list-guilds-section` around everything below
   it, whose loose children are the Explore, Add, Download and Help buttons
 - `app.guilds-layout.guild-list.guild-list-items` around the guild icons

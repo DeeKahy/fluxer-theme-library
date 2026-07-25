@@ -62,8 +62,10 @@ svg {
 .app {
 	background: var(--background-primary);
 	display: grid;
+	/* The rail track is sized by the rail itself, because a multi column
+	   server list theme widens .guilds past --layout-guild-list-width. */
 	grid-template-columns:
-		var(--layout-guild-list-width)
+		auto
 		var(--layout-sidebar-width)
 		minmax(0, 1fr)
 		var(--member-list-width, 16.5rem);
@@ -86,14 +88,17 @@ svg {
 	overflow: hidden;
 	padding-bottom: var(--spacing-2);
 	padding-top: var(--spacing-1);
+	width: var(--layout-guild-list-width);
 }
 
 /* guildListTopSection and guildListItems upstream. Invisible by default so
    the rail lays out exactly as one flex column, but a theme that grids them
-   through their data-flx attributes gets a real box to work with, which is
-   how a multi column server list is done. */
+   through their class hooks gets a real box to work with, which is how a
+   multi column server list is done. justify-items only matters once a theme
+   turns the section into a grid. */
 .guilds-section {
 	display: contents;
+	justify-items: center;
 	width: 100%;
 }
 
@@ -120,13 +125,24 @@ svg {
 }
 
 .guild.is-selected .guild-glyph {
+	background: var(--brand-primary);
 	border-radius: var(--radius-xl);
+	color: var(--text-on-brand-primary);
 }
 
-.guild.is-home .guild-glyph,
-.guild.is-selected .guild-glyph {
+/* Single class selectors on purpose: themes repaint the home and favourites
+   buttons through [class*="..."] hooks at the same specificity, and the
+   theme is mounted later, so it wins. */
+.guild-glyph-home {
 	background: var(--brand-primary);
 	color: var(--text-on-brand-primary);
+	padding: 0.6875rem;
+}
+
+.guild-glyph-favs {
+	background: var(--guild-list-foreground);
+	color: var(--text-primary);
+	padding: 0.6875rem;
 }
 
 .guild.is-add .guild-glyph {
@@ -793,6 +809,9 @@ svg {
 	margin: 0 var(--chat-horizontal-padding) var(--spacing-4);
 	min-height: var(--textarea-min-height);
 	padding: 0 1rem;
+	/* Anchors theme pseudo elements, the way the client's textarea area
+	   does. The oneko snippet parks its cat on this. */
+	position: relative;
 }
 
 .composer-button {

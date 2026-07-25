@@ -13,6 +13,9 @@
 	    (features/theme/hooks/useThemeCssVariables.ts)
 	  - every --token name, generated into vendor/tokens.css
 	  - the data-flx attribute convention, which some themes target
+	  - the stable class name prefixes, Component.module__element_, which
+	    most themes target through [class*="..."]. The _flxmock suffix
+	    stands in for the per build hash. See PROVENANCE.md.
 -->
 <html lang="en" class="theme-dark">
 	<head>
@@ -23,45 +26,53 @@
 		<link rel="stylesheet" href="shell.css" />
 	</head>
 	<body>
-		<div class="app" data-flx="app.guilds-layout">
-			<!-- guild rail, GuildsLayout guildListScrollerWrapper. The rail's
-			     data-flx values are the client's real generated ones, see
-			     PROVENANCE.md, because themes restyle the rail through them.
-			     The section wrappers render as display: contents, so they are
-			     invisible until a theme gives them a layout. -->
-			<nav class="guilds" data-flx="app.guilds-layout.guild-list.guild-list-scroller-wrapper">
-				<div class="guilds-section" data-flx="app.guilds-layout.guild-list.guild-list-top-section">
-					<div class="guild is-home" data-flx="app.guilds-layout.guild-list.fluxer-button"><span class="guild-glyph">F</span></div>
-					<div class="guild-divider" data-flx="app.guilds-layout.guild-list.guild-divider" aria-hidden="true"></div>
+		<div class="app App.module__appContainer_flxmock GuildsLayout.module__guildsLayoutContainer_flxmock" data-flx="app.guilds-layout">
+			<!-- guild rail, GuildsLayout guildListScrollerWrapper. Rail
+			     elements carry the client's stable class name prefixes with
+			     an invented _flxmock suffix standing in for the per build
+			     hash, see PROVENANCE.md: themes and the community snippets
+			     restyle the client through [class*="..."] selectors, so the
+			     preview exposes the same hooks. The section wrappers render
+			     as display: contents, invisible until a theme grids them
+			     into a multi column server list. -->
+			<nav class="guilds GuildsLayout.module__guildListScrollerWrapper_flxmock" data-flx="app.guilds-layout.guild-list.guild-list-scroller-wrapper">
+				<div class="guilds-section GuildsLayout.module__guildListTopSection_flxmock" data-flx="app.guilds-layout.guild-list.guild-list-top-section">
+					<div class="guild is-home GuildsLayout.module__guildListItem_flxmock" data-flx="app.guilds-layout.guild-list.fluxer-button">
+						<svg class="guild-glyph guild-glyph-home GuildsLayout.module__fluxerButtonIcon_flxmock" aria-label="Fluxer application symbol" viewBox="0 0 16 16"><path d="M9.6 1.6 3.2 9.2h3.4L6 14.4l6.8-8H9.2z" fill="currentColor" /></svg>
+					</div>
+					<div class="guild is-favs GuildsLayout.module__guildListItem_flxmock" data-flx="app.guilds-layout.guild-list.favorites-button">
+						<svg class="guild-glyph guild-glyph-favs GuildsLayout.module__favoritesIcon_flxmock" viewBox="0 0 16 16"><path d="M8 1.7l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.4l-3.8 2.1.7-4.3-3.1-3 4.3-.6z" fill="currentColor" /></svg>
+					</div>
+					<div class="guild-divider GuildsLayout.module__guildDivider_flxmock" data-flx="app.guilds-layout.guild-list.guild-divider" aria-hidden="true"></div>
 				</div>
-				<div class="guilds-section" data-flx="app.guilds-layout.guild-list.guild-list-guilds-section">
-					<div class="guilds-section" data-flx="app.guilds-layout.guild-list.guild-list-items">
-						<div class="guild is-selected" data-flx="guild.list.item">
+				<div class="guilds-section GuildsLayout.module__guildListGuildsSection_flxmock" data-flx="app.guilds-layout.guild-list.guild-list-guilds-section">
+					<div class="guilds-section GuildsLayout.module__guildListItems_flxmock" data-flx="app.guilds-layout.guild-list.guild-list-items">
+						<div class="guild is-selected GuildsLayout.module__guildListItem_flxmock" data-flx="guild.list.item">
 							<span class="guild-pill" aria-hidden="true"></span>
 							<span class="guild-glyph guild-a">PX</span>
 						</div>
-						<div class="guild" data-flx="guild.list.item">
+						<div class="guild GuildsLayout.module__guildListItem_flxmock" data-flx="guild.list.item">
 							<span class="guild-glyph guild-b">DS</span>
 							<span class="guild-badge">3</span>
 						</div>
-						<div class="guild" data-flx="guild.list.item"><span class="guild-glyph guild-c">LO</span></div>
+						<div class="guild GuildsLayout.module__guildListItem_flxmock" data-flx="guild.list.item"><span class="guild-glyph guild-c">LO</span></div>
 					</div>
 					<!-- Loose children of the guilds section, like the client's
 					     Explore, Add, Download and Help buttons. -->
-					<div class="guild is-add" data-flx="app.guilds-layout.guild-list.add-guild-button"><span class="guild-glyph">+</span></div>
+					<div class="guild is-add GuildsLayout.module__guildListItem_flxmock" data-flx="app.guilds-layout.guild-list.add-guild-button"><span class="guild-glyph">+</span></div>
 				</div>
 			</nav>
 
 			<!-- channel sidebar, GuildNavbar -->
-			<aside class="sidebar" data-flx="guild.navbar">
-				<header class="guild-header" data-flx="guild.header">
+			<aside class="sidebar GuildNavbar.module__guildNavbarContainer_flxmock" data-flx="guild.navbar">
+				<header class="guild-header GuildHeader.module__headerContainer_flxmock" data-flx="guild.header">
 					<span class="guild-header-name">Pixel Foundry</span>
 					<span class="guild-header-chevron" aria-hidden="true">
 						<svg viewBox="0 0 16 16"><path d="M4 6.2 8 10l4-3.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
 					</span>
 				</header>
 
-				<div class="channels" data-flx="channel.list">
+				<div class="channels ChannelListContent.module__channelListScroller_flxmock" data-flx="channel.list">
 					<div class="channel-category" data-flx="channel.category">Welcome</div>
 					<div class="channel" data-flx="channel.item">
 						<span class="channel-icon">#</span><span class="channel-name">rules</span>
@@ -91,7 +102,7 @@
 					</div>
 				</div>
 
-				<div class="user-area" data-flx="user.area">
+				<div class="user-area UserArea.module__userAreaInnerWrapper_flxmock" data-flx="user.area">
 					<span class="avatar avatar-sm avatar-you">
 						<span class="avatar-glyph">RK</span>
 						<span class="status-dot" data-status="online"></span>
@@ -112,8 +123,8 @@
 			</aside>
 
 			<!-- chat column, guildMainContent -->
-			<main class="chat" data-flx="channel.chat">
-				<header class="chat-header" data-flx="channel.header">
+			<main class="chat GuildLayout.module__guildMainContent_flxmock" data-flx="channel.chat">
+				<header class="chat-header ChannelHeader.module__headerContainer_flxmock" data-flx="channel.header">
 					<span class="chat-header-icon">#</span>
 					<span class="chat-header-name">showcase</span>
 					<span class="chat-header-divider" aria-hidden="true"></span>
@@ -121,7 +132,7 @@
 					<span class="chat-header-pill">41 online</span>
 				</header>
 
-				<div class="messages" data-flx="messaging.scroller">
+				<div class="messages ChannelChatLayout.module__messagesArea_flxmock" data-flx="messaging.scroller">
 					<article class="message" data-flx="messaging.message">
 						<span class="avatar avatar-sunniva"><span class="avatar-glyph">SU</span></span>
 						<div class="message-content">
@@ -196,7 +207,9 @@
 					<span class="typing-text"><b>marek</b> is typing...</span>
 				</div>
 
-				<div class="composer" data-flx="channel.textarea">
+				<!-- One element stands in for the client's textarea area and
+				     the input box inside it, so it carries both hooks. -->
+				<div class="composer ChannelChatLayout.module__textareaArea_flxmock InputWrapper.module__box_flxmock" data-flx="channel.textarea">
 					<span class="composer-button">
 						<svg viewBox="0 0 16 16"><path d="M8 3.4v9.2M3.4 8h9.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
 					</span>
@@ -208,7 +221,7 @@
 			</main>
 
 			<!-- member list, MemberListContainer -->
-			<aside class="members" data-flx="member.list">
+			<aside class="members MemberListContainer.module__memberListContainer_flxmock" data-flx="member.list">
 				<div class="member-category">Maintainers, 2</div>
 				<div class="member" data-flx="member.list.item">
 					<span class="avatar avatar-sm avatar-sunniva"><span class="avatar-glyph">SU</span><span class="status-dot" data-status="online"></span></span>
