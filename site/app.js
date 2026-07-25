@@ -107,15 +107,26 @@
 
 	/* ---------------------------------------------------------- list rows */
 
+	// A theme with a wallpaper leaves the stacked chrome tokens transparent and
+	// tints from the app container instead, so secondary can be nothing to look
+	// at. Fall through to the next surface down rather than draw a hole.
+	function surface(variant, tokens, fallback) {
+		for (var i = 0; i < tokens.length; i++) {
+			var value = variant.swatch[tokens[i]];
+			if (value && value !== 'transparent') return value;
+		}
+		return fallback;
+	}
+
 	function swatch(variant) {
 		// Secondary is the dominant surface in the real client, so the swatch
 		// leads with it rather than with primary.
 		var wrap = document.createElement('span');
 		wrap.className = 'row-swatch';
-		wrap.style.background = variant.swatch['--background-secondary'] || '#141418';
+		wrap.style.background = surface(variant, ['--background-secondary', '--background-primary'], '#141418');
 
 		var rail = document.createElement('i');
-		rail.style.background = variant.swatch['--background-tertiary'] || 'rgba(0,0,0,.35)';
+		rail.style.background = surface(variant, ['--background-tertiary', '--background-primary'], 'rgba(0,0,0,.35)');
 
 		var body = document.createElement('b');
 		var bar = document.createElement('span');
