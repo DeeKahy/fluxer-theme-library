@@ -17,13 +17,17 @@
 			"name": "Terminal",
 			"file": "terminal.css",
 			"base": "dark",
-			"description": "With the CRT scanlines, the way the original ships."
+			"description": "With the CRT scanlines, the way the original ships.",
+			"fluxerThemeId": "5dd72cddea0e50b2",
+			"fluxerThemeHash": "be3e923ee67f3f948b07ec5137b6847287b065f49d6b8615453f41d38078a850"
 		},
 		{
 			"name": "No CRT",
 			"file": "no-crt.css",
 			"base": "dark",
-			"description": "The same terminal with the scanline overlay removed."
+			"description": "The same terminal with the scanline overlay removed.",
+			"fluxerThemeId": "4a9e158890e6157a",
+			"fluxerThemeHash": "d44e9418975c11bf86c838bacb1bc4280bfcb6065aa0395f7500e42fa217c06c"
 		}
 	]
 }
