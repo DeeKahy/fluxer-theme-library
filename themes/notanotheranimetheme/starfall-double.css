@@ -289,7 +289,6 @@ html.platform-native.platform-macos {
 [data-flx='app.guilds-layout.guild-list.guild-list-items'] {
 	display: grid;
 	grid-template-columns: repeat(2, var(--guild-list-item-box-size, 3rem));
-	grid-auto-rows: minmax(var(--guild-list-item-box-size, 3rem), auto);
 	justify-content: center;
 	justify-items: center;
 	align-items: center;
@@ -305,6 +304,13 @@ html.platform-native.platform-macos {
 [data-flx*='app.guilds-layout.guild-list.guild-divider'],
 [data-flx*='drop-zone'] {
 	grid-column: 1 / -1;
+}
+
+/* The client renders the DM section even when nothing is in it. An empty
+   grid child still claims a row and its gaps, which reads as a hole under
+   the two top buttons, so it stops being laid out at all. */
+[data-flx='app.guilds-layout.guild-list.dm-list-section']:empty {
+	display: none;
 }
 
 /*
