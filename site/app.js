@@ -296,6 +296,11 @@
 		url.searchParams.set('variant', variant.id);
 		window.history.replaceState({}, '', url);
 
+		// Canonical stays at theme level, matching the sitemap. Variants of a
+		// theme are the same page.
+		var canonical = document.querySelector('link[rel="canonical"]');
+		if (canonical) canonical.href = url.origin + url.pathname + '?theme=' + encodeURIComponent(theme.slug);
+
 		renderList();
 		renderVariantChips();
 		renderApply();

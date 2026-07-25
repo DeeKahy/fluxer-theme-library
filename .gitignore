@@ -1,5 +1,6 @@
 # Generated on every Pages deploy, and by scripts/build-index.mjs locally.
 themes/index.json
+sitemap.xml
 
 # Local assistant notes, not part of the project.
 CLAUDE.md
