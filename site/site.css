@@ -110,6 +110,13 @@ input {
 	font-weight: 800;
 	letter-spacing: -0.01em;
 	margin: 0;
+	/* Clicking this repeatedly does something. Stop it selecting the text on the
+	   way there. */
+	user-select: none;
+}
+
+.masthead h1.is-summoned {
+	color: var(--accent);
 }
 
 .masthead p {

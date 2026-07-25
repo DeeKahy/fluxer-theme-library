@@ -6,6 +6,9 @@
  * BetterDiscord ports. This is our own implementation and our own drawing, so
  * there is no third party sprite sheet to hotlink or redistribute.
  *
+ * It is an easter egg: click the Fluxer Theme Library heading five times in a
+ * row to summon it. Nothing on the page advertises this.
+ *
  * It lives on this page and not in any theme. A Fluxer theme is a stylesheet,
  * the share endpoint stores nothing but CSS, and the client has no plugin
  * system, so cursor chasing is not something a theme can do. Putting it here
@@ -114,36 +117,37 @@
 		],
 	};
 
-	var cat = document.createElement('div');
-	cat.id = 'library-cat';
-	cat.setAttribute('aria-hidden', 'true');
-	document.body.appendChild(cat);
+	function summon() {
+		var cat = document.createElement('div');
+		cat.id = 'library-cat';
+		cat.setAttribute('aria-hidden', 'true');
+		document.body.appendChild(cat);
 
-	var catX = window.innerWidth - 120;
-	var catY = window.innerHeight - 120;
-	var mouseX = catX;
-	var mouseY = catY;
-	var idleTicks = 0;
-	var frame = 0;
-	var facingLeft = false;
+		var catX = window.innerWidth - 120;
+		var catY = window.innerHeight - 120;
+		var mouseX = catX;
+		var mouseY = catY;
+		var idleTicks = 0;
+		var frame = 0;
+		var facingLeft = false;
 
-	document.addEventListener(
-		'mousemove',
-		function (event) {
-			mouseX = event.clientX;
-			mouseY = event.clientY;
-		},
-		{passive: true},
-	);
+		document.addEventListener(
+			'mousemove',
+			function (event) {
+				mouseX = event.clientX;
+				mouseY = event.clientY;
+			},
+			{passive: true},
+		);
 
-	// Keeps the cat on screen. Called every tick rather than only while it is
-	// running, because the viewport can be zero width at load and can change
-	// size underneath a sleeping cat.
-	function clamp() {
-		var w = Math.max(window.innerWidth, 64);
-		var h = Math.max(window.innerHeight, 64);
-		catX = Math.min(Math.max(16, catX), w - 16);
-		catY = Math.min(Math.max(16, catY), h - 16);
+		// Keeps the cat on screen. Called every tick rather than only while it is
+		// running, because the viewport can be zero width at load and can change
+		// size underneath a sleeping cat.
+		function clamp() {
+			var w = Math.max(window.innerWidth, 64);
+			var h = Math.max(window.innerHeight, 64);
+			catX = Math.min(Math.max(16, catX), w - 16);
+			catY = Math.min(Math.max(16, catY), h - 16);
 	}
 
 	function place() {
@@ -199,4 +203,31 @@
 	cat.style.backgroundImage = POSES.sit;
 	place();
 	window.requestAnimationFrame(loop);
+	}
+
+	/* ------------------------------------------------------------ the egg */
+
+	var title = document.querySelector('.masthead h1');
+	if (!title) return;
+
+	var CLICKS_NEEDED = 5;
+	var RESET_AFTER_MS = 1200; // a pause breaks the streak, so it has to be five in a row
+
+	var clicks = 0;
+	var lastClick = 0;
+	var summoned = false;
+
+	title.addEventListener('click', function () {
+		if (summoned) return;
+
+		var now = Date.now();
+		clicks = now - lastClick > RESET_AFTER_MS ? 1 : clicks + 1;
+		lastClick = now;
+
+		if (clicks < CLICKS_NEEDED) return;
+
+		summoned = true;
+		title.classList.add('is-summoned');
+		summon();
+	});
 })();
