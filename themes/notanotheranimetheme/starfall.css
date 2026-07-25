@@ -52,6 +52,14 @@
 	   rgba(0, 0, 0, 0.8) glass. Raise it to see more wallpaper. */
 	--ThemeBackgroundOpacity: 0.2;
 
+	/* Fluxer stacks --background-secondary several layers deep. The class
+	   lists below clear the panels the template knows about; this keeps
+	   every surface it does not know about, the DM page included, from
+	   painting opaque over the wallpaper. */
+	--background-secondary: transparent;
+	--background-channel-header: transparent;
+	--bg-secondary: transparent;
+
 
 	/* ------------------------------------------------------ the surfaces */
 

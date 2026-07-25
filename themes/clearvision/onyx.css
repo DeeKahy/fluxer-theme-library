@@ -38,6 +38,14 @@
 	/* The image at 0.2 over the base is the Onyx app shading, 0.8. */
 	--ThemeBackgroundOpacity: 0.2;
 
+	/* Fluxer stacks --background-secondary several layers deep. The class
+	   lists below clear the panels the template knows about; this keeps
+	   every surface it does not know about, the DM page included, from
+	   painting opaque over the wallpaper. */
+	--background-secondary: transparent;
+	--background-channel-header: transparent;
+	--bg-secondary: transparent;
+
 	/* --card-shading: the app container once, embeds twice. */
 	--background-primary: rgb(0 0 0 / 0.4);
 	--bg-primary: rgb(0 0 0 / 0.4);
