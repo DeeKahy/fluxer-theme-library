@@ -3,19 +3,30 @@
 	"description": "Frosting pink with a drifting sparkle backdrop and a cat asleep in the corner. Light and dark.",
 	"author": "fluxer-theme-library",
 	"license": "MIT",
-	"tags": ["pink", "cute", "sparkles", "cat", "light", "dark"],
+	"tags": [
+		"pink",
+		"cute",
+		"sparkles",
+		"cat",
+		"light",
+		"dark"
+	],
 	"variants": [
 		{
 			"name": "Frosting",
 			"file": "frosting.css",
 			"base": "light",
-			"description": "Strawberry frosting, bright and sweet."
+			"description": "Strawberry frosting, bright and sweet.",
+			"fluxerThemeId": "4bccd1aee5c9b31e",
+			"fluxerThemeHash": "89a69bf007336aab1c402cb97229aaa8cd9d2f669190e4cc343179ab678e2f8c"
 		},
 		{
 			"name": "Velvet",
 			"file": "velvet.css",
 			"base": "dark",
-			"description": "Red velvet after dark, easier on the eyes at 2am."
+			"description": "Red velvet after dark, easier on the eyes at 2am.",
+			"fluxerThemeId": "84a3c70e213c2301",
+			"fluxerThemeHash": "8151a6b92dccd9a914400c51278d6d8559344e82b49ebc44e8c341d7e738acf0"
 		}
 	]
 }
