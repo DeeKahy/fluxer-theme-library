@@ -44,6 +44,12 @@ jobs:
       - name: Build the theme index
         run: node scripts/build-index.mjs
 
+      # Versions the stylesheet and script URLs so a returning visitor cannot be
+      # served yesterday's JavaScript against today's markup. Runs against this
+      # checkout only, nothing is committed back.
+      - name: Version the asset URLs
+        run: node scripts/stamp-assets.mjs
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
