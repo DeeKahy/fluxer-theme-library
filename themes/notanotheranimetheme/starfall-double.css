@@ -308,8 +308,10 @@ html.platform-native.platform-macos {
 
 /* The client renders the DM section even when nothing is in it. An empty
    grid child still claims a row and its gaps, which reads as a hole under
-   the two top buttons, so it stops being laid out at all. */
-[data-flx='app.guilds-layout.guild-list.dm-list-section']:empty {
+   the two top buttons, so it stops being laid out at all. :empty misses an
+   element that contains a stray text node, so the :has form backs it up. */
+[data-flx='app.guilds-layout.guild-list.dm-list-section']:empty,
+[data-flx='app.guilds-layout.guild-list.dm-list-section']:not(:has(*)) {
 	display: none;
 }
 
