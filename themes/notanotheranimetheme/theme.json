@@ -25,7 +25,9 @@
 			"name": "Starfall Double",
 			"file": "starfall-double.css",
 			"base": "dark",
-			"description": "The same theme with the double column server list and home button image the original ships, built on snippets by carlfully and deeruwu."
+			"description": "The same theme with the double column server list and home button image the original ships, built on snippets by carlfully and deeruwu.",
+			"fluxerThemeId": "42ae7a666fccd0e7",
+			"fluxerThemeHash": "87e677bcf8bf9d20575c3b3ca7044ea4f2ba7a6f1da7850e44fba9dda7aa1bc6"
 		}
 	]
 }
