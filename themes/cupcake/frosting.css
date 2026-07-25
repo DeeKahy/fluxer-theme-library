@@ -9,14 +9,17 @@
 /* ---------------------------------------------------------------- palette */
 
 :root {
-	/* The main chrome is deliberately a little translucent so the animated
-	   backdrop on <html> shows through the rail, sidebar and chat column. */
-	--background-secondary: rgb(255 238 245 / 0.88);
+	/* The rail, sidebar and chat column are all --background-secondary, and
+	   Fluxer paints it on several nested elements, so anything translucent
+	   here composites to solid and hides the backdrop. Leave it be. The tint
+	   is --background-primary, which paints the app container exactly once,
+	   and again inside an embed. See PROVENANCE.md. */
+	--background-secondary: transparent;
 	--background-secondary-lighter: #ffe3ef;
 	--background-secondary-alt: #ffd6e8;
 	--background-tertiary: #ffc8de;
-	--background-primary: #fffafd;
-	--background-channel-header: rgb(255 238 245 / 0.88);
+	--background-primary: rgb(255 250 253 / 0.62);
+	--background-channel-header: transparent;
 	--background-header-primary: #ffd6e8;
 	--background-header-primary-hover: #ffc8de;
 	--background-header-secondary: #ffd6e8;
@@ -34,7 +37,7 @@
 	--surface-interactive-selected-bg: rgb(255 45 138 / 0.17);
 	--surface-interactive-selected-color: #4a0f2e;
 
-	--bg-primary: #fffafd;
+	--bg-primary: rgb(255 250 253 / 0.62);
 	--bg-secondary: #ffeef5;
 	--bg-tertiary: #ffc8de;
 	--bg-hover: rgb(255 45 138 / 0.09);
