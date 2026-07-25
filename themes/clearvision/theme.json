@@ -18,16 +18,16 @@
 			"file": "ash.css",
 			"base": "dark",
 			"description": "The default shading, wallpaper clearly visible.",
-			"fluxerThemeId": "e869f6348d5ba9b6",
-			"fluxerThemeHash": "bb945d4509ba72773f62b7ea54c185b3169b572064857d7f839cd22509289905"
+			"fluxerThemeId": "13aef111c2b14c12",
+			"fluxerThemeHash": "d5fa00d1e8d010fd3aff9cf7998a6f6c4d933a2b9a577cf0706076d5eebcf47d"
 		},
 		{
 			"name": "Onyx",
 			"file": "onyx.css",
 			"base": "dark",
 			"description": "The heaviest shading, for people who like their glass nearly black.",
-			"fluxerThemeId": "9d6942c1d0473b94",
-			"fluxerThemeHash": "95baab931c13c2304e2b8ec61071a966e6c2c96204f1606e5ee8eee7afc7296d"
+			"fluxerThemeId": "81617bb660793741",
+			"fluxerThemeHash": "35be3b8674a6b9594306c12463853808823170b966f5a0d20f90f3c8711679b7"
 		}
 	]
 }
