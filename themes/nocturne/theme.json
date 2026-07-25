@@ -15,16 +15,16 @@
 			"file": "midnight.css",
 			"base": "dark",
 			"description": "Near black indigo with a violet accent.",
-			"fluxerThemeId": "2ac7fe94fe34a793",
-			"fluxerThemeHash": "01cf33237fdc025f828fedf4080a2a002108d8e7c47b9ed33ad6abad18886570"
+			"fluxerThemeId": "f925d6d99f0e8855",
+			"fluxerThemeHash": "e8f8612c2e977a6e4236e2ffd8a9de4f4a134dad8e969cd2e7fb78035c2aebce"
 		},
 		{
 			"name": "Paper",
 			"file": "paper.css",
 			"base": "light",
 			"description": "Warm off white with the same violet accent.",
-			"fluxerThemeId": "590dbcc6a0cafcee",
-			"fluxerThemeHash": "4f1bc0d6c24974898d4527e48c0fe33eb6d2359ffb684cef2aac2db5a9bb21f0"
+			"fluxerThemeId": "9415cc5ff7144604",
+			"fluxerThemeHash": "75c58d48993c8490169da5b021b50d12c97916ec0300ed5da6e7345fc67690b9"
 		}
 	]
 }

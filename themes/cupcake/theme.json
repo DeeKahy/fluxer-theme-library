@@ -17,16 +17,16 @@
 			"file": "frosting.css",
 			"base": "light",
 			"description": "Strawberry frosting, bright and sweet.",
-			"fluxerThemeId": "877f5ca14b5607f9",
-			"fluxerThemeHash": "00e6702431506cd27e08ab04d67c4475e056d8bebd6854bf3cab982cf431c3b2"
+			"fluxerThemeId": "3b8234226430ee4c",
+			"fluxerThemeHash": "c36e59ba116abb4862b3b6d5b4f8ace315e3de04b12748634ac301d549b5f86f"
 		},
 		{
 			"name": "Velvet",
 			"file": "velvet.css",
 			"base": "dark",
 			"description": "Red velvet after dark, easier on the eyes at 2am.",
-			"fluxerThemeId": "a8b7a3cb96e64660",
-			"fluxerThemeHash": "e61120836d503535ca079c9c0dd294a45d8a98560b38b21aa4961b06e7c5c39a"
+			"fluxerThemeId": "c7a86d979525578c",
+			"fluxerThemeHash": "2cb141c916e4561b9ee2d47a6815e691b2e1af15eeabefa0e275266e7fec37ab"
 		}
 	]
 }

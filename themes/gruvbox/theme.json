@@ -17,16 +17,16 @@
 			"file": "dark.css",
 			"base": "dark",
 			"description": "Gruvbox dark medium, the default flavour.",
-			"fluxerThemeId": "83752fd4b7192653",
-			"fluxerThemeHash": "9924133752be3cc54d7abce7f48f3f5d5643c29d88699354232df7da951db641"
+			"fluxerThemeId": "d439bf234b38aba5",
+			"fluxerThemeHash": "1c31c65209ebac86d1f8314962a2cf109b2ce0ea22b9e3c54c55aa3cf7a3dc88"
 		},
 		{
 			"name": "Light",
 			"file": "light.css",
 			"base": "light",
 			"description": "Gruvbox light medium, for daytime.",
-			"fluxerThemeId": "1e77cd5802c70ca9",
-			"fluxerThemeHash": "9f67e33572718bbc210364dfde62799f07f4582d1f682eb669462e87035dbea9"
+			"fluxerThemeId": "9fb97a2c11a8c755",
+			"fluxerThemeHash": "311828d5b08649b925bd6c89d99ba85d0826d5fad2b53d44f76483973dc5380f"
 		}
 	]
 }
