@@ -145,6 +145,23 @@ surface token, not `--button-secondary-fill`.
 surface *and* the surface the entire app sits on, so a theme that picks a value
 for its embeds has also picked a sheet covering the whole window.
 
+### Platform overrides
+
+`app/globals.css` re-declares some tokens behind platform classes, and those
+selectors are more specific than `:root`, so a theme that only sets `:root`
+loses on the platforms they cover. The one found so far:
+
+```css
+html.platform-native.platform-macos {
+	--layout-guild-list-width: 4.75rem;
+}
+```
+
+A theme that changes the rail width has to match that selector too, or macOS
+desktop users get the stock width while the web app shows the themed one. The
+mock has no platform classes, so this difference never shows in a preview,
+which is exactly how it went unnoticed.
+
 ### Stacking
 
 Upstream paints the same token on several nested elements. Counting from the

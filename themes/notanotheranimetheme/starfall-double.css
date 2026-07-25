@@ -271,7 +271,15 @@
    and drag drop zones and dividers span both columns rather than occupying
    an icon cell.                                                           */
 
-:root {
+/*
+ * The macOS desktop app pins the rail width with a more specific selector,
+ * html.platform-native.platform-macos in app/globals.css, which quietly beats
+ * a plain :root override and clips the two columns to a one column width.
+ * Matching that selector wins the tie, because a theme's stylesheet is
+ * mounted after the client's own.
+ */
+:root,
+html.platform-native.platform-macos {
 	--layout-guild-list-width: 10rem;
 }
 
