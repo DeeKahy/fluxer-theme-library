@@ -200,8 +200,13 @@ For an opaque theme this makes no difference, and that is nearly every theme.
 For a theme with translucent chrome it makes a large one: five stacked layers at
 20% composite to 67%, and the rail and the chat column end up different shades.
 A translucent theme that reads correctly here can be much darker in the client,
-and banded across panels. The way out is to keep `--background-secondary` fully
-transparent and put the tint somewhere that is painted once.
+and banded across panels. There are two ways out. The old one is to keep
+`--background-secondary` fully transparent and put the tint somewhere that is
+painted once. The one the themes in this repo now use is deeruwu's transparent
+theme template from carlfully/fluxer-snippets: leave the stacked tokens alone,
+clear each container by class, and repaint the panels the theme wants painted,
+which sidesteps the compositing entirely and gives per panel control the token
+route never had.
 
 Header dividers use `--user-area-divider-color` at `0.0625rem`, the member list
 is `16.5rem` wide, channel rows carry a `0.375rem` radius with `0.5rem` outer

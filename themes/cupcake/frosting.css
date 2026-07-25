@@ -1,7 +1,7 @@
 /**
  * @name Cupcake Frosting
  * @description Strawberry frosting pink, with a drifting sparkle backdrop and the oneko cat asleep on the message box.
- * @author fluxer-theme-library, oneko snippet by AZ
+ * @author fluxer-theme-library, oneko snippet by AZ, template by deeruwu
  * @version 1.0.0
  * @tags pink, light, cute, sparkles, cat
  */
@@ -9,17 +9,13 @@
 /* ---------------------------------------------------------------- palette */
 
 :root {
-	/* The rail, sidebar and chat column are all --background-secondary, and
-	   Fluxer paints it on several nested elements, so anything translucent
-	   here composites to solid and hides the backdrop. Leave it be. The tint
-	   is --background-primary, which paints the app container exactly once,
-	   and again inside an embed. See PROVENANCE.md. */
-	--background-secondary: transparent;
+	/* The wash over the sparkles lives on the body::before layer below,
+	   deeruwu's transparent theme template structure. --background-primary
+	   keeps the same value for embeds. */
 	--background-secondary-lighter: #ffe3ef;
 	--background-secondary-alt: #ffd6e8;
 	--background-tertiary: #ffc8de;
 	--background-primary: rgb(255 250 253 / 0.62);
-	--background-channel-header: transparent;
 	--background-header-primary: #ffd6e8;
 	--background-header-primary-hover: #ffc8de;
 	--background-header-secondary: #ffd6e8;
@@ -144,32 +140,179 @@
    to nothing on somebody else's machine.                                    */
 
 html {
-	background-color: #ffdcea;
+	background: #ffdcea;
+}
+
+/* Keeps the mobile layout from painting over the backdrop. */
+body {
+	background: transparent !important;
+}
+
+/* The backdrop, painted exactly once: the wash on top, the sparkle field
+   under it, the colour ramp at the bottom. The wash layer is the same tint
+   --background-primary used to spread over the whole app. */
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: -1;
 	background-image:
+		linear-gradient(rgb(255 250 253 / 0.62), rgb(255 250 253 / 0.62)),
 		radial-gradient(circle at 20% 30%, rgb(255 255 255 / 0.9) 0 1.6px, transparent 2.6px),
 		radial-gradient(circle at 68% 14%, rgb(255 255 255 / 0.75) 0 1.2px, transparent 2.2px),
 		radial-gradient(circle at 42% 78%, rgb(255 214 232 / 0.95) 0 2px, transparent 3px),
 		radial-gradient(circle at 86% 62%, rgb(255 255 255 / 0.7) 0 1.4px, transparent 2.4px),
 		linear-gradient(146deg, #ffd9ec 0%, #ffeaf4 38%, #ffdce9 68%, #ffc9e0 100%);
 	background-size:
+		100% 100%,
 		230px 230px,
 		310px 310px,
 		270px 270px,
 		190px 190px,
 		100% 100%;
-	background-attachment: fixed;
 	animation: cupcake-sprinkles 26s linear infinite;
 }
 
 @keyframes cupcake-sprinkles {
 	to {
 		background-position:
+			0 0,
 			230px 230px,
 			-310px 310px,
 			270px -270px,
 			-190px -190px,
 			0 0;
 	}
+}
+
+/* ------------------------------------------------------ the transparency
+
+   Both selector lists are deeruwu's, verbatim, from the transparent theme
+   template in carlfully/fluxer-snippets. The first is the set of containers
+   that must go clear for the wallpaper to show; the second is the set the
+   template offers back for repainting. The surfaces this theme does paint
+   are put back right after. */
+
+html:not(.auth-page) [class*='App.module__appContainer_'],
+[class*='GuildsLayout.module__guildsLayoutContainer_'],
+[class*='GuildsLayout.module__guildListScrollContainer_'],
+[class*='GuildsLayout.module__contentContainer_'],
+[class*='UserArea.module__userAreaInnerWrapper_'],
+[class*='OutlineFrame.module__frame_'],
+[class*='GuildsLayout.module__contentInner_'],
+[class*='GuildLayout.module__guildLayoutContainer_'],
+[class*='ChannelListContent.module__channelListScroller_'],
+[class*='GuildLayout.module__guildMainContent_'],
+[class*='ChannelLayout.module__channelLayoutContainer_'],
+[class*='ChannelIndexPage.module__channelGrid_'],
+[class*='ChannelHeader.module__headerContainer_'],
+[class*='ChannelChatLayout.module__container_'],
+[class*='InputWrapper.module__box_'],
+[class*='GuildHeader.module__headerContainer_'],
+[class*='DMLayout.module__dmLayoutContainer_'],
+[class*='DMList.module__dmListContainer_'],
+[class*='DMList.module__dmListHeader_'],
+[class*='DMList.module__desktopScroller_'],
+[class*='DMList.module__dmChannelList_'],
+[class*='DMLayout.module__contentColumn_'],
+[class*='DMLayout.module__contentInner_'],
+[class*='DMFriendsView.module__container_'],
+[class*='UserProfileModal.module__modalContainer_'],
+[class*='Divider.module__text_'],
+[class*='Divider.module__dateWithUnreadText_'],
+[class*='SplashScreen.module__splashOverlay_'],
+[class*='MobileTextareaLayout.module__mobilePlusButton_'],
+[class*='MobileTextareaLayout.module__mobileInputContainer_'],
+[class*='MobileTextareaLayout.module__mobileVoiceButton_'],
+[class*='ChannelHeader.module__iconButtonMobile_'],
+[class*='NotificationsPage.module__container_'],
+[class*='SelectBottomSheet.module__trigger_'],
+[class*='NotificationsPage.module__bookmarkButton_'],
+[class*='YouPage.module__profile_'],
+[class*='YouPage.module__noteIconWrapper_'],
+[class*='DMList.module__mobileContainer_'],
+[class*='DMList.module__mobileScroller_'],
+[class*='DMList.module__mobileHeaderButton_'],
+[class*='DMList.module__mobileAddFriendButton_'],
+[class*='MemberListContainer.module__memberListScroller_'],
+[class*='ChannelSearchResults.module__container_'],
+[class*='GuildNavbarSkeleton.module__skeletonHeader_'] {
+	background: transparent;
+}
+
+/* loading splashscreen */
+[class*='SplashScreen.module__splashContent_'],
+/* server sidebar */
+[class*='GuildsLayout.module__guildListScroller'],
+/* dm list */
+[class*='DMLayout.module__dmListColumn_'],
+/* server channel list */
+[class*='GuildNavbar.module__guildNavbarContainer_'],
+/* self status */
+[class*='GuildsLayout.module__userAreaWrapper_'],
+/* channel header */
+[class*='ChannelHeader.module__headerWrapper_'],
+/* channel member list */
+[class*='MemberListContainer.module__memberListContainer_'],
+/* channel message container */
+[class*='ChannelChatLayout.module__messagesArea_'],
+/* chat input area */
+[class*='ChannelChatLayout.module__textareaArea_'],
+/* friendslist */
+[class*='DMFriendsView.module__content_'],
+/* friendslist active now panel */
+[class*='ActiveNowSidebar.module__sidebar_'],
+/* search results */
+[class*='ChannelIndexPage.module__searchPanel_'],
+/* settings panel */
+[class*='Modal.module__root_'],
+/* VC Server panel */
+[class*='VoiceCallView.module__root_'],
+/* VC Server panel empty */
+[class*='ChannelIndexPage.module__emptyStateContent_'],
+/* VC DMs panel */
+[class*='DMChannelView.module__callBanner_'],
+/* VC DMs panel active */
+[class*='DMChannelView.module__compactVoiceCallView_'],
+/* server member page */
+[class*='GuildMembersPage.module__pageContainer_'],
+/* server member page member table */
+[class*='GuildMembersPage.module__tableWrapper_'],
+/* mobile bottom nav */
+[class*='MobileBottomNav.module__container_'],
+/* mobile notifications page header */
+[class*='NotificationsPage.module__header_'],
+/* mobile notifications page content */
+[class*='NotificationsPage.module__content_'],
+/* mobile own profile page */
+[class*='YouPage.module__container_'],
+/* server discovery explore page */
+[class*='DiscoveryPage.module__container_'],
+/* auth page */
+[class*='AuthLayout.module__card_'],
+/* server unavailable */
+[class*='GuildLayout.module__guildUnavailableContainer_'],
+/* server unavailable channels skeleton */
+[class*='GuildNavbarSkeleton.module__skeletonContainer_'] {
+	background: transparent;
+}
+
+/* ------------------------------------------------- the surfaces kept
+
+   The lists above clear every panel; these put back the ones this theme
+   paints, reading the same tokens as before so the palette stays in one
+   place. Later than the lists on purpose, so they win the tie. */
+
+[class*='MemberListContainer.module__memberListContainer_'] {
+	background: var(--background-secondary-lighter);
+}
+
+[class*='InputWrapper.module__box_'] {
+	background: var(--background-textarea);
+}
+
+[class*='UserArea.module__userAreaInnerWrapper_'] {
+	background: var(--background-secondary-alt);
 }
 
 /* ------------------------------------------------------------- the oneko
@@ -212,7 +355,7 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-	html,
+	body::before,
 	[class*='ChannelChatLayout.module__textareaArea']::after {
 		animation: none;
 	}
