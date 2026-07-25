@@ -183,7 +183,20 @@
 		place();
 	}
 
+	// requestAnimationFrame with a timestamp gate rather than setInterval: it
+	// stays smooth when the tab is visible and stops cleanly when it is not,
+	// instead of drifting against a throttled timer.
+	var lastTick = 0;
+
+	function loop(timestamp) {
+		if (timestamp - lastTick >= TICK_MS) {
+			lastTick = timestamp;
+			tick();
+		}
+		window.requestAnimationFrame(loop);
+	}
+
 	cat.style.backgroundImage = POSES.sit;
 	place();
-	window.setInterval(tick, TICK_MS);
+	window.requestAnimationFrame(loop);
 })();
