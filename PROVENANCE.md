@@ -102,7 +102,10 @@ The guild rail in the mock carries the client's actual values, read from
 
 - `app.guilds-layout.guild-list.guild-list-scroller-wrapper` on the rail
 - `app.guilds-layout.guild-list.guild-list-top-section` around the home button
+- `app.guilds-layout.guild-list.guild-list-guilds-section` around everything below
+  it, whose loose children are the Explore, Add, Download and Help buttons
 - `app.guilds-layout.guild-list.guild-list-items` around the guild icons
+- `app.guilds-layout.guild-list.add-guild-button` on the add button
 - `app.guilds-layout.guild-list.guild-divider` on the divider
 
 The two section wrappers render as `display: contents` so the default rail is

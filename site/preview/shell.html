@@ -34,17 +34,21 @@
 					<div class="guild is-home" data-flx="app.guilds-layout.guild-list.fluxer-button"><span class="guild-glyph">F</span></div>
 					<div class="guild-divider" data-flx="app.guilds-layout.guild-list.guild-divider" aria-hidden="true"></div>
 				</div>
-				<div class="guilds-section" data-flx="app.guilds-layout.guild-list.guild-list-items">
-					<div class="guild is-selected" data-flx="guild.list.item">
-						<span class="guild-pill" aria-hidden="true"></span>
-						<span class="guild-glyph guild-a">PX</span>
+				<div class="guilds-section" data-flx="app.guilds-layout.guild-list.guild-list-guilds-section">
+					<div class="guilds-section" data-flx="app.guilds-layout.guild-list.guild-list-items">
+						<div class="guild is-selected" data-flx="guild.list.item">
+							<span class="guild-pill" aria-hidden="true"></span>
+							<span class="guild-glyph guild-a">PX</span>
+						</div>
+						<div class="guild" data-flx="guild.list.item">
+							<span class="guild-glyph guild-b">DS</span>
+							<span class="guild-badge">3</span>
+						</div>
+						<div class="guild" data-flx="guild.list.item"><span class="guild-glyph guild-c">LO</span></div>
 					</div>
-					<div class="guild" data-flx="guild.list.item">
-						<span class="guild-glyph guild-b">DS</span>
-						<span class="guild-badge">3</span>
-					</div>
-					<div class="guild" data-flx="guild.list.item"><span class="guild-glyph guild-c">LO</span></div>
-					<div class="guild is-add" data-flx="guild.list.add"><span class="guild-glyph">+</span></div>
+					<!-- Loose children of the guilds section, like the client's
+					     Explore, Add, Download and Help buttons. -->
+					<div class="guild is-add" data-flx="app.guilds-layout.guild-list.add-guild-button"><span class="guild-glyph">+</span></div>
 				</div>
 			</nav>
 

@@ -263,25 +263,39 @@
    token, and the wrap rides the data-flx attributes the client generates on
    the guild list (add-data-flx-attributes.mjs upstream), which are the only
    stable selectors a Fluxer theme has. If an update renames them, the rail
-   falls back to one column and nothing else breaks.                       */
+   falls back to one column and nothing else breaks.
+
+   The guilds section is gridded as well as the item list, because Explore,
+   Add, Download and Help are loose children of the section, not items. The
+   tracks are fixed at the item box size so nothing stretches or collides,
+   and drag drop zones and dividers span both columns rather than occupying
+   an icon cell.                                                           */
 
 :root {
-	--layout-guild-list-width: 8.25rem;
+	--layout-guild-list-width: 10rem;
 }
 
 [data-flx='app.guilds-layout.guild-list.guild-list-top-section'],
+[data-flx='app.guilds-layout.guild-list.guild-list-guilds-section'],
 [data-flx='app.guilds-layout.guild-list.dm-list-section'],
 [data-flx='app.guilds-layout.guild-list.guild-list-items'] {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-columns: repeat(2, var(--guild-list-item-box-size, 3rem));
+	grid-auto-rows: minmax(var(--guild-list-item-box-size, 3rem), auto);
+	justify-content: center;
 	justify-items: center;
-	align-items: start;
-	row-gap: var(--guild-icon-gap);
+	align-items: center;
+	column-gap: var(--guild-icon-gap);
+	row-gap: calc(var(--guild-icon-gap) / 2);
 	width: 100%;
 }
 
+/* Nested containers span both tracks and run their own grid. Dividers and
+   drag drop zones span too, so they never sit in an icon cell. */
 [data-flx='app.guilds-layout.guild-list.dm-list-section'],
-[data-flx*='app.guilds-layout.guild-list.guild-divider'] {
+[data-flx='app.guilds-layout.guild-list.guild-list-items'],
+[data-flx*='app.guilds-layout.guild-list.guild-divider'],
+[data-flx*='drop-zone'] {
 	grid-column: 1 / -1;
 }
 
