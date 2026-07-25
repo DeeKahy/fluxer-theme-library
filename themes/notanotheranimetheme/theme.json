@@ -1,0 +1,23 @@
+{
+	"name": "NotAnotherAnimeTheme",
+	"description": "puckzxz's Discord theme, ported to Fluxer. A wallpaper behind the whole client, black glass over it, mint green accents.",
+	"author": "puckzxz, ported by fluxer-theme-library",
+	"homepage": "https://github.com/puckzxz/NotAnotherAnimeTheme",
+	"license": "Unlicense",
+	"tags": [
+		"dark",
+		"anime",
+		"transparent",
+		"wallpaper",
+		"green",
+		"port"
+	],
+	"variants": [
+		{
+			"name": "Starfall",
+			"file": "starfall.css",
+			"base": "dark",
+			"description": "The wallpaper the theme ships with, inlined, and the black glass at its default weight."
+		}
+	]
+}
