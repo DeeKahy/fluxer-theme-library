@@ -1,0 +1,417 @@
+/**
+ * @name FCN-OS
+ * @description Fluxer Communication Network OS. A navy command console over your own wallpaper, small caps channel blocks, message text in bordered glass.
+ * @author The Sailor Suited Pilot
+ * @version 1.1.0
+ * @tags dark, transparent, blur, wallpaper, navy, console
+ */
+
+/*
+ * FCN-OS by The Sailor Suited Pilot (TheSailorSuitedPilot#8978), posted to the
+ * Fluxer community as https://web.fluxer.app/theme/c6f426c0268b94c6, which is
+ * where this copy comes from. It is a Fluxer theme to begin with, not a port,
+ * so nothing had to be translated.
+ *
+ * Aimed at LCARS and landed somewhere else: navy blocks in small caps down the
+ * channel list, gold and orange for anything you can press, red across the top,
+ * and message text sitting in its own bordered pane.
+ *
+ * Credits the author carries in their own file, kept here:
+ *
+ *   DeviMorris   the :root block and the html wallpaper layer
+ *   Nati         the blur
+ *   SOUP         the transparency block those two sit in
+ *
+ * No licence is stated anywhere on it. Credit rather than a grant, same as the
+ * rest of the snippet ecosystem.
+ *
+ * There is no wallpaper in this file. That is the author's design: the url("")
+ * at the top of the next block is where yours goes. A Fluxer share link carries
+ * one CSS string and nothing else, so point it at a data: URI rather than an
+ * image host if you want the link to keep working. Without one you get the blur
+ * layer over Fluxer's own dark base, which is a legitimate way to run it.
+ *
+ * Two changes against the file the author shared:
+ *
+ * - The font is a stack rather than a Google Fonts import. A shared stylesheet
+ *   that phones home is a stylesheet that breaks when someone is offline or
+ *   blocking third party requests. Rajdhani is still first in the list, so it
+ *   is used if you have it. For the exact face, add this at the top:
+ *
+ *     @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@200..700&display=swap');
+ *
+ * - A rule keyed on .Scroller\.module__scroller___ZTgyZD is dropped. That
+ *   suffix is the per build content hash, so the rule only ever matched the
+ *   build it was written against and does nothing on any other. It set the
+ *   scroller to a fixed 400px in Consolas. Written as a substring selector it
+ *   would hit every scroller in the client, which is worse than not having it.
+ */
+
+/* Creates image in the lowest layer possible */
+:root {
+	--background: url(""); /* Put your background URL here */
+}
+
+/* Makes the hidden background layer transparent */
+html:not(.auth-page) [class*="App.module__appContainer"],
+[class*="SettingsModalLayout.module__desktopSidebar"] {
+	background: url("");
+}
+
+/* Sets the stuff above transparent */
+:root {
+	--background-secondary: rgba(0, 0, 0, 0);
+	--background-secondary-lighter: rgba(0, 0, 0, 0);
+	--background-secondary-alt: rgba(0, 0, 0, 0);
+	--background-tertiary: rgba(0, 0, 0, 0);
+	--panel-control-bg: rgba(0, 0, 0, 0);
+	--background-textarea: rgba(0, 0, 0, 0);
+
+	--background-channel-header: rgba(0, 0, 0, 0);
+	--background-header-primary: rgba(0, 0, 0, 0);
+	--background-header-secondary: rgba(0, 0, 0, 0);
+	--background-floating: rgba(0, 0, 0, 0);
+
+	--user-area-divider-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* Blurs the background */
+[class*="appContainer"]::before,
+[class*="appLayout"]::before {
+	content: "" !important;
+	position: absolute !important;
+	inset: 0 !important;
+
+	backdrop-filter: blur(1px) !important;
+	-webkit-backdrop-filter: blur(14px) !important;
+
+	background: rgba(0, 0, 0, 0.3) !important;
+
+	pointer-events: none !important;
+	z-index: 0 !important;
+}
+
+html {
+	background-image: var(--background);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+/* Make stuff transparent */
+[class*="Popout.module__container"],
+[class*="Popout.module__content"],
+[class*="EmojiPicker.module__categoryList"],
+[class*="EmojiPicker.module__inspector"],
+[class*="GifPicker.module__virtualList"],
+[class*="GifPicker.module__gifPickerMain"],
+[class*="GifPicker.module__gifPickerContainer"],
+[class*="MessageActionBar.module__actionBar"],
+[class*="ContextMenu.module__contextMenu_"],
+[class*="ContextMenu.module__submenuPopover_"],
+[class*="Autocomplete.module__container_"] {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+/* popout arrows made transparent */
+[class*="Tooltip.module__tooltipBottom"] [class*="Tooltip.module__tooltipPointer"]:not([class*="Tooltip.module__tooltipPointerBg"]),
+[class*="Tooltip.module__tooltipCenter"] [class*="Tooltip.module__tooltipPointer"]:not([class*="Tooltip.module__tooltipPointerBg"]),
+[class*="Tooltip.module__tooltipRight"] [class*="Tooltip.module__tooltipPointer"] {
+	opacity: 0;
+}
+
+/* adds blur to popouts */
+[class*="Tooltip.module__tooltipPrimary"],
+[class*="Popout.module__popout_"],
+[class*="MessageActionBar.module__actionBar_"],
+[class*="EmojiTooltipContent.module__container"],
+[class*="ContextMenu.module__contextMenu_"],
+[class*="ContextMenu.module__submenuPopover_"],
+[class*="Autocomplete.module__container_"] {
+	--tooltip-pointer-bg: rgba(0, 0, 0, 0);
+	backdrop-filter: blur(4px) !important;
+	-webkit-backdrop-filter: blur(14px) !important;
+	background: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Thanks to DeviMorris for his root code and html */
+/* Thanks to Nati for blur code */
+/* Made by SOUP */
+
+[class*="messageContent"] {
+	display: block !important; /* restore proper layout */
+	width: fit-content; /* shrink to content */
+	max-width: 75%; /* prevent full width stretch */
+
+	margin-top: 4px;
+	padding: 10px 14px;
+
+	background: rgba(25, 25, 112, 0.06) !important;
+	backdrop-filter: blur(12px) saturate(130%) !important;
+	-webkit-backdrop-filter: blur(12px) saturate(130%) !important;
+
+	border: 3px double rgba(25, 25, 112, 0.5) !important;
+	border-radius: 12px !important;
+
+	box-shadow:
+		0 8px 18px rgba(0, 0, 0, 0.25),
+		inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+:root { --font-sans: "Rajdhani", "Roboto Condensed", "Archivo Narrow", "Arial Narrow", "Franklin Gothic Medium", sans-serif; font-weight: 400; font-stretch: 75%; }
+:root { --font-mono: 'courier new'; }
+:root { --background-header-primary: #FF0000; }
+:root { --background-header-primary-hover: #298FFF; }
+:root { --background-modifier-hover: #19196E; }
+:root { --guild_list-foreground: #FC3535; }
+:root { --text-primary: #FFFFFF; }
+:root { --text-secondary: #D3D3D3; }
+:root { --text-tertiary: #808080; }
+:root { --text-primary-muted: #3D50FF; }
+:root { --text-chat: #FFFFFF; }
+:root { --text-chat-muted: #007291; }
+:root { --text-link: #90EE90; }
+:root { --text-on-brand-primary: #FFFFFF; }
+:root { --text-tertiary-muted: #62626E; }
+:root { --text-tertiary-secondary: #00008B; }
+:root { --border-color-hover: #A9A9A9; }
+:root { --border-color-focus: #1313F0; }
+:root { --accent-primary: #121273; }
+:root { --accent-success: #90EE90; }
+:root { --accent-warning: #FF1E00; }
+:root { --accent-danger: #FF4F00; }
+:root { --accent-info: #FFFFFF; }
+:root { --accent-purple: #800080; }
+:root { --alert-note-color: #D2B48C; }
+:root { --alert-tip-color: #008000; }
+:root { --alert-important-color: #DAA520; }
+:root { --alert-warning-color: #FF4F00; }
+:root { --alert-caution-color: #FF1E00; }
+:root { --markup-mention-text: #ADD8E6; }
+:root { --markup-mention-fill: #191970; }
+:root { --markup-interactive-hover-fill: #006400; }
+:root { --button-primary-fill: #DAA520; }
+:root { --button-primary-active-fill: #FFFF00; }
+:root { --button-primary-text: #000001; }
+:root { --button-secondary-fill: #191970; }
+:root { --button-secondary-active-fill: #00008B; }
+:root { --button-secondary-active-text: #D2B48C; }
+:root { --button-danger-fill: #FF1E00; }
+:root { --button-danger-active-fill: #DB3034; }
+:root { --button-danger-outline-border: #FFFFFF; }
+:root { --button-danger-outline-active-border: #FFFFFF; }
+:root { --button-inverted-fill: #000001; }
+:root { --button-inverted-text: #FFFFFF; }
+:root { --button-outline-border: #FFFFFF; }
+:root { --button-outline-text: #000001; }
+:root { --button-outline-active-border: #DAA520; }
+:root { --bg-tertiary: #8B0000; }
+:root { --bg-hover: rgba(255, 200, 0, 1); }
+:root { --bg-active: #121263; }
+:root { --bg-code: #191970; }
+:root { --bg-code-block: rgba(63, 0, 0, 0.3); }
+:root { --bg-blockquote: #191970; }
+:root { --bg-table-header: #0A0A0A; }
+:root { --bg-table-row-odd: #0C0C0C; }
+:root { --bg-table-row-even: #040404; }
+
+/* Experiment */
+
+/* Wrapper reset */
+[class*="channelItem"],
+[class*="ChannelItem"] {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	margin: 1px 3px !important;
+	overflow: visible !important;
+}
+
+[class*="channelItem"]:hover,
+[class*="ChannelItem"]:hover {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	margin: 1px 3px !important;
+	overflow: visible !important;
+}
+
+/* REST */
+
+[class*="channelItemSurface"] {
+	align-items: center !important;
+	background: rgba(25, 25, 112, 1) !important;
+	border: 0px solid rgba(255, 255, 255, 1) !important;
+	border-radius: 0px 0px 0px 0px !important;
+	letter-spacing: 0.01em !important;
+	font-variant-caps: small-caps !important;
+	overflow: visible !important;
+	padding: 5px 7px 5px 7px !important;
+	position: relative !important;
+	font-weight: 400 !important;
+}
+
+/* HOVER */
+
+[class*="channelItemSurface"]:hover {
+	align-items: center !important;
+	background: #FF4F00 !important;
+	border: 0px solid rgba(255, 255, 255, 1) !important;
+	border-radius: 0px 0px 0px 0px !important;
+	letter-spacing: 0.01em !important;
+	font-variant-caps: small-caps !important;
+	overflow: visible !important;
+	padding: 5px 7px 5px 7px !important;
+	position: relative !important;
+}
+
+[class*="channelItemSurface"]:hover
+[class*="channelName"] {
+	color: #FFFFFF !important;
+	font-weight: 400 !important;
+	font-variant-caps: small-caps !important;
+}
+
+[class*="categoryName"]:hover {
+	color: #000000 !important;
+	font-weight: 400 !important;
+}
+
+/* SELECTED */
+
+[class*="channelItemSurfaceSelected"],
+[class*="channelItemSelected"]
+[class*="channelItemSurface"] {
+	letter-spacing: 0.01em !important;
+	font-variant-caps: small-caps !important;
+	background: rgba(75, 75, 192, 1) !important;
+	border: 0px solid rgba(255, 255, 255, 1) !important;
+	border-radius: 0px 0px 0px 0px !important;
+	font-variant-caps: small-caps !important;
+}
+
+[class*="channelItemSelected"]
+[class*="channelName"],
+[class*="channelItemSurfaceSelected"]
+[class*="channelName"] {
+	color: rgba(255, 255, 255, 1) !important;
+	font-weight: 400 !important;
+}
+
+[class*="channelItemSelected"]
+[class*="channelItemIcon"],
+[class*="channelItemSurfaceSelected"]
+[class*="channelItemIcon"] {
+	color: #FFFFFF !important;
+	opacity: 1 !important;
+}
+
+/* Channel name */
+[class*="channelName"] {
+	color: #FFFFFF !important;
+	font-stretch: 50% !important;
+	font-weight: 300 !important;
+	letter-spacing: 0.01em !important;
+	font-variant-caps: small-caps !important;
+	overflow: hidden !important;
+	white-space: nowrap !important;
+	text-overflow: ellipsis !important;
+	max-width: 200px !important;
+}
+
+/* Channel icon */
+
+[class*="channelItemIcon"] {
+	color: #FFFFFF !important;
+	opacity: 1 !important;
+	flex-shrink: 0 !important;
+}
+
+/* Category headers */
+
+[class*="categoryName"] {
+	color: #FFFFFF !important;
+	font-stretch: 50% !important;
+	font-variant-caps: small-caps !important;
+	font-weight: 500 !important;
+	letter-spacing: 0.01em !important;
+	text-align: left !important;
+	text-transform: uppercase !important;
+	border: 1px solid rgba(255, 255, 255, 0) !important;
+	border-radius: 0px 0px 0px 0px !important;
+}
+
+[class*="channelItemCategory"]
+[class*="channelItemSurface"] {
+	background: transparent !important;
+	border: none !important;
+	border-left: none !important;
+}
+
+[class*="channelItemCategory"]
+[class*="channelItemSurface"]:hover {
+	background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Channel action buttons (+ icon on hover) */
+
+[class*="hoverAffordance"]
+[class*="iconButton"],
+[class*="channelItemActions"]
+[class*="iconButton"] {
+	background: rgba(255, 255, 255, 0.12) !important;
+	border: 0px solid rgba(255, 255, 255, 0.32) !important;
+	border-radius: 0px !important;
+	color: #FFFFFF !important;
+}
+
+[class*="hoverAffordance"]
+[class*="iconButton"]:hover,
+[class*="channelItemActions"]
+[class*="iconButton"]:hover {
+	background: rgba(255, 255, 255, 0.22) !important;
+	color: #ffffff !important;
+}
+
+/* Unread / mention badges */
+
+[class*="unreadIndicator"],
+[class*="unreadPill"],
+[class*="mentionBadge"] {
+	background: #FF1E00 !important;
+	color: #FFFFFF !important;
+	font-weight: 300 !important;
+	font-variant-caps: small-caps !important;
+	border-radius: 0px !important;
+}
+
+[class*="ChannelMembers"] {
+	background: rgba(0, 16, 96, 0.15) !important;
+	border: solid 0px rgba(255, 255, 255, 0) !important;
+	color: #FFFFFF !important;
+	font-stretch: 50% !important;
+	font-variant-caps: small-caps !important;
+	font-weight: 400 !important;
+	gap: 3px !important;
+	position: relative !important;
+	margin: 1px !important;
+	padding: 5px !important;
+	overflow: visible !important;
+}
+
+[class*="BaseAvatar.module__overlay_"] {
+	border-radius: 0% !important;
+}
+
+[class*="BaseAvatar.module__overlay_"] > image {
+	mask: none;
+}
+
+[class*='GuildsLayout\.module__guildIcon_'] {
+	border-radius: 0px !important;
+}
+
+:root { --background-modifier-selected: #FF1E00; }
+:root { --brand-secondary: #332FAD; }
+:root { --brand-primary: #0822A1; }

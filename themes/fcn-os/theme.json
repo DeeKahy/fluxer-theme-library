@@ -1,0 +1,22 @@
+{
+	"name": "FCN-OS",
+	"description": "Fluxer Communication Network OS. A navy command console over your own wallpaper, small caps channel blocks, message text in bordered glass.",
+	"author": "The Sailor Suited Pilot, with DeviMorris, Nati and SOUP",
+	"homepage": "https://web.fluxer.app/theme/c6f426c0268b94c6",
+	"tags": [
+		"dark",
+		"transparent",
+		"blur",
+		"wallpaper",
+		"navy",
+		"console"
+	],
+	"variants": [
+		{
+			"name": "Console",
+			"file": "fcn-os.css",
+			"base": "dark",
+			"description": "The whole thing. Bring your own wallpaper, the url() at the top of the file is where it goes."
+		}
+	]
+}
