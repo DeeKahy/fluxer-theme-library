@@ -15,7 +15,9 @@
 			"name": "Space",
 			"file": "space.css",
 			"base": "dark",
-			"description": "The stylesheet as cameron shared it, with a metadata header added on top."
+			"description": "The stylesheet as cameron shared it, with a metadata header added on top.",
+			"fluxerThemeId": "d7a2029c71c3c50f",
+			"fluxerThemeHash": "7854ec12b886cbaa0226f17a20dcaf552da5428160a39be9e0cec5a78f547995"
 		}
 	]
 }
