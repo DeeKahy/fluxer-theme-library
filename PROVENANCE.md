@@ -106,6 +106,29 @@ and the input box inside it, so it carries both prefixes. Prefixes on the
 guild rail come from `GuildsLayout.tsx` at the pinned commit; the rest are
 the ones the snippet collection targets in the live client.
 
+Inside those regions the mock also carries the hooks themes reach for most
+often, read from upstream the same way:
+
+- `GuildsLayout.module__guildIcon_` on each server icon, from
+  `GuildsLayout.module.css`
+- `ChannelItem.module__channelItem_`, plus `channelItemSelected`,
+  `channelItemVoice`, `channelItemCategory`, `channelItemIcon` and
+  `unreadIndicator`, from `ChannelItem.tsx`
+- `ChannelItemSurface.module__channelItemSurface_` and
+  `channelItemSurfaceSelected`, from `ChannelItemSurface.module.css`
+- `ChannelItemContent.module__channelName_` and `categoryName`, from
+  `ChannelItemContent.tsx`
+- `Message.module__messageContent_`, from `features/theme/styles/Message.module.css`
+- `ChannelMembers.module__virtualMemberRow_` on each member row, from
+  `ChannelMembers.module.css`
+
+A channel row in the mock is one element where the client nests a surface
+inside an item, so it carries both prefixes, the same compromise the composer
+makes. The category row is flat for the same reason and carries the category
+and the label prefix together. Rules the client writes as
+`[class*="channelItemCategory"] [class*="channelItemSurface"]` therefore do
+not reach it, in the preview or here.
+
 The mock also keeps upstream's `data-flx="feature.component.element"`
 convention. Upstream generates those values with
 `fluxer_app/scripts/add-data-flx-attributes.mjs`, deriving them from file and
