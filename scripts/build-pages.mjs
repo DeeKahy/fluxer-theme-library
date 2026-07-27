@@ -69,6 +69,23 @@ function page(theme) {
 		? `\t\t\t<a class="btn primary" href="https://web.fluxer.app/theme/${variant.fluxerThemeId}">Open in Fluxer</a>\n`
 		: '';
 
+	// One line per person, with what they did and where to find them. A theme
+	// is usually more than one person's work and MIT does not make crediting
+	// them optional.
+	const creditRows = theme.credits
+		.map((credit) => {
+			const who = credit.url
+				? `<a href="${escape(credit.url)}">${escape(credit.name)}</a>`
+				: escape(credit.name);
+			const role = credit.role ? ` <span class="dim">${escape(credit.role)}</span>` : '';
+			return `\t\t\t\t<li>${who}${role}</li>`;
+		})
+		.join('\n');
+
+	const linkRows = theme.links
+		.map((link) => `\t\t\t\t<li><a href="${escape(link.url)}">${escape(link.label)}</a></li>`)
+		.join('\n');
+
 	return `<!doctype html>
 <html lang="en">
 	<head>
@@ -110,9 +127,15 @@ ${openIn}\t\t\t<a class="btn" href="../../themes/${theme.slug}/${variant.file}" 
 ${variantRows}
 			</ul>
 
+			<h2>Credits</h2>
+			<ul class="credits">
+${creditRows}
+			</ul>
+			${theme.license ? `<p class="dim">Licensed ${escape(theme.license)}.</p>` : '<p class="dim">No licence stated. Credit rather than a grant.</p>'}
+
+			${linkRows ? `<h2>Links</h2>\n\t\t\t<ul class="credits">\n${linkRows}\n\t\t\t</ul>` : ''}
+
 			<p class="foot">
-				${theme.homepage ? `<a href="${escape(theme.homepage)}">Upstream</a> &middot; ` : ''}
-				${theme.license ? `${escape(theme.license)} &middot; ` : ''}
 				<a href="${REPO}">Fluxer Theme Library</a>
 			</p>
 		</main>

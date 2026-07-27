@@ -565,15 +565,70 @@ input {
 	padding-inline: 9px;
 }
 
-.preview-full {
-	color: var(--ink-3);
-	font-size: 12px;
-	margin-inline-start: auto;
-	text-decoration: underline;
-	text-underline-offset: 3px;
+/* Says out loud what the preview is, so nobody reads a layout difference as a
+   bug in the theme. */
+.preview-note {
+	color: var(--ink-4);
+	flex: 1 1 22ch;
+	font-size: 11px;
+	line-height: 1.45;
+	margin: 0;
+	min-width: 0;
 }
 
-.preview-full:hover {
+/* Credits. Every name is its own element and links out when the theme gave a
+   link, because a theme is usually somebody's palette, somebody else's
+   original and a third person's port. */
+.detail-credits {
+	align-items: baseline;
+	color: var(--ink-3);
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 12px;
+	gap: 4px 10px;
+	margin: 6px 0 0;
+}
+
+.credit-lead {
+	color: var(--ink-4);
+}
+
+.credit {
+	align-items: baseline;
+	display: inline-flex;
+	gap: 5px;
+}
+
+.credit-name {
+	color: var(--ink-2);
+}
+
+a.credit-name {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+a.credit-name:hover {
+	color: var(--ink);
+}
+
+.credit-role,
+.credit-licence {
+	background: var(--field);
+	border-radius: 5px;
+	color: var(--ink-4);
+	font-family: var(--mono);
+	font-size: 10px;
+	padding: 1px 5px;
+}
+
+.credit-link {
+	color: var(--ink-3);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.credit-link:hover {
 	color: var(--ink);
 }
 

@@ -230,6 +230,23 @@ export function themeHue(variant) {
 	return 'other';
 }
 
+// The one line form, for the card, the search index and anywhere that wants a
+// string. Written out rather than stored twice, so a contributor fills in
+// credits once and never has to keep a prose copy of it in step.
+export function formatCredits(credits) {
+	return credits.map((credit) => (credit.role ? `${credit.name} (${credit.role})` : credit.name)).join(', ');
+}
+
+// homepage came first and five themes use it. Treat it as one more link rather
+// than a second thing to render.
+export function collectLinks(manifest) {
+	const links = (manifest.links ?? []).map((link) => ({label: link.label, url: link.url}));
+	if (manifest.homepage && !links.some((link) => link.url === manifest.homepage)) {
+		links.unshift({label: 'Upstream', url: manifest.homepage});
+	}
+	return links;
+}
+
 export function countTokenOverrides(css) {
 	const names = new Set();
 	const re = /(--[a-zA-Z0-9-]+)\s*:/g;
@@ -329,11 +346,18 @@ export function loadThemes(repoRoot) {
 			continue;
 		}
 
+		// A theme with one author keeps the plain string and gets a single
+		// credit built for it, so everything downstream only has to know about
+		// credits.
+		const credits = manifest.credits ?? [{name: manifest.author}];
+
 		themes.push({
 			slug,
 			name: manifest.name,
 			description: manifest.description ?? '',
-			author: manifest.author,
+			author: manifest.author ?? formatCredits(credits),
+			credits,
+			links: collectLinks(manifest),
 			homepage: manifest.homepage ?? null,
 			license: manifest.license ?? null,
 			tags: manifest.tags ?? [],
@@ -348,7 +372,9 @@ export function loadThemes(repoRoot) {
 // Kept in step with schema/theme.schema.json by hand, because adding a JSON
 // schema validator would mean adding the first dependency this repo has. The
 // limits below are the schema's limits. If you change one, change both.
-const MANIFEST_KEYS = ['name', 'description', 'author', 'homepage', 'license', 'tags', 'variants'];
+const MANIFEST_KEYS = ['name', 'description', 'author', 'credits', 'links', 'homepage', 'license', 'tags', 'variants'];
+const CREDIT_KEYS = ['name', 'role', 'url'];
+const LINK_KEYS = ['label', 'url'];
 const VARIANT_KEYS = ['name', 'file', 'description', 'base', 'fluxerThemeId', 'fluxerThemeHash'];
 
 function unknownKeys(object, allowed) {
@@ -371,8 +397,57 @@ function validateManifest(manifest) {
 
 	if (!isString(manifest.name)) problems.push('"name" is required and must be a non empty string');
 	if (tooLong(manifest.name, 60)) problems.push('"name" is longer than 60 characters');
-	if (!isString(manifest.author)) problems.push('"author" is required and must be a non empty string');
-	if (tooLong(manifest.author, 80)) problems.push('"author" is longer than 80 characters');
+
+	// One or the other. "author" is the old one line form and still fine for a
+	// theme by one person. "credits" is for everything else, and cramming four
+	// people and their roles into a single string was what people were doing
+	// instead.
+	if (manifest.credits !== undefined) {
+		if (!Array.isArray(manifest.credits) || manifest.credits.length === 0) {
+			problems.push('"credits" must be a non empty array');
+		} else {
+			if (manifest.credits.length > 12) problems.push('"credits" has more than 12 entries');
+			manifest.credits.forEach((credit, index) => {
+				const label = `credit ${index + 1}`;
+				if (!credit || typeof credit !== 'object' || Array.isArray(credit)) {
+					problems.push(`${label} must be an object`);
+					return;
+				}
+				const strays = unknownKeys(credit, CREDIT_KEYS);
+				if (strays.length > 0) problems.push(`${label}: unknown key(s) ${strays.join(', ')}`);
+				if (!isString(credit.name)) problems.push(`${label}: "name" is required`);
+				if (tooLong(credit.name, 80)) problems.push(`${label}: "name" is longer than 80 characters`);
+				if (tooLong(credit.role, 60)) problems.push(`${label}: "role" is longer than 60 characters`);
+				if (credit.url !== undefined && !isString(credit.url)) problems.push(`${label}: "url" must be a string`);
+			});
+		}
+	} else if (!isString(manifest.author)) {
+		problems.push('"author" is required unless you use "credits"');
+	}
+
+	if (manifest.author !== undefined && !isString(manifest.author)) {
+		problems.push('"author" must be a non empty string');
+	}
+	if (tooLong(manifest.author, 200)) problems.push('"author" is longer than 200 characters');
+
+	if (manifest.links !== undefined) {
+		if (!Array.isArray(manifest.links)) {
+			problems.push('"links" must be an array');
+		} else {
+			if (manifest.links.length > 8) problems.push('"links" has more than 8 entries');
+			manifest.links.forEach((link, index) => {
+				const label = `link ${index + 1}`;
+				if (!link || typeof link !== 'object' || Array.isArray(link)) {
+					problems.push(`${label} must be an object`);
+					return;
+				}
+				const strays = unknownKeys(link, LINK_KEYS);
+				if (strays.length > 0) problems.push(`${label}: unknown key(s) ${strays.join(', ')}`);
+				if (!isString(link.label)) problems.push(`${label}: "label" is required`);
+				if (!isString(link.url)) problems.push(`${label}: "url" is required`);
+			});
+		}
+	}
 	if (manifest.description !== undefined && typeof manifest.description !== 'string') {
 		problems.push('"description" must be a string');
 	}

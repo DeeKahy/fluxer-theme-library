@@ -21,13 +21,26 @@
 		"author": {
 			"type": "string",
 			"minLength": 1,
-			"maxLength": 80,
-			"description": "Whoever made it. A GitHub handle is fine."
+			"maxLength": 200,
+			"description": "Whoever made it, as one line. A GitHub handle is fine. Required unless you use \"credits\", which is the better option when more than one person was involved."
+		},
+		"credits": {
+			"type": "array",
+			"minItems": 1,
+			"maxItems": 12,
+			"items": {"$ref": "#/definitions/credit"},
+			"description": "Everyone who worked on it, one entry each, in the order they should be read. Use this instead of cramming several people into \"author\". When present, \"author\" is optional and gets built from these."
+		},
+		"links": {
+			"type": "array",
+			"maxItems": 8,
+			"items": {"$ref": "#/definitions/link"},
+			"description": "Optional links out: the source repo, the original theme, a palette, a post. Shown on the theme's page."
 		},
 		"homepage": {
 			"type": "string",
 			"format": "uri",
-			"description": "Optional link to the upstream palette, repo, or post."
+			"description": "Optional link to the upstream palette, repo, or post. Shorthand for a single entry in \"links\"."
 		},
 		"license": {
 			"type": "string",
@@ -47,6 +60,38 @@
 		}
 	},
 	"definitions": {
+		"credit": {
+			"type": "object",
+			"required": ["name"],
+			"additionalProperties": false,
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80,
+					"description": "The person or group, written the way they write it."
+				},
+				"role": {
+					"type": "string",
+					"maxLength": 60,
+					"description": "What they did, lowercase and short: palette, original theme, Fluxer port, wallpaper, snippets."
+				},
+				"url": {
+					"type": "string",
+					"format": "uri",
+					"description": "Optional link to them: a GitHub profile, a repo, wherever they would want to be pointed at."
+				}
+			}
+		},
+		"link": {
+			"type": "object",
+			"required": ["label", "url"],
+			"additionalProperties": false,
+			"properties": {
+				"label": {"type": "string", "minLength": 1, "maxLength": 40},
+				"url": {"type": "string", "format": "uri"}
+			}
+		},
 		"variant": {
 			"type": "object",
 			"required": ["name", "file"],

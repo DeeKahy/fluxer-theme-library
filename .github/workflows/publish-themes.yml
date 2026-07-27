@@ -47,6 +47,10 @@ jobs:
           # started from.
           fetch-depth: 0
 
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
       # The publish step below runs with write access to this repository and a
       # Fluxer account token in the environment. A push that changes a theme is
       # the expected case. A push that changes a theme *and* a script or a
@@ -60,6 +64,14 @@ jobs:
           AFTER: ${{ github.sha }}
         run: |
           set -euo pipefail
+          # A push that edits theme.json without touching a stylesheet has
+          # nothing to upload, so there is nothing to guard and no reason to
+          # fail the run. Check that first, or the guard cries wolf on every
+          # metadata change and people learn to ignore a red X.
+          if node scripts/publish-themes.mjs --dry-run | grep -q 'already published and unchanged'; then
+            echo "No stylesheet changed, so there is nothing to publish."
+            exit 0
+          fi
           if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
             BEFORE="$(git rev-parse "$AFTER^" 2>/dev/null || true)"
           fi
@@ -77,10 +89,6 @@ jobs:
             exit 1
           fi
           echo "Only themes/ changed, carrying on."
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
 
       - name: Check the token
         if: github.event_name == 'workflow_dispatch' && inputs.mode == 'verify'

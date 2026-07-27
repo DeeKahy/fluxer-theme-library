@@ -54,7 +54,45 @@ A fuller one:
 }
 ```
 
-`name`, `author` and `variants` are required. Everything else is optional.
+`name` and `variants` are required, plus one of `author` or `credits`.
+Everything else is optional.
+
+## Crediting people
+
+If you made the whole thing yourself, `author` is enough.
+
+If anyone else's work is in there, use `credits` instead. Most themes here are
+somebody's palette, somebody else's original theme and a third person's port,
+and cramming that into one string gives you prose nobody can click:
+
+```json
+{
+	"name": "NotAnotherAnimeTheme",
+	"credits": [
+		{"name": "puckzxz", "role": "original theme", "url": "https://github.com/puckzxz"},
+		{"name": "carlfully", "role": "snippets", "url": "https://github.com/carlfully/fluxer-snippets"},
+		{"name": "deeruwu", "role": "transparent theme template"},
+		{"name": "fluxer-theme-library", "role": "Fluxer port"}
+	],
+	"links": [{"label": "Original theme", "url": "https://github.com/puckzxz/NotAnotherAnimeTheme"}]
+}
+```
+
+`name` is required, `role` and `url` are not. Write the name the way that person
+writes it. Keep `role` short and lowercase: `palette`, `original theme`,
+`wallpaper`, `snippets`, `Fluxer port`.
+
+Only add a `url` you actually know. A link to the wrong person is worse than no
+link, and several themes here credit people with no link for exactly that
+reason. Do not go hunting for a plausible looking GitHub account and attach
+somebody's name to it.
+
+Put everyone in who worked on it. An MIT licence, or no licence at all, does not
+make crediting optional, and a permissive licence is not a reason to leave
+somebody out.
+
+`links` is for pointing outward: the source repo, the original theme, a palette,
+a post. `homepage` still works and shows up as a link labelled Upstream.
 
 `base` says which built in Fluxer theme your CSS is designed to sit on top of:
 `dark`, `light`, `coal` or `dark_legacy`. It defaults to `dark`. The preview

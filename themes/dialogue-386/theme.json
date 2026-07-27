@@ -1,7 +1,20 @@
 {
 	"name": "DIALOGUE.386",
 	"description": "A text mode interface from the DOS era. Navy panels inside double white borders with hard black drop shadows, bright green on anything you can press, and a dithered dot grid behind the lot. Built on deer's System-Glass.",
-	"author": "jce, on top of System-Glass by deer",
+	"credits": [
+		{
+			"name": "jce",
+			"role": "theme"
+		},
+		{
+			"name": "deer",
+			"role": "System-Glass, which it is built on"
+		},
+		{
+			"name": "ThaSilentArtist",
+			"role": "wallpaper presets"
+		}
+	],
 	"homepage": "https://web.fluxer.app/theme/765f69b6aafaf0ba",
 	"tags": [
 		"dark",

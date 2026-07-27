@@ -1,7 +1,21 @@
 {
 	"name": "Cupcake",
 	"description": "Frosting pink with a drifting sparkle backdrop and the oneko cat asleep on the message box. Light and dark.",
-	"author": "fluxer-theme-library, oneko snippet by AZ, template by deeruwu",
+	"credits": [
+		{
+			"name": "fluxer-theme-library",
+			"role": "Fluxer port",
+			"url": "https://github.com/DeeKahy/fluxer-theme-library"
+		},
+		{
+			"name": "AZ",
+			"role": "oneko snippet"
+		},
+		{
+			"name": "deeruwu",
+			"role": "transparent theme template"
+		}
+	],
 	"license": "MIT",
 	"tags": [
 		"pink",

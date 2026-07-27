@@ -10,8 +10,10 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {
+	collectLinks,
 	extractSwatch,
 	findRemoteReferences,
+	formatCredits,
 	hueBucket,
 	parseColor,
 	parseThemeMetadata,
@@ -135,4 +137,29 @@ test('leaves alone what a theme is allowed to do', () => {
 	// base64 contains / and + freely, and must not read as protocol relative.
 	assert.deepEqual(findRemoteReferences(':root{--a:url("data:image/webp;base64,AA//BB+/==");}'), []);
 	assert.deepEqual(findRemoteReferences(':root{--a:url("./local.png");}'), []);
+});
+
+/* --------------------------------------------------------------- credits */
+
+test('writes the one line form from structured credits', () => {
+	assert.equal(
+		formatCredits([
+			{name: 'puckzxz', role: 'original theme'},
+			{name: 'deeruwu', role: 'template'},
+			{name: 'nobody'},
+		]),
+		'puckzxz (original theme), deeruwu (template), nobody',
+	);
+});
+
+test('homepage becomes one more link, without duplicating it', () => {
+	assert.deepEqual(collectLinks({homepage: 'https://example.com'}), [
+		{label: 'Upstream', url: 'https://example.com'},
+	]);
+	// A theme that lists the same url explicitly should not get it twice.
+	assert.deepEqual(
+		collectLinks({homepage: 'https://example.com', links: [{label: 'Source', url: 'https://example.com'}]}),
+		[{label: 'Source', url: 'https://example.com'}],
+	);
+	assert.deepEqual(collectLinks({}), []);
 });

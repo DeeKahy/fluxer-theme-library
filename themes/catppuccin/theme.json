@@ -1,7 +1,18 @@
 {
 	"name": "Catppuccin",
 	"description": "The pastel palette, all four flavours at the mauve accent. Upstream ships all fourteen Catppuccin accents for each flavour, fifty six stylesheets, at github.com/scarcekoi/fluxer.",
-	"author": "scarcekoi, palette by Catppuccin",
+	"credits": [
+		{
+			"name": "scarcekoi",
+			"role": "Fluxer port",
+			"url": "https://github.com/scarcekoi"
+		},
+		{
+			"name": "Catppuccin",
+			"role": "palette",
+			"url": "https://github.com/catppuccin"
+		}
+	],
 	"homepage": "https://github.com/scarcekoi/fluxer",
 	"license": "MIT",
 	"tags": [
