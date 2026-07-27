@@ -4,31 +4,44 @@
 	"author": "scarcekoi, palette by Catppuccin",
 	"homepage": "https://github.com/scarcekoi/fluxer",
 	"license": "MIT",
-	"tags": ["pastel", "catppuccin", "purple", "low-contrast"],
+	"tags": [
+		"pastel",
+		"catppuccin",
+		"purple",
+		"low-contrast"
+	],
 	"variants": [
 		{
 			"name": "Mocha",
 			"file": "mocha.css",
 			"base": "dark",
-			"description": "The darkest flavour, near black with pastel text. Mauve accent, and thirteen other accents are in the upstream repo."
+			"description": "The darkest flavour, near black with pastel text. Mauve accent, and thirteen other accents are in the upstream repo.",
+			"fluxerThemeId": "3dd2f29c36f67cfa",
+			"fluxerThemeHash": "4fef2e3e47b8d785d0e0e61cda3d4a6f6cc0c1927aa6c0466f01b63ab1acfbb9"
 		},
 		{
 			"name": "Macchiato",
 			"file": "macchiato.css",
 			"base": "dark",
-			"description": "A darker Frappé, more contrast without going to black."
+			"description": "A darker Frappé, more contrast without going to black.",
+			"fluxerThemeId": "f22eaebd847000c0",
+			"fluxerThemeHash": "2a848e8258062b556b1c7d7c0325c59e1d1cfb74adb4a5ea0bf184f77f642c31"
 		},
 		{
 			"name": "Frappé",
 			"file": "frappe.css",
 			"base": "dark",
-			"description": "The lightest of the three dark flavours, muted and blue grey."
+			"description": "The lightest of the three dark flavours, muted and blue grey.",
+			"fluxerThemeId": "d6dc97a108c28575",
+			"fluxerThemeHash": "475c30018171591b5b71318c016ce59ccb2dabd987793e3fd321f83f8658a37a"
 		},
 		{
 			"name": "Latte",
 			"file": "latte.css",
 			"base": "light",
-			"description": "The light flavour, warm greys and a violet accent."
+			"description": "The light flavour, warm greys and a violet accent.",
+			"fluxerThemeId": "2ddfccbe2f5c72fd",
+			"fluxerThemeHash": "e122a4696e08b1e2a30979f72395a85d84f43d48fe182090768d5886b1effe81"
 		}
 	]
 }
