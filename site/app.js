@@ -38,6 +38,9 @@
 		scaler: document.getElementById('stage-scaler'),
 		frame: document.getElementById('stage-frame'),
 		stageError: document.getElementById('stage-error'),
+		baseTabs: document.getElementById('base-tabs'),
+		platformTabs: document.getElementById('platform-tabs'),
+		openFull: document.getElementById('open-full'),
 		variantChips: document.getElementById('variant-chips'),
 		installSource: document.getElementById('install-source'),
 		copy: document.getElementById('copy-css'),
@@ -58,6 +61,11 @@
 		sort: 'az',
 		theme: null,
 		variant: null,
+		// Both follow the variant when you pick one, and stay put when you
+		// change them by hand, so comparing two themes on coal does not mean
+		// setting coal again every time.
+		base: null,
+		platform: 'web',
 	};
 
 	/* ------------------------------------------------------------- helpers */
@@ -281,15 +289,32 @@
 		}
 	}
 
-	function loadFrame() {
+	function previewUrl() {
 		// Absolute so it does not depend on how deep the shell lives. The shell
-		// reads css and base and nothing else, so nothing else is sent.
+		// reads these three and nothing else, so nothing else is sent.
 		var query = new URLSearchParams({
 			css: new URL(cssPath(state.theme, state.variant), window.location.href).href,
-			base: state.variant.base,
+			base: state.base || state.variant.base,
+			platform: state.platform,
 		});
+		return 'site/preview/shell.html?' + query.toString();
+	}
+
+	function loadFrame() {
+		var url = previewUrl();
 		el.stageError.hidden = true;
-		el.frame.src = 'site/preview/shell.html?' + query.toString();
+		el.openFull.href = url;
+		el.frame.src = url;
+	}
+
+	function syncPreviewControls() {
+		var base = state.base || state.variant.base;
+		el.baseTabs.querySelectorAll('button').forEach(function (button) {
+			button.setAttribute('aria-pressed', String(button.dataset.base === base));
+		});
+		el.platformTabs.querySelectorAll('button').forEach(function (button) {
+			button.setAttribute('aria-pressed', String(button.dataset.platform === state.platform));
+		});
 	}
 
 	// The shell has always reported back when a stylesheet fails to load, and
@@ -308,7 +333,10 @@
 	});
 
 	function select(theme, variant) {
-		var sameFrame = state.theme === theme && state.variant === variant;
+		var sameFrame = state.theme === theme && state.variant === variant && state.base === null;
+		// Picking a theme goes back to the base that theme was written for.
+		// Changing the base by hand is what keeps it.
+		if (state.variant !== variant) state.base = null;
 		state.theme = theme;
 		state.variant = variant;
 
@@ -341,6 +369,7 @@
 		renderList();
 		renderVariantChips();
 		renderApply();
+		syncPreviewControls();
 		if (!sameFrame) loadFrame();
 	}
 
@@ -390,6 +419,8 @@
 
 	wireSegmented(el.modeTabs, 'mode', renderList);
 	wireSegmented(el.sortTabs, 'sort', renderList);
+	wireSegmented(el.baseTabs, 'base', loadFrame);
+	wireSegmented(el.platformTabs, 'platform', loadFrame);
 	el.search.addEventListener('input', function () {
 		state.query = el.search.value.trim().toLowerCase();
 		renderList();

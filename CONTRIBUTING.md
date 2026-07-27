@@ -63,6 +63,13 @@ so getting this right matters more than it looks. A light theme declared as
 `dark` will preview with dark defaults showing through anywhere you did not set
 a token.
 
+`coal` in particular is not a darker `dark`. It flattens the app onto one near
+black surface, so a theme that relies on the rail, the sidebar and the member
+list being different shades will look like one slab there. The preview has a
+base switch under the title, so check yours on every base you tell people to
+use, and a platform switch next to it, because macOS desktop overrides the guild
+rail width.
+
 Do not set `fluxerThemeId` or `fluxerThemeHash`. A workflow writes those.
 
 The schema is in [schema/theme.schema.json](schema/theme.schema.json) if your

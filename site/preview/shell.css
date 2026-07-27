@@ -64,11 +64,13 @@ svg {
 	display: grid;
 	/* The rail track is sized by the rail itself, because a multi column
 	   server list theme widens .guilds past --layout-guild-list-width. */
+	/* The member list track is sized by the member list, which declares its own
+	   --member-list-width the way upstream does. */
 	grid-template-columns:
 		auto
 		var(--layout-sidebar-width)
 		minmax(0, 1fr)
-		var(--member-list-width, 16.5rem);
+		auto;
 	grid-template-rows: minmax(0, 1fr);
 	height: 100%;
 }
@@ -838,10 +840,23 @@ svg {
 
 /* ----------------------------------------------------------- member list */
 
+/* Upstream declares --member-list-width on this element and sizes itself from
+   it, in MemberListContainer.module.css. The mock used to read the token from
+   the app grid instead, where a theme's override could never reach it, and the
+   16.5rem fallback quietly did all the work. Same shape as upstream now, media
+   query included, so a theme that widens the member list widens it here. */
 .members {
+	--member-list-width: 100svw;
 	background: var(--background-secondary-lighter);
 	overflow: hidden;
 	padding: var(--spacing-4) var(--spacing-2);
+	width: var(--member-list-width);
+}
+
+@media (min-width: 768px) {
+	.members {
+		--member-list-width: 16.5rem;
+	}
 }
 
 .member-category {

@@ -24,6 +24,26 @@ We read two exports, `THEME_STUDIO_DARK_DEFAULT_VARIABLE_VALUES` and
 `.theme-light` blocks. That is 333 variables in each mode, with the same names
 and the same resolved default values the real client uses.
 
+`coal` and `dark_legacy` are in `ThemeTypes` but in neither of those exports,
+and there is no `.theme-coal` anywhere in `globals.css` either. They are defined
+in `fluxer_app/scripts/GenerateColorSystem.ts`, which writes a
+`color-system.css` holding all four blocks. That file is generated rather than
+committed, so we run the generator inside the upstream checkout and read what it
+writes. It imports nothing but `node:fs` and `node:path`, so plain `node
+--experimental-strip-types` runs it and no dependency appears on either side.
+
+Both come out as override blocks over `:root`, 96 tokens for coal and 86 for
+dark_legacy, which is how the client layers them, so we emit them after `:root`
+at equal specificity and they win on document order the same way.
+
+This matters more than it sounds. coal is not a shade of dark: it sets
+`--background-primary` to 1% lightness against dark's 5%, and collapses
+`--background-secondary` and `--background-secondary-lighter` onto primary, so
+the whole app is one flat near black surface. dark_legacy shifts the base hue
+from 258 to 220. Until these blocks existed, `base: "coal"` was accepted by the
+schema, documented in CONTRIBUTING, and rendered byte for byte identical to
+dark, which made "check it on coal" an instruction nobody could carry out.
+
 Regenerate with:
 
 ```bash
@@ -49,6 +69,12 @@ ties against the shell's own rules exactly as it wins against the client's.
 names defined by `ThemeTypes` in `packages/constants/src/UserConstants.ts`. We
 leave out `system`, which upstream resolves to dark or light before it ever
 reaches the DOM.
+
+Exactly one of them, replacing what is on the element rather than adding to it.
+`shell.html` used to ship `class="theme-dark"` in the markup and `shell.js` used
+to add a second class on top, so a light preview ran as
+`theme-dark theme-light`. That was harmless only for as long as nothing defined
+`.theme-dark`, which stopped being true the moment coal and dark_legacy arrived.
 
 ### Theme metadata header
 
@@ -202,18 +228,28 @@ for its embeds has also picked a sheet covering the whole window.
 
 `app/globals.css` re-declares some tokens behind platform classes, and those
 selectors are more specific than `:root`, so a theme that only sets `:root`
-loses on the platforms they cover. The one found so far:
+loses on the platforms they cover. There are two:
 
 ```css
 html.platform-native.platform-macos {
 	--layout-guild-list-width: 4.75rem;
 }
+
+html.platform-native {
+	--custom-zoom: 100;
+}
 ```
 
 A theme that changes the rail width has to match that selector too, or macOS
-desktop users get the stock width while the web app shows the themed one. The
-mock has no platform classes, so this difference never shows in a preview,
-which is exactly how it went unnoticed.
+desktop users get the stock width while the web app shows the themed one.
+
+The mock had no platform classes at all, which is exactly how that went
+unnoticed. It has them now: `?platform=web|macos|windows|linux` on the shell
+adds the same classes upstream does, and the gallery has a platform switch next
+to the base switch. `sync-upstream-tokens.mjs` lifts these blocks out of
+`globals.css` rather than transcribing them, so the next one to appear turns up
+in `tokens.css` on the next sync instead of waiting for somebody on macOS to
+complain.
 
 ### Stacking
 
@@ -249,12 +285,35 @@ Keep `--background-secondary: transparent` alongside it: the template's lists
 only cover the containers they name, and any surface they miss, the DM page
 was the one that bit, paints opaque over the wallpaper without the fallback.
 
-Header dividers use `--user-area-divider-color` at `0.0625rem`, the member list
-is `16.5rem` wide, channel rows carry a `0.375rem` radius with `0.5rem` outer
-margin, and the message row is the same four column grid upstream uses: leading
-padding, avatar, gutter, content. Getting the surface map wrong is what makes a
-mock look almost-but-not-quite right, so it is worth rechecking after a UI
-change upstream.
+Header dividers use `--user-area-divider-color` at `0.0625rem`, channel rows
+carry a `0.375rem` radius with `0.5rem` outer margin, and the message row is the
+same four column grid upstream uses: leading padding, avatar, gutter, content.
+Getting the surface map wrong is what makes a mock look almost-but-not-quite
+right, so it is worth rechecking after a UI change upstream.
+
+The member list sizes itself from `--member-list-width`, declared on the
+container and switched from `100svw` to `16.5rem` at the `768px` breakpoint,
+copying `MemberListContainer.module.css`. That token is not in the manifest, it
+is local to the module, and the mock used to read it from the app grid where a
+theme's override could never reach it, with a hardcoded `16.5rem` fallback
+quietly doing the work.
+
+## How much of the surface the preview covers
+
+```bash
+node scripts/preview-coverage.mjs --list
+```
+
+It diffs the tokens `tokens.css` declares against the ones `shell.css` reads.
+At the time of writing that is 78 of 334, so about a quarter, and the other 256
+are tokens a theme can set with no visible effect in the preview. That number is
+the honest answer to "is the preview accurate", and the missed list is the to do
+list for the mock.
+
+`--strict` fails when `shell.css` reads a token upstream does not declare. That
+is worth having in CI: `var(--typo)` resolves to nothing and paints nothing, and
+nobody notices until a theme fails to change something it should have. It found
+`--member-list-width` the first time it ran.
 
 ## Reconstructed, not copied
 

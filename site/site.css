@@ -549,6 +549,34 @@ input {
 	position: relative;
 }
 
+.preview-controls {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+/* The segmented control stretches its buttons to fill the browse column. Here
+   it sits inline in a row, so the buttons size to their labels and need their
+   own horizontal padding instead. */
+.preview-controls .segmented button {
+	flex: 0 0 auto;
+	padding-inline: 9px;
+}
+
+.preview-full {
+	color: var(--ink-3);
+	font-size: 12px;
+	margin-inline-start: auto;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.preview-full:hover {
+	color: var(--ink);
+}
+
 /* Sits over the frame when a stylesheet fails to load, so a broken theme says
    so instead of showing an empty rectangle. */
 .stage-error {

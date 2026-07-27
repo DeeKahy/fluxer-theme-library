@@ -33,3 +33,8 @@ jobs:
 
       - name: Check the index builds
         run: node scripts/build-index.mjs
+
+      # Fails only when the mock reads a token upstream does not declare, which
+      # silently paints nothing. The coverage number itself is informational.
+      - name: Check the preview reads real tokens
+        run: node scripts/preview-coverage.mjs --strict

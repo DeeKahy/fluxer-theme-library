@@ -17,7 +17,12 @@
 	    most themes target through [class*="..."]. The _flxmock suffix
 	    stands in for the per build hash. See PROVENANCE.md.
 -->
-<html lang="en" class="theme-dark">
+<!-- No theme- class here on purpose. shell.js sets exactly one, from ?base=.
+     This element used to carry theme-dark unconditionally, so a light preview
+     ran as "theme-dark theme-light". Harmless only for as long as nothing
+     defines .theme-dark, which stopped being true when coal and dark_legacy
+     arrived. -->
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
