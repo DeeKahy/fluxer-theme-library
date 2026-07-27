@@ -18,56 +18,56 @@
 			"file": "base.css",
 			"base": "dark",
 			"description": "The theme on your own system fonts. Nothing is downloaded and nothing is embedded.",
-			"fluxerThemeId": "f1160d61d8fa4206",
-			"fluxerThemeHash": "2f80551bf5b360de95ac646395abd69a564f4b0aaf7ff7971757e90700e78838"
+			"fluxerThemeId": "5526f53da1015722",
+			"fluxerThemeHash": "9c7aa1156ad478c830da236de25fa161641726dcd8cb2fe6564a364dd7a64cbf"
 		},
 		{
 			"name": "IBM Plex",
 			"file": "ibm-plex.css",
 			"base": "dark",
 			"description": "IBM Plex Sans for the interface, IBM Plex Mono for code, both embedded in the file.",
-			"fluxerThemeId": "cedac7801013a456",
-			"fluxerThemeHash": "396cd4c4f4d238aef66382527489db8bbcb20ab65a932417275875748222e88b"
+			"fluxerThemeId": "8c9d3c0d6bc0caed",
+			"fluxerThemeHash": "690a937ae4facdaea39516b39f99104c87e135d4fdd4f559d1f682f2e6be99f3"
 		},
 		{
 			"name": "IBM Plex Mono",
 			"file": "ibm-plex-mono.css",
 			"base": "dark",
 			"description": "IBM Plex Mono everywhere, tightened letter spacing to go with it.",
-			"fluxerThemeId": "394a1177a442f821",
-			"fluxerThemeHash": "02f545bd540577d4fdb90aba82eac403f2ad4c5822d8a9c77059b25375ac757d"
+			"fluxerThemeId": "6862e8c4c9abf3f6",
+			"fluxerThemeHash": "5377efc24764486b9e8003b16f6c71b61aeabfecad11435079e9bbed9f459fb0"
 		},
 		{
 			"name": "B612",
 			"file": "b612.css",
 			"base": "dark",
 			"description": "B612 for the interface, B612 Mono for code. Drawn for aircraft cockpit displays.",
-			"fluxerThemeId": "f0277194d46d1ce4",
-			"fluxerThemeHash": "af6cd39ce559c5a2f6ff93bc2e268c24a1fd9d1e972098f9cad962983255e4bb"
+			"fluxerThemeId": "bedd7643a35ffbed",
+			"fluxerThemeHash": "bd04ded3fb83c05051fd087478ecbee1a1e7c492cdab48660cf95ea5c2dbb709"
 		},
 		{
 			"name": "B612 Mono",
 			"file": "b612-mono.css",
 			"base": "dark",
 			"description": "B612 Mono everywhere, tightened letter spacing to go with it.",
-			"fluxerThemeId": "feed762606f1a1ea",
-			"fluxerThemeHash": "b7ee98a1651cfeaca07b5044c6b0676aff31af7e41723c06ce25c9ab615fa6cb"
+			"fluxerThemeId": "f0902b6f538e59e4",
+			"fluxerThemeHash": "68bb5fc18781636f34c1ff12d13f4506a630ce57ce74935577e0e01cbecce5c6"
 		},
 		{
 			"name": "Atkinson Hyperlegible Next",
 			"file": "atkinson.css",
 			"base": "dark",
 			"description": "Atkinson Hyperlegible Next for the interface, Atkinson Hyperlegible Mono for code. Drawn by the Braille Institute for low vision readers.",
-			"fluxerThemeId": "bf3bcc1afdbf6b02",
-			"fluxerThemeHash": "0b35d66b7d5112ffb99a204124da1d45d42b7aa26099376f86b3935096ef5a47"
+			"fluxerThemeId": "997d11509e27d4f9",
+			"fluxerThemeHash": "c5262d0a563ef2e0ee30b0b9b7ae5b0e42968a276af9c0fb3b2a8e87f43d1496"
 		},
 		{
 			"name": "Atkinson Hyperlegible Mono",
 			"file": "atkinson-mono.css",
 			"base": "dark",
 			"description": "Atkinson Hyperlegible Mono everywhere, tightened letter spacing to go with it.",
-			"fluxerThemeId": "a8ec3893546e6fd2",
-			"fluxerThemeHash": "23b30020ee1bd5863ffcdc45ba65dc77ae0389ee1813ff3e803fbdcc1dc015de"
+			"fluxerThemeId": "19ce9c50bdd6c306",
+			"fluxerThemeHash": "b0e03cad81ab7c580c38039ed548848b3938db03aa3415713d4b1ed2791504cb"
 		}
 	]
 }
