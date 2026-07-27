@@ -12,7 +12,9 @@
 			"name": "Night",
 			"file": "night.css",
 			"base": "dark",
-			"description": "The stylesheet as angel shared it. Sits on the dark base, works on coal too."
+			"description": "The stylesheet as angel shared it. Sits on the dark base, works on coal too.",
+			"fluxerThemeId": "1a01ca9465fc0252",
+			"fluxerThemeHash": "2827d30415f4f3927d60ce5f6e05d52eacbfbffde5ddcb257b47c0818013ce36"
 		}
 	]
 }
