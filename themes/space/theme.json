@@ -1,0 +1,21 @@
+{
+	"name": "Space Theme",
+	"description": "Deep space in the client. Near black surfaces with violet and teal accents, two layers of stars drifting down the screen and the occasional shooting star. The motion is slow on purpose, so it sits in the background rather than pulling at you.",
+	"author": "cameron#0001",
+	"homepage": "https://web.fluxer.app/theme/21e3a6c23cbae0d0",
+	"tags": [
+		"dark",
+		"animated",
+		"space",
+		"purple",
+		"teal"
+	],
+	"variants": [
+		{
+			"name": "Space",
+			"file": "space.css",
+			"base": "dark",
+			"description": "The stylesheet as cameron shared it, with a metadata header added on top."
+		}
+	]
+}
