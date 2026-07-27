@@ -16,7 +16,9 @@
 			"name": "Console",
 			"file": "fcn-os.css",
 			"base": "dark",
-			"description": "The whole thing. Bring your own wallpaper, the url() at the top of the file is where it goes."
+			"description": "The whole thing. Bring your own wallpaper, the url() at the top of the file is where it goes.",
+			"fluxerThemeId": "69ea61300bf7a1a0",
+			"fluxerThemeHash": "1acf9dab91b6a5bb4177c8190309c71bc86c00e46b10e9d0131eb92951451a3c"
 		}
 	]
 }
