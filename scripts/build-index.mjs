@@ -35,13 +35,17 @@ const index = {
 writeFileSync(join(repoRoot, 'themes/index.json'), `${JSON.stringify(index, null, '\t')}\n`);
 console.log(`themes/index.json: ${index.themeCount} themes, ${index.variantCount} variants`);
 
-// One URL per theme, plus the landing page. Variants share the theme's page,
-// and the canonical tag the site sets at runtime points at these same URLs.
-// Crawlers will not read a robots.txt from a project page, only from the
-// domain root, so the sitemap gets submitted by hand in Search Console and
-// Bing Webmaster Tools instead of being discovered.
+// One URL per theme, plus the landing page. These point at the static pages
+// scripts/build-pages.mjs writes, not at ?theme=<slug> on the gallery. A query
+// string on a single JavaScript rendered document is a bad thing to ask a
+// crawler to index, and it is a worse thing to hand an unfurler, which will not
+// run the JavaScript at all.
+//
+// Crawlers will not read a robots.txt from a project page, only from the domain
+// root, so the sitemap gets submitted by hand in Search Console and Bing
+// Webmaster Tools instead of being discovered.
 const siteRoot = 'https://deekahy.github.io/fluxer-theme-library/';
-const locations = [siteRoot, ...themes.map((theme) => `${siteRoot}?theme=${encodeURIComponent(theme.slug)}`)];
+const locations = [siteRoot, ...themes.map((theme) => `${siteRoot}t/${encodeURIComponent(theme.slug)}/`)];
 const sitemap = [
 	'<?xml version="1.0" encoding="UTF-8"?>',
 	'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',

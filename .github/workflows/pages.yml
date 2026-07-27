@@ -44,6 +44,28 @@ jobs:
       - name: Build the theme index
         run: node scripts/build-index.mjs
 
+      # The runner images ship Chrome. Say which one out loud, because a
+      # missing browser here shows up as blank share cards rather than as an
+      # obvious failure.
+      - name: Find Chrome
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium)"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          "$CHROME_BIN" --version
+
+      # One 1200x630 render per theme, plus one of the gallery. These are what
+      # the per theme pages point og:image at, so a link posted in chat shows
+      # the theme instead of a grey text card.
+      - name: Render the share cards
+        run: node scripts/render-previews.mjs
+
+      # A real page per theme, with a real title, description and card. The
+      # gallery is one JavaScript rendered document and unfurlers do not run
+      # JavaScript, so without these every theme link looks identical.
+      - name: Build the theme pages
+        run: node scripts/build-pages.mjs
+
       # Versions the stylesheet and script URLs so a returning visitor cannot be
       # served yesterday's JavaScript against today's markup. Runs against this
       # checkout only, nothing is committed back.
