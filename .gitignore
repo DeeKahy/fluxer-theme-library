@@ -2,8 +2,5 @@
 themes/index.json
 sitemap.xml
 
-# Local assistant notes, not part of the project.
-CLAUDE.md
-
 .DS_Store
 node_modules/
