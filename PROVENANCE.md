@@ -259,23 +259,43 @@ layers and the chat column is under five, with `--background-primary` above all
 of them:
 
 ```
-html                        --background-secondary
-  appContainer              --background-primary
-    guildsLayoutContainer   --background-secondary
-      guildListScroller     --background-secondary   rail
-      guildListScrollCont.  --background-secondary   rail
-      contentContainer      --background-secondary   everything else
-        guildLayoutContainer   --background-secondary
-          guildMainContent     --background-secondary
+html                          --background-secondary
+  appContainer                --background-primary
+    guildsLayoutContainer     --background-secondary
+      guildListScrollerWrap.  --background-secondary   rail
+        guildListScrollCont.  --background-secondary   rail
+          guildListContent                             rail
+      contentContainer        --background-secondary   everything else
+        contentInner          --background-secondary
+          guildLayoutContainer   --background-secondary
+            guildLayoutContent      sidebar and main split
+              GuildNavbar           sidebar
+              guildMainContent   --background-secondary
+                                    channel header, then chat and member list
 ```
 
-The mock paints one layer per region instead of reproducing that nesting.
+The mock reproduces that nesting. It used to paint one layer per region
+instead, which is the simplification that matters most.
 
-For an opaque theme this makes no difference, and that is nearly every theme.
-For a theme with translucent chrome it makes a large one: five stacked layers at
-20% composite to 67%, and the rail and the chat column end up different shades.
-A translucent theme that reads correctly here can be much darker in the client,
-and banded across panels. There are two ways out. The old one is to keep
+For an opaque theme it makes no difference, and that is nearly every theme. For
+a theme with translucent chrome it makes a large one: five stacked layers at 20%
+composite to 67%, and the rail and the chat column end up different shades. A
+translucent theme that read correctly in a flattened mock was much darker in the
+client, and banded across panels.
+
+Worse, four of the containers the transparent theme template clears by class did
+not exist in the mock at all: `contentContainer`, `contentInner`,
+`guildLayoutContainer` and `guildListScrollContainer` are all in that template's
+selector list, and 15 of the stylesheets here name them. So a theme's own
+clearing rules were half applied in the preview and fully applied in the app,
+which is the preview lying in the direction that is hardest to notice.
+
+Two things moved while reproducing this. The member list is not a top level
+column: upstream puts it inside `guildMainContent`, below the channel header, so
+the header spans it. And the rail sits in a two column grid on
+`guildsLayoutContainer` rather than the mock's old four column one.
+
+There are two ways to write a translucent theme. The old one is to keep
 `--background-secondary` fully transparent and put the tint somewhere that is
 painted once. The one the themes in this repo now use is deeruwu's transparent
 theme template from carlfully/fluxer-snippets: clear each container by class

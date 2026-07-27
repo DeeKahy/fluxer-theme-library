@@ -57,25 +57,95 @@ svg {
 	width: 100%;
 }
 
-/* The app container, App.module.css upstream. GuildsLayout nests inside it:
-   rail, then GuildLayout splits sidebar and main content. */
-.app {
+/* ------------------------------------------------------------ containers */
+
+/* Upstream's nesting, not a flattening of it. html is --background-secondary,
+   the app container is the one --background-primary layer, and everything
+   below it is --background-secondary again, on element after element. That
+   repetition is the point: a translucent theme composites through all of it,
+   so a mock that paints one layer per region shows a translucent theme far
+   lighter than the client does.
+
+   Read from App.module.css, GuildsLayout.module.css, GuildLayout.module.css
+   and GuildLayout.tsx at the pinned commit. */
+
+.app-container {
 	background: var(--background-primary);
-	display: grid;
-	/* The rail track is sized by the rail itself, because a multi column
-	   server list theme widens .guilds past --layout-guild-list-width. */
-	/* The member list track is sized by the member list, which declares its own
-	   --member-list-width the way upstream does. */
-	grid-template-columns:
-		auto
-		var(--layout-sidebar-width)
-		minmax(0, 1fr)
-		auto;
-	grid-template-rows: minmax(0, 1fr);
 	height: 100%;
 }
 
-.app > * {
+.guilds-layout {
+	background: var(--background-secondary);
+	display: grid;
+	/* The rail track is sized by the rail itself, because a multi column
+	   server list theme widens .guilds past --layout-guild-list-width. */
+	grid-template-columns: auto minmax(0, 1fr);
+	grid-template-rows: minmax(0, 1fr);
+	height: 100%;
+	position: relative;
+	width: 100%;
+}
+
+.guilds-scroll,
+.guilds-content {
+	background: var(--background-secondary);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 0;
+	width: 100%;
+}
+
+.guilds-scroll {
+	--guild-badge-surface: var(--background-secondary);
+}
+
+.content,
+.content-inner,
+.guild-layout {
+	background: var(--background-secondary);
+	display: grid;
+	grid-template-rows: minmax(0, 1fr);
+	max-height: 100%;
+	min-height: 0;
+	min-width: 0;
+}
+
+.content {
+	position: relative;
+}
+
+/* The sidebar and main split, guildLayoutContent upstream. The member list is
+   not a column here: upstream puts it inside guildMainContent, below the
+   channel header, which is one layer lower than the mock used to have it. */
+.guild-layout-content {
+	display: grid;
+	grid-template-columns: var(--layout-sidebar-width) minmax(0, 1fr);
+	height: 100%;
+	min-height: 0;
+	min-width: 0;
+}
+
+.main {
+	background: var(--background-secondary);
+	display: grid;
+	grid-template-rows: var(--layout-header-height) minmax(0, 1fr);
+	min-height: 0;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.chat-body {
+	display: grid;
+	/* The member list track is sized by the member list, which declares its own
+	   --member-list-width the way upstream does. */
+	grid-template-columns: minmax(0, 1fr) auto;
+	min-height: 0;
+	min-width: 0;
+}
+
+.guild-layout-content > *,
+.chat-body > * {
 	min-height: 0;
 }
 
@@ -426,10 +496,14 @@ svg {
 
 /* ------------------------------------------------------------------ chat */
 
+/* The message column inside guildMainContent. The channel header moved up to
+   .main, matching upstream, so this is the scroller, the typing row and the
+   composer. */
 .chat {
 	background: var(--background-secondary);
 	display: grid;
-	grid-template-rows: var(--layout-header-height) minmax(0, 1fr) auto auto;
+	grid-template-rows: minmax(0, 1fr) auto auto;
+	min-height: 0;
 	min-width: 0;
 }
 
