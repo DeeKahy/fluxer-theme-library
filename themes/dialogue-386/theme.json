@@ -1,0 +1,59 @@
+{
+	"name": "DIALOGUE.386",
+	"description": "A text mode interface from the DOS era. Navy panels inside double white borders with hard black drop shadows, bright green on anything you can press, and a dithered dot grid behind the lot. Built on deer's System-Glass.",
+	"author": "jce, on top of System-Glass by deer",
+	"homepage": "https://web.fluxer.app/theme/765f69b6aafaf0ba",
+	"tags": [
+		"dark",
+		"tui",
+		"retro",
+		"terminal",
+		"dos",
+		"blue",
+		"green"
+	],
+	"variants": [
+		{
+			"name": "Base",
+			"file": "base.css",
+			"base": "dark",
+			"description": "The theme on your own system fonts. Nothing is downloaded and nothing is embedded."
+		},
+		{
+			"name": "IBM Plex",
+			"file": "ibm-plex.css",
+			"base": "dark",
+			"description": "IBM Plex Sans for the interface, IBM Plex Mono for code, both embedded in the file."
+		},
+		{
+			"name": "IBM Plex Mono",
+			"file": "ibm-plex-mono.css",
+			"base": "dark",
+			"description": "IBM Plex Mono everywhere, tightened letter spacing to go with it."
+		},
+		{
+			"name": "B612",
+			"file": "b612.css",
+			"base": "dark",
+			"description": "B612 for the interface, B612 Mono for code. Drawn for aircraft cockpit displays."
+		},
+		{
+			"name": "B612 Mono",
+			"file": "b612-mono.css",
+			"base": "dark",
+			"description": "B612 Mono everywhere, tightened letter spacing to go with it."
+		},
+		{
+			"name": "Atkinson Hyperlegible Next",
+			"file": "atkinson.css",
+			"base": "dark",
+			"description": "Atkinson Hyperlegible Next for the interface, Atkinson Hyperlegible Mono for code. Drawn by the Braille Institute for low vision readers."
+		},
+		{
+			"name": "Atkinson Hyperlegible Mono",
+			"file": "atkinson-mono.css",
+			"base": "dark",
+			"description": "Atkinson Hyperlegible Mono everywhere, tightened letter spacing to go with it."
+		}
+	]
+}
