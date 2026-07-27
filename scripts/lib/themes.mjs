@@ -100,14 +100,22 @@ const SWATCH_TOKENS = [
 	'--background-secondary',
 	'--background-primary',
 	'--accent-primary',
+	'--brand-primary',
 	'--text-primary',
 ];
 
 const SINGLE_VAR = /^var\(\s*(--[a-zA-Z0-9-]+)\s*\)$/;
 
+// Later declarations win, so take the last one rather than the first. Themes
+// routinely name a palette at the top and then override a token further down,
+// and reading the top of the file gets you the value the theme discarded.
+// The leading (?:^|[^\w-]) keeps --accent-primary from matching inside a longer
+// name that happens to end with it.
 function readDeclaration(css, token) {
-	const match = new RegExp(`${token}\\s*:\\s*([^;\\n}]+)`).exec(css);
-	return match ? match[1].trim() : null;
+	const pattern = new RegExp(`(?:^|[^\\w-])${token}\\s*:\\s*([^;\\n}]+)`, 'gm');
+	let value = null;
+	for (const match of css.matchAll(pattern)) value = match[1].trim();
+	return value;
 }
 
 // Plenty of themes name their palette once at the top and point the Fluxer
@@ -132,15 +140,65 @@ export function extractSwatch(css) {
 	return swatch;
 }
 
+const HEX = /^#([0-9a-f]{3,8})$/i;
+const FUNCTIONAL = /^(rgb|rgba|hsl|hsla)\(([^)]*)\)$/i;
+
+function hslToRgb(hue, saturation, lightness) {
+	const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
+	const second = chroma * (1 - Math.abs(((hue / 60) % 2) - 1));
+	const match = lightness - chroma / 2;
+	const sector = Math.floor(hue / 60) % 6;
+	const table = [
+		[chroma, second, 0],
+		[second, chroma, 0],
+		[0, chroma, second],
+		[0, second, chroma],
+		[second, 0, chroma],
+		[chroma, 0, second],
+	];
+	return table[sector].map((channel) => channel + match);
+}
+
+// Hex, rgb() and hsl(), in both the comma syntax and the space separated one.
+// Returns channels in 0..1, or null when the value is something we cannot read.
+// Alpha is parsed off and thrown away: the hue is all the gallery wants.
+export function parseColor(color) {
+	if (typeof color !== 'string') return null;
+	const value = color.trim();
+
+	const hex = HEX.exec(value);
+	if (hex) {
+		const digits = hex[1].length <= 4 ? [...hex[1]].map((char) => char + char).join('') : hex[1];
+		if (digits.length !== 6 && digits.length !== 8) return null;
+		return [0, 2, 4].map((offset) => Number.parseInt(digits.slice(offset, offset + 2), 16) / 255);
+	}
+
+	const functional = FUNCTIONAL.exec(value);
+	if (!functional) return null;
+	const parts = functional[2].split('/')[0].split(/[\s,]+/).filter(Boolean);
+	if (parts.length < 3) return null;
+
+	const numbers = parts.slice(0, 3).map((part) => Number.parseFloat(part));
+	if (!numbers.every(Number.isFinite)) return null;
+
+	if (functional[1].toLowerCase().startsWith('rgb')) {
+		const channels = parts
+			.slice(0, 3)
+			.map((part, index) => (part.trim().endsWith('%') ? (numbers[index] / 100) * 255 : numbers[index]) / 255);
+		return channels;
+	}
+
+	// Saturation and lightness are percentages whether or not the % is written.
+	return hslToRgb(((numbers[0] % 360) + 360) % 360, numbers[1] / 100, numbers[2] / 100);
+}
+
 // The gallery filters by accent hue. Deriving it from the accent colour means a
 // contributor never has to categorise their own theme.
 export function hueBucket(color) {
-	if (typeof color !== 'string') return 'other';
-	const hex = color.trim().replace('#', '');
-	const full = hex.length === 3 ? [...hex].map((char) => char + char).join('') : hex;
-	if (!/^[0-9a-fA-F]{6}$/.test(full)) return 'other';
+	const parsed = parseColor(color);
+	if (!parsed) return 'other';
 
-	const [r, g, b] = [0, 2, 4].map((offset) => Number.parseInt(full.slice(offset, offset + 2), 16) / 255);
+	const [r, g, b] = parsed;
 	const max = Math.max(r, g, b);
 	const min = Math.min(r, g, b);
 	const delta = max - min;
@@ -158,6 +216,18 @@ export function hueBucket(color) {
 	// calls that blue.
 	if (hue < 240) return 'blue';
 	return 'purple';
+}
+
+// --accent-primary is the theme's own accent when it declares one. Plenty of
+// themes leave that to the base theme and colour the app through
+// --brand-primary instead, DIALOGUE.386 among them, so fall through rather than
+// filing those under "other" where no filter can reach them.
+export function themeHue(variant) {
+	for (const token of ['--accent-primary', '--brand-primary']) {
+		const bucket = hueBucket(variant.swatch[token]);
+		if (bucket !== 'other') return bucket;
+	}
+	return 'other';
 }
 
 export function countTokenOverrides(css) {
@@ -267,7 +337,7 @@ export function loadThemes(repoRoot) {
 			homepage: manifest.homepage ?? null,
 			license: manifest.license ?? null,
 			tags: manifest.tags ?? [],
-			hue: hueBucket(variants[0].swatch['--accent-primary']),
+			hue: themeHue(variants[0]),
 			variants,
 		});
 	}
@@ -275,21 +345,48 @@ export function loadThemes(repoRoot) {
 	return {themes, errors, warnings};
 }
 
+// Kept in step with schema/theme.schema.json by hand, because adding a JSON
+// schema validator would mean adding the first dependency this repo has. The
+// limits below are the schema's limits. If you change one, change both.
+const MANIFEST_KEYS = ['name', 'description', 'author', 'homepage', 'license', 'tags', 'variants'];
+const VARIANT_KEYS = ['name', 'file', 'description', 'base', 'fluxerThemeId', 'fluxerThemeHash'];
+
+function unknownKeys(object, allowed) {
+	return Object.keys(object).filter((key) => !allowed.includes(key));
+}
+
 function validateManifest(manifest) {
 	const problems = [];
 	const isString = (value) => typeof value === 'string' && value.trim().length > 0;
+	const tooLong = (value, limit) => typeof value === 'string' && value.length > limit;
 
 	if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
 		return ['must be a JSON object'];
 	}
+
+	const strays = unknownKeys(manifest, MANIFEST_KEYS);
+	if (strays.length > 0) {
+		problems.push(`unknown key(s) ${strays.join(', ')}. A typo here is silently ignored, so it is an error`);
+	}
+
 	if (!isString(manifest.name)) problems.push('"name" is required and must be a non empty string');
+	if (tooLong(manifest.name, 60)) problems.push('"name" is longer than 60 characters');
 	if (!isString(manifest.author)) problems.push('"author" is required and must be a non empty string');
+	if (tooLong(manifest.author, 80)) problems.push('"author" is longer than 80 characters');
 	if (manifest.description !== undefined && typeof manifest.description !== 'string') {
 		problems.push('"description" must be a string');
 	}
+	if (tooLong(manifest.description, 300)) problems.push('"description" is longer than 300 characters');
+	if (manifest.homepage !== undefined && !isString(manifest.homepage)) {
+		problems.push('"homepage" must be a non empty string');
+	}
+	if (tooLong(manifest.license, 60)) problems.push('"license" is longer than 60 characters');
 	if (manifest.tags !== undefined) {
 		if (!Array.isArray(manifest.tags) || !manifest.tags.every(isString)) {
 			problems.push('"tags" must be an array of non empty strings');
+		} else {
+			if (manifest.tags.length > 12) problems.push('"tags" has more than 12 entries');
+			if (manifest.tags.some((tag) => tag.length > 24)) problems.push('a tag is longer than 24 characters');
 		}
 	}
 	if (!Array.isArray(manifest.variants) || manifest.variants.length === 0) {
@@ -304,7 +401,11 @@ function validateManifest(manifest) {
 			problems.push(`${label} must be an object`);
 			return;
 		}
+		const variantStrays = unknownKeys(variant, VARIANT_KEYS);
+		if (variantStrays.length > 0) problems.push(`${label}: unknown key(s) ${variantStrays.join(', ')}`);
 		if (!isString(variant.name)) problems.push(`${label}: "name" is required`);
+		if (tooLong(variant.name, 60)) problems.push(`${label}: "name" is longer than 60 characters`);
+		if (tooLong(variant.description, 300)) problems.push(`${label}: "description" is longer than 300 characters`);
 		if (!isString(variant.file)) {
 			problems.push(`${label}: "file" is required`);
 		} else {

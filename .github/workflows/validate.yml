@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Run the unit tests
+        run: node --test
+
       - name: Check every theme folder
         run: node scripts/validate.mjs
 
