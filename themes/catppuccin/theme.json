@@ -1,0 +1,34 @@
+{
+	"name": "Catppuccin",
+	"description": "The pastel palette, all four flavours at the mauve accent. Upstream ships all fourteen Catppuccin accents for each flavour, fifty six stylesheets, at github.com/scarcekoi/fluxer.",
+	"author": "scarcekoi, palette by Catppuccin",
+	"homepage": "https://github.com/scarcekoi/fluxer",
+	"license": "MIT",
+	"tags": ["pastel", "catppuccin", "purple", "low-contrast"],
+	"variants": [
+		{
+			"name": "Mocha",
+			"file": "mocha.css",
+			"base": "dark",
+			"description": "The darkest flavour, near black with pastel text. Mauve accent, and thirteen other accents are in the upstream repo."
+		},
+		{
+			"name": "Macchiato",
+			"file": "macchiato.css",
+			"base": "dark",
+			"description": "A darker Frappé, more contrast without going to black."
+		},
+		{
+			"name": "Frappé",
+			"file": "frappe.css",
+			"base": "dark",
+			"description": "The lightest of the three dark flavours, muted and blue grey."
+		},
+		{
+			"name": "Latte",
+			"file": "latte.css",
+			"base": "light",
+			"description": "The light flavour, warm greys and a violet accent."
+		}
+	]
+}
