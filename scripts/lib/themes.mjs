@@ -58,7 +58,7 @@ export function parseThemeMetadata(css) {
 }
 
 // Pulled out for the gallery swatches. Only literal values are useful here, a
-// value that resolves through var() or color-mix() is skipped.
+// value that still resolves through var() or color-mix() is skipped.
 const SWATCH_TOKENS = [
 	'--background-tertiary',
 	'--background-secondary',
@@ -67,12 +67,29 @@ const SWATCH_TOKENS = [
 	'--text-primary',
 ];
 
+const SINGLE_VAR = /^var\(\s*(--[a-zA-Z0-9-]+)\s*\)$/;
+
+function readDeclaration(css, token) {
+	const match = new RegExp(`${token}\\s*:\\s*([^;\\n}]+)`).exec(css);
+	return match ? match[1].trim() : null;
+}
+
+// Plenty of themes name their palette once at the top and point the Fluxer
+// tokens at those names, so a swatch token often reads var(--ThemeSomething).
+// Follow the chain until it lands on a literal.
+function resolveValue(css, value, depth) {
+	const indirection = SINGLE_VAR.exec(value);
+	if (!indirection || depth > 4) return value;
+	const next = readDeclaration(css, indirection[1]);
+	return next === null ? value : resolveValue(css, next, depth + 1);
+}
+
 export function extractSwatch(css) {
 	const swatch = {};
 	for (const token of SWATCH_TOKENS) {
-		const match = new RegExp(`${token}\\s*:\\s*([^;\\n}]+)`).exec(css);
-		if (!match) continue;
-		const value = match[1].trim();
+		const declared = readDeclaration(css, token);
+		if (declared === null) continue;
+		const value = resolveValue(css, declared, 0);
 		if (/var\(|color-mix\(/.test(value)) continue;
 		swatch[token] = value;
 	}
