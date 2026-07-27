@@ -191,6 +191,38 @@ For fonts, prefer a font stack over embedding a face. If you want a specific
 one, embed it the same way, and put the one line `@import` in a comment in your
 header for people who would rather fetch it themselves.
 
+## Porting a theme from BetterDiscord or Vencord
+
+Palettes always port. Set the Fluxer tokens to the same colours and most of a
+theme comes across.
+
+Class selectors port too, which is not obvious. Fluxer's build keeps the source
+module and element name in every emitted class, so elements carry
+`Component.module__element_<hash>`. Only the hash changes between builds, so
+`[class*="Component.module__element_"]` is the selector that survives updates.
+That is what the community writes, and
+[carlfully/fluxer-snippets](https://github.com/carlfully/fluxer-snippets) is
+built on it. Take a proven snippet from there with credit rather than
+hand rolling the same effect.
+
+The preview carries those same prefixes with an invented `_flxmock` suffix, so a
+class hook theme previews here. It does not carry every element the client has,
+so some rules will do nothing in the preview and still work in the app. Say in
+your header comment what you dropped rather than faking it.
+
+Two things that bite:
+
+- Substring selectors over match. `[class*="fluxerButtonIcon"]` also catches the
+  favourites icon in the live client, which the preview does not show. When the
+  element has an `aria-label`, key on that instead.
+- Check what a fetched asset actually is before you name it. Files served as
+  `.svg` or `.gif` are routinely WebP underneath.
+
+If the theme you are porting has a licence, put it in `theme.json`. If it has
+none, credit the author in `@author`, in a header comment and in `homepage`,
+leave `license` unset, and say so in the pull request rather than guessing.
+Wallpaper art is usually not the theme author's work either, so flag that too.
+
 ## Previewing your work
 
 ```bash
