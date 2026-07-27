@@ -158,6 +158,32 @@ hex, which is fine and what most themes do, your theme stops responding to it.
 If you want to keep it working, keep the `calc()` wrapper on your saturation
 values.
 
+### Images and fonts
+
+Everything your theme needs has to be inside the file. Validation rejects
+`@import`, and rejects any `url()` pointing at another host.
+
+That is not us being strict for the sake of it. A Fluxer share link stores one
+CSS string and nothing else, so a hotlinked image is not part of your theme, it
+is a request your theme makes and hopes somebody else keeps answering. One of
+the wallpapers in this repo was already a 404 by the time anybody checked.
+
+Inline what you need as a `data:` URI:
+
+```bash
+# macOS has sips and nothing else, which is enough
+sips -Z 1600 -s format jpeg -s formatOptions 35 wallpaper.png --out small.jpg
+printf 'url("data:image/jpeg;base64,%s")' "$(base64 -i small.jpg)"
+```
+
+Shrink it first. A 1920px wallpaper at 1600px and quality 35 goes from about
+320 KB to about 138 KB, and base64 adds a third on top of whatever you end up
+with. The hard ceiling is Fluxer's 8 MiB limit on a shared stylesheet.
+
+For fonts, prefer a font stack over embedding a face. If you want a specific
+one, embed it the same way, and put the one line `@import` in a comment in your
+header for people who would rather fetch it themselves.
+
 ## Previewing your work
 
 ```bash
@@ -202,7 +228,10 @@ Themes that reference images through `fluxer-theme-asset("name")` or
 `fluxer-local-file("path")` will not render in the preview, and will not travel
 through a share link either. Those references resolve against files in the
 viewer's own local theme library, which a shared stylesheet has no way to carry.
-Inline small images as `data:` URIs if you need them.
+Inline them as `data:` URIs instead, see above.
+
+Themes that fetch anything over the network. `@import` and remote `url()` are
+rejected by validation, for the reasons in that same section.
 
 Themes that target Fluxer's internal class names rather than custom properties
 will apply in the client but do nothing in the preview. The client's class names

@@ -57,6 +57,42 @@ export function parseThemeMetadata(css) {
 	return metadata;
 }
 
+// A theme travels as one CSS string. The share endpoint stores that string and
+// nothing else, so anything the stylesheet fetches from another host is a
+// dependency the string cannot carry. Two ways that bites:
+//
+//   - The asset dies when its host does, and the theme rots quietly. One of
+//     dialogue-386's wallpaper presets was a 404 before anyone noticed.
+//   - A remote @import lets a stylesheet change its own contents after it was
+//     reviewed and merged, on the site and in every client that applied it.
+//     Uploads to Fluxer are permanent, so there is no taking that back.
+//
+// Comments are stripped first: a couple of themes document the one line Google
+// Fonts import in their header for people who want the exact face, and that is
+// advice, not a fetch.
+const COMMENT = /\/\*[\s\S]*?\*\//g;
+const ANY_IMPORT = /@import\b/i;
+// url( optionally quoted, then either an explicit http(s) scheme or a protocol
+// relative //. A data: URI starts with "d" and never matches.
+const REMOTE_URL = /url\(\s*['"]?\s*(?:https?:)?\/\//gi;
+
+export function findRemoteReferences(css) {
+	const code = css.replace(COMMENT, ' ');
+	const problems = [];
+
+	if (ANY_IMPORT.test(code)) {
+		problems.push('uses @import, which a share link cannot carry. Paste the rules in, or embed the font as a data: URI');
+	}
+
+	const remote = [...code.matchAll(REMOTE_URL)];
+	if (remote.length > 0) {
+		const plural = remote.length === 1 ? 'reference' : 'references';
+		problems.push(`has ${remote.length} url() ${plural} to another host. Inline the asset as a data: URI`);
+	}
+
+	return problems;
+}
+
 // Pulled out for the gallery swatches. Only literal values are useful here, a
 // value that still resolves through var() or color-mix() is skipped.
 const SWATCH_TOKENS = [
@@ -194,6 +230,12 @@ export function loadThemes(repoRoot) {
 			const metadata = parseThemeMetadata(css);
 			if (!metadata.name) {
 				warnings.push(`${cssPath}: no /** @name ... */ header, Fluxer will fall back to the filename`);
+			}
+
+			const remote = findRemoteReferences(css);
+			if (remote.length > 0) {
+				for (const problem of remote) errors.push(`${cssPath}: ${problem}`);
+				continue;
 			}
 
 			variants.push({

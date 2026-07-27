@@ -1,0 +1,13 @@
+# Themes are the open part of this repo. Anyone can add a folder under themes/
+# and the bar is "it is a theme and it works", so nothing here claims those.
+#
+# Everything else is machinery. The publish workflow holds a Fluxer account
+# token and runs with write access to this repository on every push to main, so
+# a change to a script or a workflow is a different kind of change from a new
+# palette and should be read as one.
+
+/*              @DeeKahy
+/.github/       @DeeKahy
+/schema/        @DeeKahy
+/scripts/       @DeeKahy
+/site/          @DeeKahy

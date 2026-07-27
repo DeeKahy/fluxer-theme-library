@@ -1,0 +1,10 @@
+# There is no package.json here and there never will be, so the only supply
+# chain this repo has is the Actions the workflows call. Watch those.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: Update

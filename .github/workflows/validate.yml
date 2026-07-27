@@ -5,11 +5,21 @@ on:
   push:
     branches: [main]
 
+# This job reads theme files sent by whoever opened the pull request. It has no
+# reason to be able to write anything, so say so here rather than inheriting
+# whatever the repository default happens to be.
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Nothing in this job pushes, so do not leave a credential lying
+          # around in the checkout for a script to find.
+          persist-credentials: false
 
       - uses: actions/setup-node@v4
         with:
