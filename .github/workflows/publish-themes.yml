@@ -42,6 +42,41 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Needed so the guard below can diff against the commit this push
+          # started from.
+          fetch-depth: 0
+
+      # The publish step below runs with write access to this repository and a
+      # Fluxer account token in the environment. A push that changes a theme is
+      # the expected case. A push that changes a theme *and* a script or a
+      # workflow is the shape a supply chain attack takes, so stop and make
+      # somebody look at it. Publish by hand with workflow_dispatch once the
+      # change has been reviewed.
+      - name: Refuse to publish a push that touched more than themes
+        if: github.event_name == 'push'
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            BEFORE="$(git rev-parse "$AFTER^" 2>/dev/null || true)"
+          fi
+          if [ -z "$BEFORE" ]; then
+            echo "Cannot work out what this push changed. Refusing to publish."
+            exit 1
+          fi
+          outside="$(git diff --name-only "$BEFORE" "$AFTER" -- . ':(exclude)themes/**')"
+          if [ -n "$outside" ]; then
+            echo "This push changed files outside themes/:"
+            echo "$outside"
+            echo
+            echo "Publishing is blocked. Review the change, then run this workflow"
+            echo "by hand with mode=publish."
+            exit 1
+          fi
+          echo "Only themes/ changed, carrying on."
 
       - uses: actions/setup-node@v4
         with:
