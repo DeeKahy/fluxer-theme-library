@@ -18,6 +18,15 @@ import {fileURLToPath} from 'node:url';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
+// This rewrites tracked files in place, which is what we want in the Pages
+// workflow against its throwaway checkout, and not what anyone wants in their
+// own clone, where it leaves index.html and shell.html dirty with ?v= strings.
+if (!process.env.CI && !process.argv.includes('--force')) {
+	console.error('stamp-assets rewrites index.html and site/preview/shell.html in place.');
+	console.error('It is meant for the Pages workflow. Pass --force if you meant to run it here.');
+	process.exit(1);
+}
+
 // [html file, directory its relative refs resolve against]
 const PAGES = [
 	['index.html', '.'],
