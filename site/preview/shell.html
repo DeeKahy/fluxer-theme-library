@@ -21,6 +21,28 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--
+			The preview renders CSS written by whoever opened the pull request, so
+			the frame is told what it is allowed to fetch rather than trusted not
+			to. Themes may only reach for same origin files and data: URIs, which
+			is the rule scripts/validate.mjs enforces at review time. This is the
+			same rule again, enforced by the browser, so a hotlink that slipped
+			past review fails visibly here instead of working quietly.
+
+			'unsafe-inline' on style-src is not optional: the theme is mounted into
+			<style id="fluxer-custom-theme-style"> and a static meta policy has no
+			way to carry a per request nonce. CSS is the payload here by design.
+			What the policy is actually for is the fetching, so img-src, font-src
+			and connect-src are the lines that matter.
+
+			frame-ancestors, sandbox and report-uri are all ignored in a meta
+			policy and are deliberately left out rather than written down as
+			decoration.
+		-->
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'"
+		/>
 		<title>Theme preview</title>
 		<link rel="stylesheet" href="vendor/tokens.css" />
 		<link rel="stylesheet" href="shell.css" />
