@@ -187,11 +187,27 @@ target them. The guild rail carries the client's actual values, read from
 - `app.guilds-layout.guild-list.add-guild-button` on the add button
 - `app.guilds-layout.guild-list.guild-divider` on the divider
 
-The two section wrappers render as `display: contents` so the default rail is
-unchanged, but a theme can grid them into a multi column server list and the
-preview will show it, same as the client. The mock's remaining values are
-still invented to match the naming pattern, because the elements they sit on
-are simplifications with no one-to-one upstream component.
+The section wrappers are real flex columns with `width: 100%` and their own
+`--guild-list-item-gap`, copied from `GuildsLayout.module.css`, and every rail
+button sits in a `guildListItemSlot`. They used to be `display: contents`, with
+the gap and the centring hoisted onto the rail itself.
+
+That laid out identically for the default rail and differently for any theme
+that touched it, which is the failure mode worth naming: a multi column server
+list theme grids these sections, and upstream it is gridding a real flex column
+that already has a width and a gap. Gridding `display: contents` gave the
+columns nothing to lay out, so the icons were positioned directly, the gaps came
+from the wrong element, and the loose buttons after `guildListItems` fell to the
+bottom of the rail with a hole above them.
+
+`guildListContent` deliberately has no height. Upstream sits it at natural
+height at the top of the scroller and leaves the rest empty. Giving it
+`height: 100%` is what let a theme's `flex` on the guilds section grow into the
+spare room and stretch its grid rows, which was the other half of the same bug.
+
+The mock's remaining `data-flx` values are still invented to match the naming
+pattern, because the elements they sit on are simplifications with no
+one-to-one upstream component.
 
 ### Surfaces and measurements
 
