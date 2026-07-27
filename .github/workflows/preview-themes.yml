@@ -1,0 +1,80 @@
+name: Preview changed themes
+
+# A theme pull request is a diff of CSS, and the thing being changed is a
+# picture. Reviewing one meant checking the branch out and running a server, so
+# in practice it meant merging on trust.
+#
+# This renders every theme the pull request touched and attaches the images to
+# the run, so reviewing is one click from the Checks tab.
+#
+# Deliberately `pull_request` and not `pull_request_target`: this checks out and
+# renders CSS written by whoever opened the pull request. `pull_request_target`
+# would run that with a writable token against the base repo, which is exactly
+# the mistake this workflow would otherwise be making. The cost is that the job
+# cannot comment on a fork's pull request, so the images go to an artifact and
+# the summary says where to find them.
+
+on:
+  pull_request:
+    paths:
+      - 'themes/**'
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Work out which themes changed
+        id: changed
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin "$BASE" 2>/dev/null || true
+          slugs="$(git diff --name-only "$BASE" "$HEAD" -- themes/ \
+            | awk -F/ 'NF>2 {print $2}' | sort -u | tr '\n' ' ')"
+          echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
+          echo "Changed themes: ${slugs:-none}"
+
+      - name: Find Chrome
+        if: steps.changed.outputs.slugs != ''
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium)"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          "$CHROME_BIN" --version
+
+      - name: Render them
+        if: steps.changed.outputs.slugs != ''
+        run: node scripts/render-previews.mjs ${{ steps.changed.outputs.slugs }} --out preview-shots
+
+      - uses: actions/upload-artifact@v4
+        if: steps.changed.outputs.slugs != ''
+        with:
+          name: theme-previews
+          path: preview-shots/
+          if-no-files-found: error
+
+      - name: Say where they are
+        if: steps.changed.outputs.slugs != ''
+        run: |
+          {
+            echo "## Previews"
+            echo
+            echo "Rendered: \`${{ steps.changed.outputs.slugs }}\`"
+            echo
+            echo "The images are in the **theme-previews** artifact on this run."
+            echo "One 1200x630 render per theme, first variant, on the base it declares."
+          } >> "$GITHUB_STEP_SUMMARY"
