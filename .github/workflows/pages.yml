@@ -31,7 +31,7 @@ jobs:
       # On a workflow_run, github.sha points at the commit that started the
       # publish workflow, which is the one *before* the ids were committed.
       # Take main explicitly so the deploy includes them.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
 
