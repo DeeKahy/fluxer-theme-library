@@ -86,6 +86,22 @@ where the app is served. `fluxer.app` is the marketing site and returns 404 for
 - rate limit is 20 per minute, bucket `theme:share:create`, from
   `fluxer_api/src/api/rate_limit_configs/MiscRateLimitConfig.ts`
 
+### Reading a shared theme back
+
+There is no GET route for a shared theme, and none in the OpenAPI document.
+`ThemeService.createTheme` writes the stylesheet straight to the CDN bucket at
+`themes/<id>.css`, and the client fetches it from there:
+`buildThemeCssUrl` in `fluxer_app/src/features/theme/utils/ThemeUtils.ts` joins
+`RuntimeConfig.mediaEndpoint` to that path. The media endpoint is served in the
+bootstrap blob on the web app, `endpoints.media` in `window.__FLUXER_BOOTSTRAP__`,
+currently `https://fluxerusercontent.com`. So a share link's CSS is at:
+
+    https://fluxerusercontent.com/themes/<id>.css
+
+No auth, no proxy needed. That is how the DIALOGUE.386 files got here. Nothing in
+this repo depends on it, it is written down so the next person does not have to
+go hunting.
+
 ### Selector hooks: class names and data-flx
 
 Upstream's build keeps the source module and element name in every emitted
