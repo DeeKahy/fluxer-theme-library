@@ -1,0 +1,128 @@
+/*
+ * One theme, one page. Kept separate from site.css, which is built around the
+ * gallery's two column frame and would have to be fought to do this.
+ */
+
+:root {
+	--ink: #f4f2ec;
+	--ink-2: #c8c6c0;
+	--ink-3: #8a8a92;
+	--page: #08080a;
+	--panel: #0d0d0f;
+	--line: #26262c;
+	--accent: #d7ff4f;
+	--sans: 'Bricolage Grotesque', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+	color-scheme: dark;
+}
+
+body {
+	background: var(--page);
+	color: var(--ink);
+	font-family: var(--sans);
+	line-height: 1.55;
+	margin: 0;
+}
+
+.wrap {
+	margin: 0 auto;
+	max-width: 62rem;
+	padding: 32px 20px 64px;
+}
+
+a {
+	color: var(--ink);
+}
+
+h1 {
+	font-size: clamp(1.75rem, 5vw, 2.5rem);
+	margin: 4px 0 2px;
+}
+
+h2 {
+	border-top: 1px solid var(--line);
+	font-size: 0.8rem;
+	letter-spacing: 0.08em;
+	margin: 36px 0 12px;
+	padding-top: 20px;
+	text-transform: uppercase;
+}
+
+.back,
+.by,
+.dim,
+.foot {
+	color: var(--ink-3);
+	font-size: 0.85rem;
+}
+
+.by {
+	margin: 0 0 10px;
+}
+
+.blurb {
+	color: var(--ink-2);
+	margin: 0 0 8px;
+	max-width: 46rem;
+}
+
+/* The preview is the real shell, same as the gallery, so it cannot go stale
+   against the theme it claims to show. The card image is a render of this. */
+.preview {
+	aspect-ratio: 1100 / 700;
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	display: block;
+	margin-top: 20px;
+	width: 100%;
+}
+
+.buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+
+.btn {
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 9px;
+	font-size: 0.85rem;
+	padding: 8px 14px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	border-color: var(--ink-3);
+}
+
+.btn.primary {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: #10100c;
+	font-weight: 600;
+}
+
+.variants {
+	font-size: 0.9rem;
+	margin: 0;
+	padding-left: 1.1rem;
+}
+
+.variants li {
+	margin-bottom: 6px;
+}
+
+.variants .dim {
+	font-family: var(--mono);
+	font-size: 0.75rem;
+}
+
+.foot {
+	border-top: 1px solid var(--line);
+	margin-top: 36px;
+	padding-top: 16px;
+}
