@@ -91,13 +91,23 @@ svg {
 	background: var(--background-secondary);
 	display: flex;
 	flex-direction: column;
-	height: 100%;
-	min-height: 0;
 	width: 100%;
 }
 
+/* The scroll container fills the rail. The content inside it does not: upstream
+   gives guildListContent no height at all, so it sits at natural height at the
+   top and whatever is left over is empty scroller.
+
+   That distinction is the whole bug in the double column server list. With
+   height: 100% here, the theme's flex: 25% on the guilds section had room to
+   grow into, the grid stretched its auto rows to fill it, and the loose buttons
+   that follow guildListItems got pushed to the bottom of the rail. Hence one
+   server icon floating on its own with a hole above it. */
 .guilds-scroll {
 	--guild-badge-surface: var(--background-secondary);
+	height: 100%;
+	min-height: 0;
+	overflow: hidden;
 }
 
 .content,
@@ -152,25 +162,54 @@ svg {
 /* ------------------------------------------------------------ guild rail */
 
 .guilds {
-	align-items: center;
 	background: var(--background-secondary);
-	display: flex;
-	flex-direction: column;
-	gap: var(--guild-icon-gap);
 	overflow: hidden;
-	padding-bottom: var(--spacing-2);
-	padding-top: var(--spacing-1);
 	width: var(--layout-guild-list-width);
 }
 
-/* guildListTopSection and guildListItems upstream. Invisible by default so
-   the rail lays out exactly as one flex column, but a theme that grids them
-   through their class hooks gets a real box to work with, which is how a
-   multi column server list is done. justify-items only matters once a theme
-   turns the section into a grid. */
+/* The rail's own flex columns, copied from GuildsLayout.module.css rather than
+   approximated. These used to be display: contents, with the gap and the
+   centring hoisted onto .guilds, which laid out identically for the default
+   rail and behaved differently the moment a theme touched it.
+
+   A multi column server list theme grids these sections. Upstream it is
+   replacing a real flex column that already has width: 100% and its own gap.
+   Here it was replacing a box that did not exist, so the columns collapsed to
+   content width, the gaps came from the wrong element, and the loose buttons
+   that sit beside guildListItems ended up floating on their own row. */
+.guilds-content {
+	--guild-list-item-size: var(--guild-icon-size);
+	--guild-list-item-box-size: 3rem;
+	--guild-list-item-gap: 0.375rem;
+	--guild-list-item-inset: calc((var(--guild-list-item-box-size) - var(--guild-list-item-size)) / 2);
+	align-items: center;
+	padding-bottom: var(--spacing-2);
+	padding-top: var(--spacing-1);
+}
+
 .guilds-section {
-	display: contents;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: var(--guild-list-item-gap);
 	justify-items: center;
+	position: relative;
+	width: 100%;
+}
+
+/* guildListItems is the guilds themselves, and upstream gives it no gap of its
+   own: the spacing comes from the slot each guild sits in. */
+.guilds-items {
+	gap: 0;
+}
+
+/* guildListItemSlot. Every guild is in one, which is what a grid on the
+   section actually lays out. Without them the grid was positioning the icons
+   directly and nothing lined up. */
+.guild-slot {
+	display: flex;
+	justify-content: center;
+	padding-block: calc(var(--guild-list-item-gap) / 2);
 	width: 100%;
 }
 
