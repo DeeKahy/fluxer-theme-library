@@ -2,8 +2,9 @@
  * Loads a theme into the static mock.
  *
  * Query parameters:
- *   css   path to the theme stylesheet, same origin only
- *   base  dark | light | coal | dark_legacy, defaults to dark
+ *   css       path to the theme stylesheet, same origin only
+ *   base      dark | light | coal | dark_legacy, defaults to dark
+ *   platform  web | macos | windows | linux, defaults to web
  *
  * That is the whole job. The preview does not respond to input.
  */
@@ -19,9 +20,30 @@
 	// light before it reaches the DOM.
 	var BASE_THEMES = ['dark', 'light', 'coal', 'dark_legacy'];
 
+	// Exactly one, replacing whatever is on the element rather than adding to
+	// it. The markup used to ship theme-dark and this used to add a second
+	// class on top, which was fine only while nothing defined .theme-dark.
 	var base = params.get('base');
 	if (BASE_THEMES.indexOf(base) === -1) base = 'dark';
-	root.classList.add('theme-' + base);
+	root.className = 'theme-' + base;
+
+	// app/globals.css re-declares some tokens behind platform classes, and those
+	// selectors beat :root. --layout-guild-list-width on macOS desktop is the
+	// one that has bitten: a theme that sets it only on :root gets the stock
+	// rail width there and the themed one on the web. The mock had no platform
+	// classes at all, which is exactly why that went unnoticed.
+	var PLATFORMS = {
+		web: [],
+		macos: ['platform-native', 'platform-macos'],
+		windows: ['platform-native', 'platform-windows'],
+		linux: ['platform-native', 'platform-linux'],
+	};
+
+	var platform = params.get('platform');
+	if (!Object.prototype.hasOwnProperty.call(PLATFORMS, platform)) platform = 'web';
+	PLATFORMS[platform].forEach(function (name) {
+		root.classList.add(name);
+	});
 
 	function notifyParent(type, detail) {
 		if (window.parent === window) return;
