@@ -113,14 +113,14 @@
 								<span class="mode-chip" id="detail-mode">dark</span>
 							</div>
 							<p class="detail-sub" id="detail-sub">Reading themes/index.json</p>
+							<p class="detail-credits" id="detail-credits"></p>
 						</div>
 					</div>
 
 					<!-- A theme declares the base it was written for, and the preview
-					     opens on that one. These let you check it against the others,
-					     which matters because most themes here are announced as "use
-					     with the dark or coal base" and coal is a genuinely different
-					     palette, not a shade of dark. -->
+					     opens on that one. The switch is here because most themes are
+					     announced as "use with the dark or coal base", and coal is a
+					     genuinely different palette rather than a shade of dark. -->
 					<div class="preview-controls">
 						<span class="foot-label">base</span>
 						<div class="segmented mono-tabs" id="base-tabs" role="group" aria-label="Preview against a base theme">
@@ -129,12 +129,10 @@
 							<button type="button" data-base="light" aria-pressed="false">light</button>
 							<button type="button" data-base="dark_legacy" aria-pressed="false">legacy</button>
 						</div>
-						<span class="foot-label">platform</span>
-						<div class="segmented mono-tabs" id="platform-tabs" role="group" aria-label="Preview as a platform">
-							<button type="button" data-platform="web" aria-pressed="true">web</button>
-							<button type="button" data-platform="macos" aria-pressed="false">macOS</button>
-						</div>
-						<a class="preview-full" id="open-full" target="_blank" rel="noopener noreferrer">open full size</a>
+						<p class="preview-note">
+							A mock of the client, not the client. The colours come from the theme's own tokens so the palette is
+							exact, the layout is close enough to judge it by.
+						</p>
 					</div>
 
 					<div class="stage">

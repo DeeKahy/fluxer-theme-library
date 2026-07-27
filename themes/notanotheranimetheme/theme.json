@@ -1,7 +1,27 @@
 {
 	"name": "NotAnotherAnimeTheme",
 	"description": "puckzxz's Discord theme, ported to Fluxer. A wallpaper behind the whole client, black glass over it, mint green accents.",
-	"author": "puckzxz, snippets by carlfully and deeruwu, ported by fluxer-theme-library",
+	"credits": [
+		{
+			"name": "puckzxz",
+			"role": "original theme",
+			"url": "https://github.com/puckzxz"
+		},
+		{
+			"name": "carlfully",
+			"role": "snippets",
+			"url": "https://github.com/carlfully/fluxer-snippets"
+		},
+		{
+			"name": "deeruwu",
+			"role": "transparent theme template"
+		},
+		{
+			"name": "fluxer-theme-library",
+			"role": "Fluxer port",
+			"url": "https://github.com/DeeKahy/fluxer-theme-library"
+		}
+	],
 	"homepage": "https://github.com/puckzxz/NotAnotherAnimeTheme",
 	"license": "Unlicense",
 	"tags": [

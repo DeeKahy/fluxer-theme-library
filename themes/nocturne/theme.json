@@ -1,7 +1,13 @@
 {
 	"name": "Nocturne",
 	"description": "Deep indigo surfaces with a violet accent, plus a paper light counterpart.",
-	"author": "fluxer-theme-library",
+	"credits": [
+		{
+			"name": "fluxer-theme-library",
+			"role": "Fluxer port",
+			"url": "https://github.com/DeeKahy/fluxer-theme-library"
+		}
+	],
 	"license": "MIT",
 	"tags": [
 		"dark",

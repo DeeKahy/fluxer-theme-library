@@ -1,7 +1,26 @@
 {
 	"name": "Frosted Glass",
 	"description": "A blurred wallpaper behind every panel, purple and indigo accents. A port of FrostedGlass by Gibbu.",
-	"author": "Gibbu and DiscordStyles, template by deeruwu, ported by fluxer-theme-library",
+	"credits": [
+		{
+			"name": "Gibbu",
+			"role": "original theme"
+		},
+		{
+			"name": "DiscordStyles",
+			"role": "original theme",
+			"url": "https://github.com/DiscordStyles"
+		},
+		{
+			"name": "deeruwu",
+			"role": "transparent theme template"
+		},
+		{
+			"name": "fluxer-theme-library",
+			"role": "Fluxer port",
+			"url": "https://github.com/DeeKahy/fluxer-theme-library"
+		}
+	],
 	"homepage": "https://github.com/DiscordStyles/FrostedGlass",
 	"license": "MIT",
 	"tags": [

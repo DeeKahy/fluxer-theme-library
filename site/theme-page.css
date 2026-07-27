@@ -126,3 +126,20 @@ h2 {
 	margin-top: 36px;
 	padding-top: 16px;
 }
+
+/* Credits and links. Same shape as the variant list, one row per entry, so a
+   theme with four contributors reads as four people rather than as prose. */
+.credits {
+	font-size: 0.9rem;
+	margin: 0 0 10px;
+	padding-left: 1.1rem;
+}
+
+.credits li {
+	margin-bottom: 5px;
+}
+
+.credits .dim {
+	font-family: var(--mono);
+	font-size: 0.75rem;
+}

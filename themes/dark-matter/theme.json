@@ -1,7 +1,21 @@
 {
 	"name": "Dark Matter",
 	"description": "Cold flat slate panels with a sky blue accent. A port of Dark Matter by Tropical and Hammock.",
-	"author": "Tropical and Hammock, ported by fluxer-theme-library",
+	"credits": [
+		{
+			"name": "Tropical",
+			"role": "original theme"
+		},
+		{
+			"name": "Hammock",
+			"role": "original theme"
+		},
+		{
+			"name": "fluxer-theme-library",
+			"role": "Fluxer port",
+			"url": "https://github.com/DeeKahy/fluxer-theme-library"
+		}
+	],
 	"homepage": "https://github.com/DiscordStyles/DarkMatter",
 	"license": "MIT",
 	"tags": [

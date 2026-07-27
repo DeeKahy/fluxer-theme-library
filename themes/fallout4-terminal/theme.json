@@ -1,7 +1,18 @@
 {
 	"name": "Fallout 4 Terminal",
 	"description": "A RobCo terminal. One phosphor green on one near black, monospace throughout, green rules instead of panels.",
-	"author": "Bates, ported by fluxer-theme-library",
+	"credits": [
+		{
+			"name": "Bates",
+			"role": "original theme",
+			"url": "https://github.com/B4T3S"
+		},
+		{
+			"name": "fluxer-theme-library",
+			"role": "Fluxer port",
+			"url": "https://github.com/DeeKahy/fluxer-theme-library"
+		}
+	],
 	"homepage": "https://github.com/B4T3S/Fallout4TerminalTheme",
 	"tags": [
 		"dark",

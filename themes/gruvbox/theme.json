@@ -1,7 +1,18 @@
 {
 	"name": "Gruvbox",
 	"description": "The retro groove palette, warm and low contrast. Dark and light variants.",
-	"author": "fluxer-theme-library",
+	"credits": [
+		{
+			"name": "fluxer-theme-library",
+			"role": "Fluxer port",
+			"url": "https://github.com/DeeKahy/fluxer-theme-library"
+		},
+		{
+			"name": "morhetz",
+			"role": "palette",
+			"url": "https://github.com/morhetz/gruvbox"
+		}
+	],
 	"homepage": "https://github.com/morhetz/gruvbox",
 	"license": "MIT",
 	"tags": [

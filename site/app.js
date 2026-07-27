@@ -39,8 +39,7 @@
 		frame: document.getElementById('stage-frame'),
 		stageError: document.getElementById('stage-error'),
 		baseTabs: document.getElementById('base-tabs'),
-		platformTabs: document.getElementById('platform-tabs'),
-		openFull: document.getElementById('open-full'),
+		credits: document.getElementById('detail-credits'),
 		variantChips: document.getElementById('variant-chips'),
 		installSource: document.getElementById('install-source'),
 		copy: document.getElementById('copy-css'),
@@ -61,11 +60,10 @@
 		sort: 'az',
 		theme: null,
 		variant: null,
-		// Both follow the variant when you pick one, and stay put when you
-		// change them by hand, so comparing two themes on coal does not mean
-		// setting coal again every time.
+		// Follows the variant when you pick one, and stays put when you change
+		// it by hand, so comparing two themes on coal does not mean setting
+		// coal again every time.
 		base: null,
-		platform: 'web',
 	};
 
 	/* ------------------------------------------------------------- helpers */
@@ -76,6 +74,12 @@
 
 	function isLight(variant) {
 		return variant.base === 'light';
+	}
+
+	function byline(theme) {
+		var first = theme.credits[0].name;
+		var others = theme.credits.length - 1;
+		return others > 0 ? first + ' +' + others : first;
 	}
 
 	// The mode filter is about variants, not themes. Filtering to Light used to
@@ -184,9 +188,11 @@
 		name.className = 'row-name';
 		name.textContent = isBase ? theme.name : variant.name;
 
+		// A row is one line. The full credit list belongs on the detail panel,
+		// so here it is the first name and a count of everyone else.
 		var meta = document.createElement('span');
 		meta.className = 'row-meta';
-		meta.textContent = isLead ? 'by ' + theme.author : 'variant of ' + theme.name;
+		meta.textContent = isLead ? 'by ' + byline(theme) : 'variant of ' + theme.name;
 
 		copy.appendChild(name);
 		copy.appendChild(meta);
@@ -261,6 +267,59 @@
 		el.variantChips.replaceChildren.apply(el.variantChips, chips);
 	}
 
+	// Every name gets its own element, and a link when the theme gave one.
+	// A theme is usually somebody's palette, somebody else's original, and a
+	// third person's port, and the old single author string flattened all of
+	// that into prose nobody could click.
+	function renderCredits() {
+		var parts = [];
+
+		state.theme.credits.forEach(function (credit) {
+			var holder = document.createElement('span');
+			holder.className = 'credit';
+
+			var who = document.createElement(credit.url ? 'a' : 'span');
+			who.className = 'credit-name';
+			who.textContent = credit.name;
+			if (credit.url) {
+				who.href = credit.url;
+				who.target = '_blank';
+				who.rel = 'noopener noreferrer';
+			}
+			holder.appendChild(who);
+
+			if (credit.role) {
+				var role = document.createElement('span');
+				role.className = 'credit-role';
+				role.textContent = credit.role;
+				holder.appendChild(role);
+			}
+			parts.push(holder);
+		});
+
+		state.theme.links.forEach(function (link) {
+			var out = document.createElement('a');
+			out.className = 'credit-link';
+			out.href = link.url;
+			out.target = '_blank';
+			out.rel = 'noopener noreferrer';
+			out.textContent = link.label;
+			parts.push(out);
+		});
+
+		if (state.theme.license) {
+			var licence = document.createElement('span');
+			licence.className = 'credit-licence';
+			licence.textContent = state.theme.license;
+			parts.push(licence);
+		}
+
+		var lead = document.createElement('span');
+		lead.className = 'credit-lead';
+		lead.textContent = 'by';
+		el.credits.replaceChildren.apply(el.credits, [lead].concat(parts));
+	}
+
 	function renderApply() {
 		var path = cssPath(state.theme, state.variant);
 
@@ -289,31 +348,21 @@
 		}
 	}
 
-	function previewUrl() {
+	function loadFrame() {
 		// Absolute so it does not depend on how deep the shell lives. The shell
-		// reads these three and nothing else, so nothing else is sent.
+		// reads these two and nothing else, so nothing else is sent.
 		var query = new URLSearchParams({
 			css: new URL(cssPath(state.theme, state.variant), window.location.href).href,
 			base: state.base || state.variant.base,
-			platform: state.platform,
 		});
-		return 'site/preview/shell.html?' + query.toString();
-	}
-
-	function loadFrame() {
-		var url = previewUrl();
 		el.stageError.hidden = true;
-		el.openFull.href = url;
-		el.frame.src = url;
+		el.frame.src = 'site/preview/shell.html?' + query.toString();
 	}
 
 	function syncPreviewControls() {
 		var base = state.base || state.variant.base;
 		el.baseTabs.querySelectorAll('button').forEach(function (button) {
 			button.setAttribute('aria-pressed', String(button.dataset.base === base));
-		});
-		el.platformTabs.querySelectorAll('button').forEach(function (button) {
-			button.setAttribute('aria-pressed', String(button.dataset.platform === state.platform));
 		});
 	}
 
@@ -345,16 +394,11 @@
 		el.mode.textContent = isLight(variant) ? 'light' : 'dark';
 		el.mode.className = 'mode-chip' + (isLight(variant) ? ' is-light' : '');
 
+		// The credits moved to their own line, so this is just what the theme
+		// is and how big it is.
 		var blurb = variant.description || theme.description || '';
 		el.sub.textContent =
-			(blurb ? blurb + ' ' : '') +
-			'By ' +
-			theme.author +
-			'. ' +
-			variant.tokenCount +
-			' tokens, ' +
-			(variant.bytes / 1024).toFixed(1) +
-			' KB.';
+			(blurb ? blurb + ' ' : '') + variant.tokenCount + ' tokens, ' + (variant.bytes / 1024).toFixed(1) + ' KB.';
 
 		var url = new URL(window.location.href);
 		url.searchParams.set('theme', theme.slug);
@@ -368,6 +412,7 @@
 
 		renderList();
 		renderVariantChips();
+		renderCredits();
 		renderApply();
 		syncPreviewControls();
 		if (!sameFrame) loadFrame();
@@ -420,7 +465,6 @@
 	wireSegmented(el.modeTabs, 'mode', renderList);
 	wireSegmented(el.sortTabs, 'sort', renderList);
 	wireSegmented(el.baseTabs, 'base', loadFrame);
-	wireSegmented(el.platformTabs, 'platform', loadFrame);
 	el.search.addEventListener('input', function () {
 		state.query = el.search.value.trim().toLowerCase();
 		renderList();

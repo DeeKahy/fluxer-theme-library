@@ -1,7 +1,22 @@
 {
 	"name": "ClearVision",
 	"description": "The sapphire wallpaper theme, electric blue on shaded glass. A port of ClearVision v7.",
-	"author": "ClearVision Team, template by deeruwu, ported by fluxer-theme-library",
+	"credits": [
+		{
+			"name": "ClearVision Team",
+			"role": "original theme",
+			"url": "https://github.com/ClearVision"
+		},
+		{
+			"name": "deeruwu",
+			"role": "transparent theme template"
+		},
+		{
+			"name": "fluxer-theme-library",
+			"role": "Fluxer port",
+			"url": "https://github.com/DeeKahy/fluxer-theme-library"
+		}
+	],
 	"homepage": "https://github.com/ClearVision/ClearVision-v7",
 	"license": "Apache-2.0",
 	"tags": [
