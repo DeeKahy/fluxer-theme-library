@@ -1,0 +1,91 @@
+/**
+ * @name Tokyo Night Theme
+ * @description Theme based on the Tokyo Night color scheme
+ * @basetheme dark, coal
+ * @author angel#0000
+ * @invite https://fluxer.gg/themes
+ * @updateUrl https://fluxer.app/channels/1473086401113346066/1473086670110859273/1474805518436593693
+ */
+
+
+:root { --brand-primary: #24283B; }
+:root { --brand-secondary: #24283B; }
+:root { --background-primary: #1A1B26; }
+:root { --background-secondary: #1A1B26; }
+:root { --brand-primary-light: #BB9AF7; }
+:root { --background-secondary-alt: #1A1B26; }
+:root { --background-tertiary: #1A1B26; }
+:root { --background-header-primary: #1A1B26; }
+:root { --background-textarea: #1A1B26; }
+:root { --background-header-primary-hover: #1A1B26; }
+:root { --background-header-secondary: #24283B; }
+:root { --accent-danger: #F7768E; }
+:root { --accent-info: #BB9AF7; }
+:root { --alert-note-color: #7AA2F7; }
+:root { --accent-warning: #FF9E64; }
+:root { --accent-success: #9ECE6A; }
+:root { --button-primary-fill: #24283B; }
+:root { --button-primary-active-fill: #24283B; }
+:root { --button-danger-active-fill: #F7768E; }
+:root { --button-danger-fill: #F7768E; }
+:root { --button-danger-outline-border: #F7768E; }
+:root { --button-danger-outline-active-fill: #FF9E64; }
+:root { --button-outline-border: #FF9E64; }
+:root { --bg-code: #1A1B26; }
+:root { --background-modifier-accent: #24283B; }
+:root { --background-modifier-accent-focus: #24283B; }
+:root {  }
+:root { --background-modifier-selected: #24283B; }
+:root { --status-online: #9ECE6A; }
+:root { --status-idle: #FF9E64; }
+:root { --status-dnd: #F7768E; }
+:root { --border-color: #24283B; }
+:root { --text-tertiary-muted: #565F89; }
+:root { --border-color-hover: #BB9AF7; }
+:root { --status-danger: #F7768E; }
+:root { --markup-mention-fill: #414868; }
+:root { --markup-interactive-hover-fill: #C4A7E7; }
+:root { --markup-mention-text: #C4A7E7; }
+:root { --markup-interactive-hover-text: #C4A7E7; }
+:root { --bg-secondary: #1A1B26; }
+:root { --bg-tertiary: #1A1B26; }
+:root { --bg-primary: #1A1B26; }
+:root { --bg-table-header: #24283B; }
+:root {  }
+:root {  }
+:root { --text-chat: #C0CAF5; }
+:root { --text-primary: #C0CAF5; }
+:root { --alert-tip-color: #9ECE6A; }
+:root { --text-link: #7DCFFF; }
+:root { --border-color-focus: #BB9AF7; }
+:root { --accent-purple: #C4A7E7; }
+:root { --alert-warning-color: #F7768E; }
+:root { --background-modifier-hover: #24283B; }
+:root { --brand-primary-fill: #C0CAF5; }
+:root { --alert-caution-color: #FF9E64; }
+:root {--background-secondary-lighter:#1A1B26;}
+:root { --alert-important-color: #C4A7E7; }
+:root { --accent-primary: #BB9AF7; }
+:root { --button-primary-text: #C0CAF5; }
+:root { --button-secondary-active-fill: #C0CAF5; }
+:root { --button-secondary-active-text: #C0CAF5; }
+:root { --button-secondary-fill: #C0CAF5; }
+:root { --button-secondary-text: #C0CAF5; }
+:root { --button-danger-text: #C0CAF5; }
+:root { --button-danger-outline-text: #C0CAF5; }
+:root { --button-inverted-fill: #C0CAF5; }
+:root { --button-ghost-text: #C0CAF5; }
+:root { --button-outline-text: #C0CAF5; }
+:root { --button-outline-active-fill: #C0CAF5; }
+:root { --bg-active: #1A1B26; }
+:root { --text-on-brand-primary: #C0CAF5; }
+:root { --bg-hover: #24283B; }
+:root { --bg-blockquote: #24283B; }
+:root { --bg-table-row-odd: #24283B; }
+:root { --text-secondary: #C0CAF5; }
+:root { --text-primary-muted: #C0CAF5; }
+:root { --text-chat-muted: #565F89; }
+:root { --text-tertiary: #A9B1D6; }
+:root { --text-tertiary-secondary: #565F89; }
+:root { --folder-expanded-surface-size: #24283B; }
+:root { --folder-surface: #24283B; }

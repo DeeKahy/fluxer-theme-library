@@ -1,0 +1,18 @@
+{
+	"name": "Tokyo Night",
+	"description": "The Tokyo Night colour scheme on the Fluxer client. Deep indigo surfaces, periwinkle and purple accents.",
+	"author": "angel#0000",
+	"tags": [
+		"dark",
+		"blue",
+		"purple"
+	],
+	"variants": [
+		{
+			"name": "Night",
+			"file": "night.css",
+			"base": "dark",
+			"description": "The stylesheet as angel shared it. Sits on the dark base, works on coal too."
+		}
+	]
+}
