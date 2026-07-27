@@ -6,12 +6,16 @@
 (function () {
 	'use strict';
 
+	// "other" is not a decoration. A theme that sets no accent at all, or sets a
+	// greyscale one, buckets there, and without a dot for it those themes were
+	// reachable from All and from nowhere else.
 	var HUES = [
 		{key: 'all', label: 'All hues', color: 'linear-gradient(135deg,#8fc6ea,#3dff8b,#e86a3f,#7c5cff)'},
 		{key: 'blue', label: 'Blue', color: '#8fc6ea'},
 		{key: 'green', label: 'Green', color: '#3dff8b'},
 		{key: 'warm', label: 'Warm', color: '#e86a3f'},
 		{key: 'purple', label: 'Purple', color: '#7c5cff'},
+		{key: 'other', label: 'No accent set', color: 'repeating-linear-gradient(135deg,#6b6b76 0 4px,#4a4a54 4px 8px)'},
 	];
 
 	var SORT_NOTES = {az: 'by name', tokens: 'most tokens set', variants: 'most variants'};
@@ -33,6 +37,7 @@
 		sub: document.getElementById('detail-sub'),
 		scaler: document.getElementById('stage-scaler'),
 		frame: document.getElementById('stage-frame'),
+		stageError: document.getElementById('stage-error'),
 		variantChips: document.getElementById('variant-chips'),
 		installSource: document.getElementById('install-source'),
 		copy: document.getElementById('copy-css'),
@@ -65,15 +70,20 @@
 		return variant.base === 'light';
 	}
 
+	// The mode filter is about variants, not themes. Filtering to Light used to
+	// keep the whole theme and then draw all of its variants, so Gruvbox Dark
+	// turned up under Light. Work out the visible set once and render that.
+	function visibleVariants(theme) {
+		if (state.mode === 'all') return theme.variants;
+		var wanted = state.mode === 'light' ? 'light' : 'dark';
+		return theme.variants.filter(function (variant) {
+			return (isLight(variant) ? 'light' : 'dark') === wanted;
+		});
+	}
+
 	function matches(theme) {
 		if (state.hue !== 'all' && theme.hue !== state.hue) return false;
-		if (state.mode !== 'all') {
-			var wanted = state.mode === 'light' ? 'light' : 'dark';
-			var any = theme.variants.some(function (variant) {
-				return (isLight(variant) ? 'light' : 'dark') === wanted;
-			});
-			if (!any) return false;
-		}
+		if (visibleVariants(theme).length === 0) return false;
 		if (!state.query) return true;
 
 		var haystack = [theme.name, theme.author, theme.description, theme.tags.join(' ')]
@@ -87,11 +97,19 @@
 		return haystack.indexOf(state.query) !== -1;
 	}
 
+	// The most tokens any one variant sets. Reading variants[0] meant a theme
+	// whose second variant did most of the work sorted as though it had not.
+	function tokenScore(theme) {
+		return theme.variants.reduce(function (best, variant) {
+			return Math.max(best, variant.tokenCount);
+		}, 0);
+	}
+
 	function sorted(themes) {
 		var list = themes.slice();
 		if (state.sort === 'tokens') {
 			list.sort(function (a, b) {
-				return b.variants[0].tokenCount - a.variants[0].tokenCount || a.name.localeCompare(b.name);
+				return tokenScore(b) - tokenScore(a) || a.name.localeCompare(b.name);
 			});
 		} else if (state.sort === 'variants') {
 			list.sort(function (a, b) {
@@ -139,12 +157,16 @@
 	}
 
 	function buildRow(theme, variant, index) {
-		var isBase = index === 0;
+		// The lead row of a theme carries the theme's name, but only when it is
+		// really the first variant. Under a mode filter the lead row can be some
+		// other variant, and calling that one "Gruvbox" would be a lie.
+		var isLead = index === 0;
+		var isBase = isLead && variant === theme.variants[0];
 
 		var item = document.createElement('li');
 		var row = document.createElement('button');
 		row.type = 'button';
-		row.className = 'row' + (isBase ? '' : ' is-variant');
+		row.className = 'row' + (isLead ? '' : ' is-variant');
 		row.setAttribute('aria-current', String(state.theme === theme && state.variant === variant));
 
 		var copy = document.createElement('span');
@@ -156,7 +178,7 @@
 
 		var meta = document.createElement('span');
 		meta.className = 'row-meta';
-		meta.textContent = isBase ? 'by ' + theme.author : 'variant of ' + theme.name;
+		meta.textContent = isLead ? 'by ' + theme.author : 'variant of ' + theme.name;
 
 		copy.appendChild(name);
 		copy.appendChild(meta);
@@ -180,7 +202,7 @@
 		var visible = sorted(state.index.themes.filter(matches));
 		var rows = [];
 		visible.forEach(function (theme) {
-			theme.variants.forEach(function (variant, index) {
+			visibleVariants(theme).forEach(function (variant, index) {
 				rows.push(buildRow(theme, variant, index));
 			});
 		});
@@ -188,7 +210,7 @@
 		el.list.replaceChildren.apply(el.list, rows);
 
 		var variantTotal = visible.reduce(function (total, theme) {
-			return total + theme.variants.length;
+			return total + visibleVariants(theme).length;
 		}, 0);
 		el.resultCount.textContent =
 			visible.length + (visible.length === 1 ? ' theme' : ' themes') + ' · ' + variantTotal + ' variants';
@@ -260,15 +282,30 @@
 	}
 
 	function loadFrame() {
-		// Absolute so it does not depend on how deep the shell lives.
+		// Absolute so it does not depend on how deep the shell lives. The shell
+		// reads css and base and nothing else, so nothing else is sent.
 		var query = new URLSearchParams({
 			css: new URL(cssPath(state.theme, state.variant), window.location.href).href,
 			base: state.variant.base,
-			name: state.theme.name + ' ' + state.variant.name,
-			author: state.theme.author,
 		});
+		el.stageError.hidden = true;
 		el.frame.src = 'site/preview/shell.html?' + query.toString();
 	}
+
+	// The shell has always reported back when a stylesheet fails to load, and
+	// nobody was listening, so a broken theme showed an empty frame and no
+	// explanation.
+	window.addEventListener('message', function (event) {
+		if (event.origin !== window.location.origin) return;
+		var message = event.data;
+		if (!message || typeof message !== 'object') return;
+		if (message.type === 'preview:ready') {
+			el.stageError.hidden = true;
+		} else if (message.type === 'preview:error') {
+			el.stageError.textContent = 'This theme did not load: ' + (message.message || 'unknown error');
+			el.stageError.hidden = false;
+		}
+	});
 
 	function select(theme, variant) {
 		var sameFrame = state.theme === theme && state.variant === variant;

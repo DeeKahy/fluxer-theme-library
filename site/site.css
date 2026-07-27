@@ -549,6 +549,20 @@ input {
 	position: relative;
 }
 
+/* Sits over the frame when a stylesheet fails to load, so a broken theme says
+   so instead of showing an empty rectangle. */
+.stage-error {
+	background: var(--page);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	font-size: 13px;
+	inset-inline: 24px;
+	padding: 10px 14px;
+	position: absolute;
+	text-align: center;
+	top: 24px;
+}
+
 /* The frame renders the client at desktop size and is scaled down, so the
    preview shows the real layout instead of a squeezed narrow one. */
 .stage-scaler {
