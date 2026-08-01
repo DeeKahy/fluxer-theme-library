@@ -60,7 +60,7 @@ jobs:
         if: steps.changed.outputs.slugs != ''
         run: node scripts/render-previews.mjs ${{ steps.changed.outputs.slugs }} --out preview-shots
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: steps.changed.outputs.slugs != ''
         with:
           name: theme-previews
